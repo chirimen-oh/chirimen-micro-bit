@@ -1,0 +1,37 @@
+{
+    "name": "WebI2C_GPIO_bridge",
+    "dependencies": {
+        "core": "*",
+        "bluetooth": "*"
+    },
+    "description": "",
+    "files": [
+        "main.blocks",
+        "main.ts",
+        "README.md",
+        "custom.ts"
+    ],
+    "yotta": {
+        "config": {
+            "microbit-dal": {
+                "bluetooth": {
+                    "open": 1,
+                    "whitelist": 0,
+                    "device_info_service": 0,
+                    "event_service": 0,
+                    "eddystone_url": 0,
+                    "eddystone_uid": 0
+                },
+                "gatt_table_size": "0x300"
+            }
+        }
+    },
+    "targetVersions": {
+        "branch": "v1.2.13",
+        "tag": "v1.2.13",
+        "commits": "https://github.com/Microsoft/pxt-microbit/commits/5d5b348757b15c6d00f5b7f560fd69592ca29424",
+        "target": "1.2.13",
+        "pxt": "4.4.7"
+    },
+    "preferredEditor": "tsprj"
+}

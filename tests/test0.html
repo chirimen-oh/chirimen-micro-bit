@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title></title>
+</head>
+
+<script type="text/javascript" src="../polufill/microBitBLE.js"></script>
+<script type="text/javascript" src="NEOPIXEL_I2C.js"></script>
+
+<script>
+var microBitBle, mbI2Cport, adt, npix;
+
+var neoPixels=64; // LED個数
+
+var gpioPort0,gpioPort1,gpioPort2;
+
+async function connect(){
+	microBitBle = await microBitBleFactory.connect();
+	var i2caccess = await microBitBle.requestI2CAccess();
+//	var i2caccess = await navigator.requestI2CAccess();  // 最初の一台は、これでも使えるよ
+	mbI2Cport = i2caccess.ports.get(1);
+	
+	console.log("navigator:",navigator);
+	console.log("microBitBle:",microBitBle);
+	msg.innerHTML=("micro:bit BLE接続を確立しました。");
+	
+	npix = new NEOPIXEL_I2C(mbI2Cport, 0x41);
+	console.log("npix init");
+	await npix.init(neoPixels);
+	
+	// GPIO
+	var gpioAccess = await microBitBle.requestGPIOAccess();
+	var mbGpioPorts = gpioAccess.ports;
+	gpioPort0 = mbGpioPorts.get(0);
+	await gpioPort0.export("out"); //port0 out
+	gpioPort1 = mbGpioPorts.get(1);
+	await gpioPort1.export("analogout"); //port1 aout
+	gpioPort2 = mbGpioPorts.get(2);
+	await gpioPort2.export("analogin"); //port2 analogin : pull none
+}
+
+function testChange(val){
+	//console.log("onChange:",val);
+	msg2.innerHTML= val + " : " + new Date();
+}
+
+async function ADTinit(){
+	adt = await mbI2Cport.open(72); // ADT7410 default I2C addr (0x48)
+	console.log("connect completed: I2C_ADTdevice:",adt);
+	ret=await adt.write8(3,128);
+	console.log("ADTinit completed:",ret);
+}
+
+async function ADTread(){
+	var LSB = await adt.read8( 1 );
+	var MSB = await adt.read8( 0 );
+	var temperature = ((MSB << 8) | (LSB & 0xff)) / 128.0;
+	console.log("ADTread:",MSB,LSB,temperature);
+	i2cMsg.innerHTML=temperature+"℃";
+}
+
+async function ADTread16(){
+	var T16LE = getVal(await adt.read16( 0 ));
+	console.log("ADTread16:",T16LE);
+	i2cMsg.innerHTML=T16LE/128+"℃";
+}
+
+async function printLED(){
+	await microBitBle.printLED(txt.value);
+}
+
+async function readSensor(){
+	var sdat = await microBitBle.readSensor();
+	console.log("sensor:",sdat);
+	isens.innerHTML="acceleration:"+sdat.acceleration.x+","+sdat.acceleration.y+","+sdat.acceleration.z+"  magneticField:"+sdat.magneticField.x+","+sdat.magneticField.y+","+sdat.magneticField.z+","+"  temperature:"+sdat.temperature+"  brightness:"+sdat.brightness+"  button:"+sdat.button;
+}
+
+async function disconnect(){
+	await microBitBle.disconnect();
+	msg.innerHTML=("micro:bit BLE接続を切断しました。");
+	// delete microBitBle;
+}
+
+function getVal( w ){
+	 var l = w >>> 8;
+	var b = w & 0xff;
+	var v = l + ( b << 8 );
+	if ( v >= 0x8000 ){
+		return ( - ((65535 - v ) + 1 ) );
+	} else {
+		return(v);
+	}
+}
+
+async function nPixTest1(){
+	console.log("nPix:",npix);
+	await npix.setGlobal(10,0,0);
+	await sleep(200);
+	await npix.setGlobal(0,10,0);
+	await sleep(200);
+	await npix.setGlobal(0,0,10);
+	await sleep(200);
+	await npix.setGlobal(0,20,20);
+	await sleep(200);
+	await npix.setGlobal(20,0,20);
+	await sleep(200);
+	await npix.setGlobal(20,20,0);
+	await sleep(200);
+	await npix.setGlobal(20,20,20);
+	await sleep(200);
+	await npix.setGlobal(0,0,0);
+}
+
+
+
+async function setPattern0(iH){
+	startH = 0;
+	if ( iH ){
+		startH=iH;
+	}
+	var grbArray = [];
+	var nLED = npix.N_LEDS;
+//	var nLED = 10;
+	for ( var i = 0 ; i < nLED ; i++ ){
+		var h = startH + 360 * i / nLED;
+		var s = 1;
+		var v = 0.05;
+		var rgb = hsvToRgb(h , s , v );
+		grbArray.push( rgb[1]);
+		grbArray.push( rgb[0]);
+		grbArray.push( rgb[2]);
+//		await npix.setPixel(i , rgb[0],rgb[1],rgb[2]);
+	}
+	await npix.setPixels(grbArray);
+}
+
+// from https://qiita.com/hachisukansw/items/633d1bf6baf008e82847
+function hsvToRgb(H,S,V) {
+    //https://en.wikipedia.org/wiki/HSL_and_HSV#From_HSV
+	
+	H = H %360;
+
+    var C = V * S;
+    var Hp = H / 60;
+    var X = C * (1 - Math.abs(Hp % 2 - 1));
+
+    var R, G, B;
+    if (0 <= Hp && Hp < 1) {[R,G,B]=[C,X,0]};
+    if (1 <= Hp && Hp < 2) {[R,G,B]=[X,C,0]};
+    if (2 <= Hp && Hp < 3) {[R,G,B]=[0,C,X]};
+    if (3 <= Hp && Hp < 4) {[R,G,B]=[0,X,C]};
+    if (4 <= Hp && Hp < 5) {[R,G,B]=[X,0,C]};
+    if (5 <= Hp && Hp < 6) {[R,G,B]=[C,0,X]};
+
+    var m = V - C;
+    [R, G, B] = [R+m, G+m, B+m];
+
+    R = Math.floor(R * 255);
+    G = Math.floor(G * 255);
+    B = Math.floor(B * 255);
+
+    return [R ,G, B];
+}
+
+
+var g0Val=0, g1Val=0;
+async function setGPIO0(){
+	try{
+		g0Val = (g0Val === 1 ) ? 0 : 1;
+		await gpioPort0.write(g0Val);
+		gdata0.innerHTML=g0Val;
+	} catch(e){
+		console.log("retry");
+		g0Val = (g0Val === 1 ) ? 0 : 1;
+		microBitBLE.sleep(100);
+		await setGPIO0();
+	}
+}
+
+async function setGPIO1(){
+	try{
+		g1Val += 200;
+		if ( g1Val > 1023 ){
+			g1Val = 0;
+		}
+		await gpioPort1.write(g1Val);
+		gdata1.innerHTML=g1Val;
+	} catch(e){
+		console.log("retry");
+		g1Val = (g1Val === 1 ) ? 0 : 1;
+		microBitBLE.sleep(100);
+		await setGPIO1();
+	}
+}
+
+async function readGPIO2(){
+	try{
+		var g2Val = await gpioPort2.read();
+		gdata2.innerHTML=g2Val;
+	} catch(e){
+		console.log("fail????");
+	}
+}
+
+var oncG2 = false;
+function toggleGPIOonchange(){
+	if (oncG2){
+		gpioPort2.onchange=null;
+		oncG2 = false;
+		msg2.innerHTML="OFF";
+	} else {
+		gpioPort2.onchange=testChange;
+		oncG2 = true;
+	}
+}
+</script>    
+
+<body>
+<form name="js">
+<input type="button" value="接続" onclick="connect();"/> 
+<input type="button" value="切断" onclick="disconnect();" /> 
+<!--<input id ="pauseB" type="button" value="Pause" onclick="pause();" /> -->
+<hr>
+<input id ="ADTi" type="button" value="ADTinit" onclick="ADTinit();" /> 
+<input id ="ADTr" type="button" value="ADTread" onclick="ADTread();" /> 
+<input id ="ADTr16" type="button" value="ADTread16" onclick="ADTread16();" /> 
+<input id ="nPix" type="button" value="nPixTest1" onclick="nPixTest1();" /> 
+<input id ="nPix" type="button" value="nPixTest2" onclick="setPattern0();" /> 
+
+<hr>
+
+<table>
+	<tr><td colspan="2"><input type="button" value="Read Sensor" onclick="readSensor();" /></td></tr>
+	<tr><td>Internal Sensors</td><td id="isens">-</td></tr>
+	<tr><td>I2C(ADT)</td><td id="i2cMsg">-</td></tr>
+	<tr><td>msg1:</td><td id="msg">-</td></tr>
+	<tr><td colspan="2">LED</td></tr>
+	<tr><td ><input id="txt" type="text" value="Hello!" ></td><td><input type="button" value="Print" onclick="printLED();"/></td></tr>
+	<tr><td><input type="button" value="toggle GPIO-0 out" onclick="setGPIO0();"/></td><td id="gdata0">NULL</td></tr>
+	<tr><td><input type="button" value="change GPIO-1 analog out" onclick="setGPIO1();"/></td><td id="gdata1">NULL</td></tr>
+	<tr><td><input type="button" value="Read GPIO-2" onclick="readGPIO2();"/></td><td id="gdata2">NULL</td></tr>
+	<tr><td><input type="button" value="Toggle GPIO-2 onchange" onclick="toggleGPIOonchange();"/></td><td id="msg2">NULL</td></tr>
+</table>
+
+
+</body>
+</html>
