@@ -1,5 +1,4 @@
-# chirimen-micro-bit
-CHIRIMEN with micro:bit
+# CHIRIMEN with micro:bit
 
 ## About
 This repository contains an implementation of the CHIRIMEN environment, which combines a micro:bit and a computer with a web browser over Bluetooth. You can use micro:bit's I2C, GPIO pins, and even built-in sensors and displays from WebApps through WebGPIO, WebI2C, etc.
