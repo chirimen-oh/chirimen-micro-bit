@@ -43,11 +43,11 @@
 	https://makecode.microbit.org/_cKR1R7M9ee4w    2019/5/28 内蔵センサをイネーブルに　ただし、一度でも内蔵センサを使うと、これでNeopixel I2Cで LED 64個を併用するとERR020が必ず起きる　メモリーが足りない...　打つ手はないような気がする　192バイトBufferが取れない。micro:bit側のi2cwritebufferでcontinueを入れても分割送信は無理だった・・
 	
 	==ここでようやくメモリオーバーフローの長いトンネルを抜けました・・・
-	2019.6.18: Rev11 : WebGPIO https://makecode.microbit.org/_Uuxca6Mp0Cr2  ついに結構安定板ができた！！！ 
-	2019.6.19: https://makecode.microbit.org/_XrUF6yJbg6Fp 少し綺麗に？
-	2019.6.21: https://makecode.microbit.org/_9uyik75iiXMF  GPIOの動作をチェック pullModeの指定を可能にしてanalogIn動くように・・ 
-	2019.6.25: https://makecode.microbit.org/_d4hA9cWMz5rC 少しきれいにした程度　本当はネイティブonchangeを入れようとしたが020ERR...
-	
+	2019.06.18: Rev11 : WebGPIO https://makecode.microbit.org/_Uuxca6Mp0Cr2  ついに結構安定板ができた！！！ 
+	2019.06.19: https://makecode.microbit.org/_XrUF6yJbg6Fp   少し綺麗に？
+	2019.06.21: https://makecode.microbit.org/_9uyik75iiXMF   GPIOの動作をチェック pullModeの指定を可能にしてanalogIn動くように・・ 
+	2019.06.25: https://makecode.microbit.org/_d4hA9cWMz5rC   少しきれいにした程度　本当はネイティブonchangeを入れようとしたが020ERR...
+	2019.07.02: https://makecode.microbit.org/_gozVrxVwyUhf   micro:bitのinput.lightLevelとpins.analogReadPinはコンフリクトしてる。 led.setDisplayMode(DisplayMode.BlackAndWhite)とpins.digitalWritePin(DigitalPin.P2, 0)を双方呼ぶとなんとかリセットされるので"P"にそれを入れた  ( test: https://makecode.microbit.org/_YLeAM8JDAF5x )
 	=======================================================================================================
 	
 	References:
@@ -516,12 +516,22 @@
 					console.log("GPIO set pullMode[n,d,u]:",pNumber,returnData);
 				}
 			}
+			
+			async function debug(){
+				await mbBleUart.sendCmd2MicroBit( "P" + zeroPadding(pNumber,2)+zeroPadding(pullModeEnum["none"],2) );
+			}
+			
 			async function unexport(){
 				exported = false;
 				direction ="";
 			}
 			
 			async function read(){
+				if ( sensed ){ // lightLevelバグパッチ : 1個のポートでこの処理を行えば他のポートも正常化することを確認 2019/7/2
+					var cmd = "P" + zeroPadding(pNumber,2)+zeroPadding(pullModeEnum["none"],2);
+					await mbBleUart.sendCmd2MicroBit( cmd );
+					sensed =false;
+				}
 				if ( !out ){
 					var cmd;
 					if ( ain ){
@@ -613,6 +623,7 @@
 				get pinName(){ return String(portNumb)},
 				get direction(){ return direction },
 				get exported(){ return exported},
+				debug : debug,
 				export : export_port,
 				unexport: unexport,
 				read: read,
@@ -728,6 +739,7 @@
 			return ( ans );
 		}
 		
+		sensed = false; //light sensした後analoginを行うとポートが不具合起こしてるので・・
 		async function readSensorInt(mbBleUart){
 			var ret = await mbBleUart.sendCmd2MicroBit("S");
 			console.log("readSensor:",ret);
@@ -735,6 +747,7 @@
 			var mag = getRetVal(ret[1]).split(",");
 			var tbr = getRetVal(ret[2]).split(",");
 			var btn = Number(getRetVal(ret[3]));
+			sensed = true;
 			var ans = {
 				acceleration:{
 					x: Number(acc[0]),
