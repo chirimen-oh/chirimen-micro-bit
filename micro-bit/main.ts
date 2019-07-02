@@ -6,6 +6,7 @@ input.onButtonPressed(Button.A, function () {
 })
 bluetooth.onBluetoothDisconnected(function () {
     basic.showIcon(IconNames.No)
+    basic.pause(1000)
 })
 input.onButtonPressed(Button.B, function () {
     button = 2
@@ -53,6 +54,7 @@ basic.forever(function () {
             bluetooth.uartWriteString("A:" + input.acceleration(Dimension.X) + "," + input.acceleration(Dimension.Y) + "," + input.acceleration(Dimension.Z))
             bluetooth.uartWriteString("M:" + input.magneticForce(Dimension.X) + "," + input.magneticForce(Dimension.Y) + "," + input.magneticForce(Dimension.Z))
             bluetooth.uartWriteString("T:" + input.temperature() + "," + input.lightLevel())
+            // bluetooth.uartWriteString("T:" + input.temperature() + "," + 0)
             bluetooth.uartWriteString("END:B:" + button)
             button = 0
         } else if (originCommandCode == 6) { // GPIO Din
@@ -67,7 +69,7 @@ basic.forever(function () {
         } else if (originCommandCode == 9) { // GPIO Aout
             bleRes = custom.processGpioAwrite()
             bluetooth.uartWriteString("END:o" + bleRes)
-        } else if (originCommandCode == 10) { // GPIO pullmode set
+        } else if (originCommandCode == 10) { // GPIO pullmode set and other init
             bleRes = custom.processGpioPullMode()
             bluetooth.uartWriteString("END:P" + bleRes)
         }
