@@ -60,6 +60,8 @@ namespace custom {
      */
     //% block
     export function parseBLEcommand(str: string): number { // returns commandCode
+        commandCode = -1
+        //        commandVal = str
         let command = str.substr(0, 1)
         if (command == "R") { // I2C read
             commandCode = 1
@@ -133,7 +135,9 @@ namespace custom {
     }
     export function processGpioPullMode(): string {
         pins.setPull(getPinAddr(gpioPort), pullModeList[gpioVal])
-        //        pins.setPull(DigitalPin.P2, PinPullMode.PullNone)
+        // below two sentences are patche for input.lightLevel bug
+        pins.digitalWritePin(gpioDigitalPortList[gpioPort], 0)
+        led.setDisplayMode(DisplayMode.BlackAndWhite)
         return (gpioPort + "," + gpioVal)
     }
 
