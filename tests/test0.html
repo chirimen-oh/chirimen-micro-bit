@@ -7,11 +7,14 @@
 <title></title>
 </head>
 
-<script type="text/javascript" src="../polufill/microBitBLE.js"></script>
-<script type="text/javascript" src="NEOPIXEL_I2C.js"></script>
+<script type="text/javascript" src="../polyfill/microBitBLE.js"></script>
+<script type="text/javascript" src="i2c-NEOPIXEL.js"></script>
+<script type="text/javascript" src="i2c-BMP280.js"></script>
+<script type="text/javascript" src="i2c-VL53L0X.js"></script>
+
 
 <script>
-var microBitBle, mbI2Cport, adt, npix;
+var microBitBle, mbI2Cport, adt, npix, bmp280, vl53;
 
 var neoPixels=64; // LED個数
 
@@ -27,9 +30,21 @@ async function connect(){
 	console.log("microBitBle:",microBitBle);
 	msg.innerHTML=("micro:bit BLE接続を確立しました。");
 	
+	// neopixel
 	npix = new NEOPIXEL_I2C(mbI2Cport, 0x41);
 	console.log("npix init");
 	await npix.init(neoPixels);
+	msg.innerHTML=("micro:bit neopixelを初期化しました。BMP280初期化中。");
+	
+	// bmp280
+	bmp280 = new BMP280(mbI2Cport, 0x76);
+	await bmp280.init();
+	msg.innerHTML=("micro:bit BMP280を初期化しました。VL53L0X初期化中。");
+	
+	// vl53l0x
+	vl53 = new VL53L0X(mbI2Cport, 0x29);
+	await vl53.init();
+	msg.innerHTML=("micro:bit VL53L0Xを初期化しました。");
 	
 	// GPIO
 	var gpioAccess = await microBitBle.requestGPIOAccess();
@@ -38,6 +53,8 @@ async function connect(){
 	await gpioPort0.export("out"); //port0 out
 	gpioPort1 = mbGpioPorts.get(1);
 	await gpioPort1.export("analogout"); //port1 aout
+//	gpioPort1in = mbGpioPorts.get(1);
+//	await gpioPort1in.export("analogin"); //port1 ain
 	gpioPort2 = mbGpioPorts.get(2);
 	await gpioPort2.export("analogin"); //port2 analogin : pull none
 }
@@ -196,6 +213,15 @@ async function setGPIO1(){
 	}
 }
 
+async function readGPIO1in(){
+	try{
+		var g2Val = await gpioPort1in.read();
+		gdata1.innerHTML=g2Val;
+	} catch(e){
+		console.log("fail????");
+	}
+}
+
 async function readGPIO2(){
 	try{
 		var g2Val = await gpioPort2.read();
@@ -216,6 +242,23 @@ function toggleGPIOonchange(){
 		oncG2 = true;
 	}
 }
+
+async function debugFunc(){
+	await gpioPort2.debug();
+}
+
+async function readBMP280(){
+	var bdata = await bmp280.readData();
+	console.log("bdata:",bdata);
+	bmp.innerHTML= bdata.temperature + "℃ " + bdata.pressure + "hPa";
+}
+
+async function readVL53(){
+	var distance = await vl53.getRange();
+	console.log("distance:",distance);
+	vl.innerHTML= distance + "mm";
+}
+
 </script>    
 
 <body>
@@ -233,6 +276,8 @@ function toggleGPIOonchange(){
 <hr>
 
 <table>
+	<tr><td><input type="button" value="Read BMP280" onclick="readBMP280();"/></td><td id="bmp">NULL</td></tr>
+	<tr><td><input type="button" value="Read VL53L0X" onclick="readVL53();"/></td><td id="vl">NULL</td></tr>
 	<tr><td colspan="2"><input type="button" value="Read Sensor" onclick="readSensor();" /></td></tr>
 	<tr><td>Internal Sensors</td><td id="isens">-</td></tr>
 	<tr><td>I2C(ADT)</td><td id="i2cMsg">-</td></tr>
@@ -241,8 +286,10 @@ function toggleGPIOonchange(){
 	<tr><td ><input id="txt" type="text" value="Hello!" ></td><td><input type="button" value="Print" onclick="printLED();"/></td></tr>
 	<tr><td><input type="button" value="toggle GPIO-0 out" onclick="setGPIO0();"/></td><td id="gdata0">NULL</td></tr>
 	<tr><td><input type="button" value="change GPIO-1 analog out" onclick="setGPIO1();"/></td><td id="gdata1">NULL</td></tr>
+<!--	<tr><td><input type="button" value="Read GPIO-1" onclick="readGPIO1in();"/></td><td id="gdata1">NULL</td></tr>-->
 	<tr><td><input type="button" value="Read GPIO-2" onclick="readGPIO2();"/></td><td id="gdata2">NULL</td></tr>
 	<tr><td><input type="button" value="Toggle GPIO-2 onchange" onclick="toggleGPIOonchange();"/></td><td id="msg2">NULL</td></tr>
+<!--	<tr><td><input type="button" value="DEBUG...." onclick="debugFunc();"/></td><td id="msg3">NULL</td></tr>-->
 </table>
 
 
