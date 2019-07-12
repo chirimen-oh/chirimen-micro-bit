@@ -32,6 +32,7 @@
 	2019.6.18: Rev7: ついにファームメモリオーバーフロー解消？　GPIOもサポート　あとはonChange系と終了時処理系
 	2019.6.21: GPIO analog INをサポートする、pullModeを設定可能に・・
 	2019.6.25: onchangeを実装。　ただしこのドライバがBLE経由でポーリングしている・・・
+	2019.7.12: 外的要因によるonDisconnectedでnotificationsが出なくなる問題があるようなので、そのエラー処理をしました
 	
 	=======================================================================================================
 	Firm Ware on micro:bit:
@@ -105,6 +106,8 @@
 	var document = window.document;
 	var navigator = window.navigator;
 	var location = window.location;
+	
+	var prevConnectedDevices = [];
 
 
 	var microBitBleFactory = ( function(){ 
@@ -200,6 +203,8 @@
 			
 //			onCharacteristicValueChanged(null);
 			
+			console.log("prev mbBLE:",mbBLE);
+			
 			var mbBLE = await connectMicroBit(pinCallBack, onCharacteristicValueChanged);
 			console.log("connected MicroBit mbBLE:",mbBLE);
 			var mbBleDevice = mbBLE.device;
@@ -211,6 +216,16 @@
 			
 			var mbBleUart = getMbUartService(mbBleDevice,uartCallBackObj,mbBleUartRx);
 			mbBleDevice.addEventListener('gattserverdisconnected', onDisconnected);
+			if ( prevConnectedDevices[mbBleDevice.id] && prevConnectedDevices[mbBleDevice.id] == "diconnectFromDevice"){ 
+				// このwebAppsのライフサイクル中で、過去に接続したことがあり、しかも何かデバイス側から切られたことがある。
+				// この場合にChromeのバグらしきものが出る・・ see onDisconnected() 2019/7/12
+				prevConnectedDevices[mbBleDevice.id] = "diconnectFromWebApps"
+				await mbBleDevice.gatt.disconnect();
+				alert("残念ながら、うまくNotificationが出ないので一度切断します・・・・・もう一度繋ぐとうまく使えると思います");
+				throw Error("Please re connect  because of Chrome's issue....");
+			}
+			prevConnectedDevices[mbBleDevice.id] = "yes";
+			
 			var conn=true;
 			uartCallBackObj.conn = conn;
 			console.log("uartCallBackObj:",uartCallBackObj);
@@ -230,13 +245,27 @@
 				mbBleDevice.removeEventListener('gattserverdisconnected', onDisconnected);
 				conn=false;
 				navigator.requestI2CAccess = null;
-				console.log("DISCONNECTED", dt);
+				if ( prevConnectedDevices[mbBleDevice.id] != "diconnectFromWebApps" ){
+					prevConnectedDevices[mbBleDevice.id] = "diconnectFromDevice";
+				}
+				console.log("DISCONNECTED", dt,  "  by WebApps?:",prevConnectedDevices[mbBleDevice.id] );
 				uartCallBackObj.conn = conn;
+				uartCallBackObj.sending = false;
 				console.log("mbBLE:",mbBLE);
 				var charas=mbBLE.characteristics;
+				console.log("charas:",charas);
 				for ( var i = 0 ; i < charas.length ; i++){
-//					await charas[i].stopNotifications(); // 強制切断時・・多分これができれば良いはずだが、きれているのでもうできない・・　一度繋げて、再度切断すればうまくいくようですが・・
+//					await charas[i].stopNotifications(); 
+					// BTデバイス側が強制切断時・・
+					// 再接続してもNotificationsがやってこないという問題を抱えてしまっている。
+					// 多分これができれば良いはずだと思うが、切断しているのでもうできない・・(Exeptionになる)
+					// 
+					// ただし、一度繋げて、再度切断・接続すれば復帰するようです・・
+					// また、強制切断後、chrome://bluetooth-internals/#devices でinspect forgotしてから接続してもOK
+					// バグ踏んでるかも 参考:(https://stackoverflow.com/questions/45577219/web-bluetooth-notification-only-few-response)
 				}
+				console.log("mbBleDevice.gatt:",mbBleDevice.gatt);
+//				await mbBleDevice.gatt.disconnect(); // これはさすがに意味がなかった
 				console.log("DISCONNECTED", dt);
 			}
 			
@@ -249,13 +278,16 @@
 					var charas=mbBLE.characteristics;
 					for ( var i = 0 ; i < charas.length ; i++){
 						try{
-							await charas[i].stopNotifications(); // これを動かさないと、いつまでもイベントリスナが残ったままになってしまう挙動
+							console.log("notify:",charas[i].properties.notify);
+							await charas[i].stopNotifications(); // これを動かさないと、いつまでもイベントリスナが残ったままになってしまう挙動？？？　そうでもない感じもするが・・ 2019.7.12
 						} catch(e){
 							console.log("Fail..");
 						}
 					}
 					
+					prevConnectedDevices[mbBleDevice.id] = "diconnectFromWebApps";
 					await mbBleDevice.gatt.disconnect();
+					console.log("charas:",charas);
 				}
 			}
 			
@@ -323,6 +355,8 @@
 			// If requestDevice() is called without HM interaction (input button event etc) then throw exception 
 			// If you already get device then set device option , for bypassing requestDevice()
 			
+//			console.log("navigator.bluetooth:",navigator.bluetooth);
+			
 			var optionalServicesArray = [];
 			for ( var i = 0 ; i < characteristicSet.length ; i++ ){
 				optionalServicesArray.push(characteristicSet[i].serviceUUID);
@@ -334,6 +368,7 @@
 					}],
 					optionalServices: optionalServicesArray // Trap!!!: This option is mandatory
 				});
+//				console.log("Get micro:bit device : ", device);
 				
 				if ( device.gatt.connected ){
 					console.log("Already connected");
