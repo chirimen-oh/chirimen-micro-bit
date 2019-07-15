@@ -6,4 +6,4 @@ For I2C test, copy [i2c-NEOPIXEL.js](https://chirimen.org/chirimen-raspi3/gc/con
 
 ## Test circuit for test code
 
-![test circuit](micro_bit_chirimen.png)
+![test circuit](../img/test0.png)
