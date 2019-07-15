@@ -1,4 +1,4 @@
-![CHIRIMEN with micro:bit](img/CHIRIMEN_MICROBIT.png "CHIRIMEN with micro:bit")
+![CHIRIMEN with micro:bit](imgs/CHIRIMEN_MICROBIT.png "CHIRIMEN with micro:bit")
 
 # CHIRIMEN with micro:bit
 
