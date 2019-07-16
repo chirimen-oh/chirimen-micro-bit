@@ -10,3 +10,6 @@ The predecessor of this is https://github.com/chirimen-oh/webGPIO-etc-on-microbi
 
 ### Web Page
 http://chirimen.org/chirimen-micro-bit/
+
+### Examples
+[Examples](examples)
