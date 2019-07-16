@@ -12,4 +12,4 @@ The predecessor of this is https://github.com/chirimen-oh/webGPIO-etc-on-microbi
 https://chirimen.org/chirimen-micro-bit/
 
 ### Examples
-[Examples](https://chirimen.org/chirimen-micro-bit/examples)
+[Examples](https://chirimen.org/chirimen-micro-bit/examples/)
