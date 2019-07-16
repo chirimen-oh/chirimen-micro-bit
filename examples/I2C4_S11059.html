@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title></title>
+</head>
+
+<script type="text/javascript" src="../polyfill/microBitBLE.js"></script>
+<script type="text/javascript" src="https://chirimen.org/chirimen-raspi3/gc/drivers/i2c-S11059.js"></script>
+<!--<script type="text/javascript" src="i2c-ADT7410.js"></script>-->
+
+
+<script>
+var microBitBle;
+
+var s11059;
+
+var readEnable;
+
+async function connect(){
+	microBitBle = await microBitBleFactory.connect();
+	msg.innerHTML=("micro:bit BLE接続しました。");
+	var i2cAccess = await microBitBle.requestI2CAccess();
+	var i2cPort = i2cAccess.ports.get(1);
+	s11059 = new S11059(i2cPort, 0x2a);
+	await s11059.init();
+	readEnable = true;
+	readData();
+}
+
+async function disconnect(){
+	readEnable = false;
+	await microBitBle.disconnect();
+	msg.innerHTML=("micro:bit BLE接続を切断しました。");
+}
+
+async function readData(){
+	while ( readEnable ){
+		var values = await s11059.readR8G8B8();
+		var red = values[0] & 0xff;
+		var green = values[1] & 0xff;
+		var blue = values[2] & 0xff;
+		var gain_level = values[3];
+		console.log("red:" + red + " green:" + green + " blue:" + blue);
+		
+		msg.innerHTML= "R:" + red + " G:" + green + " B:" + blue + " GAIN:" + gain_level;
+		document.getElementById("color").style.backgroundColor =
+		"rgb(" + red + ", " + green + "," + blue + ")";
+		await sleep(1000);
+	}
+}
+
+
+</script>    
+
+<body>
+<form name="js">
+<input type="button" value="接続" onclick="connect();"/> 
+<input type="button" value="切断" onclick="disconnect();" /> 
+<hr>
+
+<div id="msg">---</div>
+<div id="color"></div>
+
+<img src="../imgs/CMMB_I2C_example4.png" width="400"/>
+</body>
+</html>

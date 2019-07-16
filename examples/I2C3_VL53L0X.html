@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title></title>
+</head>
+
+<script type="text/javascript" src="../polyfill/microBitBLE.js"></script>
+<script type="text/javascript" src="https://chirimen.org/chirimen-raspi3/gc/contrib/drivers/i2c-VL53L0X.js"></script>
+
+
+<script>
+var microBitBle;
+
+var vl53;
+
+var readEnable;
+
+async function connect(){
+	microBitBle = await microBitBleFactory.connect();
+	msg.innerHTML=("micro:bit BLE接続しました。");
+	var i2cAccess = await microBitBle.requestI2CAccess();
+	var i2cPort = i2cAccess.ports.get(1);
+	msg.innerHTML=("VL53L0Xを初期化しています（10秒程かかります・・）");
+	vl53 = new VL53L0X(i2cPort, 0x29);
+	await vl53.init();
+	readEnable = true;
+	readData();
+}
+
+async function disconnect(){
+	readEnable = false;
+	await microBitBle.disconnect();
+	msg.innerHTML=("micro:bit BLE接続を切断しました。");
+}
+
+async function readData(){
+	while ( readEnable ){
+		var distance = await vl53.getRange();
+		console.log("distance:",distance);
+		msg.innerHTML= distance + "mm";
+		await sleep(1000);
+	}
+}
+
+
+</script>    
+
+<body>
+<form name="js">
+<input type="button" value="接続" onclick="connect();"/> 
+<input type="button" value="切断" onclick="disconnect();" /> 
+<hr>
+
+<div id="msg">---</div>
+
+<img src="../imgs/CMMB_I2C_example3.png" width="400"/>
+</body>
+</html>

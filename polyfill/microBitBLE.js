@@ -28,11 +28,12 @@
 	=======================================================================================================
 	History:
 	(このドライバの更新履歴)
-	2019.3.7: Rev6: micro:bitのファームをリファクタリング(結局メモリが足りなくなる・・・)、それに伴いこちらのコードもリファクタリング・・
-	2019.6.18: Rev7: ついにファームメモリオーバーフロー解消？　GPIOもサポート　あとはonChange系と終了時処理系
-	2019.6.21: GPIO analog INをサポートする、pullModeを設定可能に・・
-	2019.6.25: onchangeを実装。　ただしこのドライバがBLE経由でポーリングしている・・・
-	2019.7.12: 外的要因によるonDisconnectedでnotificationsが出なくなる問題があるようなので、そのエラー処理をしました
+	2019.03.07: Rev6: micro:bitのファームをリファクタリング(結局メモリが足りなくなる・・・)、それに伴いこちらのコードもリファクタリング・・
+	2019.06.18: Rev7: ついにファームメモリオーバーフロー解消？　GPIOもサポート　あとはonChange系と終了時処理系
+	2019.06.21: GPIO analog INをサポートする、pullModeを設定可能に・・
+	2019.06.25: onchangeを実装。　ただしこのドライバがBLE経由でポーリングしている・・・
+	2019.07.12: 外的要因によるonDisconnectedでnotificationsが出なくなる問題があるようなので、そのエラー処理をしました
+	2019.07.16: readBytes(<9bytes)をサポート ( for S11059.... )
 	
 	=======================================================================================================
 	Firm Ware on micro:bit:
@@ -49,6 +50,7 @@
 	2019.06.21: https://makecode.microbit.org/_9uyik75iiXMF   GPIOの動作をチェック pullModeの指定を可能にしてanalogIn動くように・・ 
 	2019.06.25: https://makecode.microbit.org/_d4hA9cWMz5rC   少しきれいにした程度　本当はネイティブonchangeを入れようとしたが020ERR...
 	2019.07.02: https://makecode.microbit.org/_gozVrxVwyUhf   micro:bitのinput.lightLevelとpins.analogReadPinはコンフリクトしてる。 led.setDisplayMode(DisplayMode.BlackAndWhite)とpins.digitalWritePin(DigitalPin.P2, 0)を双方呼ぶとなんとかリセットされるので"P"にそれを入れた  ( test: https://makecode.microbit.org/_YLeAM8JDAF5x )
+	2019.07.16: https://makecode.microbit.org/_DEy9fTMpreEu   readBytes(<9bytes)をサポート
 	=======================================================================================================
 	
 	References:
@@ -111,7 +113,7 @@
 
 
 	var microBitBleFactory = ( function(){ 
-		var pollingInterval = 500;
+		var pollingInterval = 250;
 
 		var microBitUUIDs = {
 			//micro:bit BLE UUID
@@ -159,6 +161,7 @@
 		}
 		
 		async function connect(){
+			var primaryDevice =false; // navigator.*に登録されてたらtrure
 			var dt = new Date();
 			console.log("mbBLE connect");
 			function pinCallBack(){
@@ -221,7 +224,7 @@
 				// この場合にChromeのバグらしきものが出る・・ see onDisconnected() 2019/7/12
 				prevConnectedDevices[mbBleDevice.id] = "diconnectFromWebApps"
 				await mbBleDevice.gatt.disconnect();
-				alert("残念ながら、うまくNotificationが出ないので一度切断します・・・・・もう一度繋ぐとうまく使えると思います");
+				alert("残念ながら、うまくNotificationが出ないので一度切断します・・・・・\nもう一度繋ぐとうまく使えると思います\nそれでも失敗する時は chrome://bluetooth-internals/#devices でデバイスをForgetしてみてください。");
 				throw Error("Please re connect  because of Chrome's issue....");
 			}
 			prevConnectedDevices[mbBleDevice.id] = "yes";
@@ -244,7 +247,11 @@
 			async function onDisconnected(){
 				mbBleDevice.removeEventListener('gattserverdisconnected', onDisconnected);
 				conn=false;
-				navigator.requestI2CAccess = null;
+				if ( primaryDevice ){
+					delete(navigator.requestI2CAccess);
+					delete(navigator.requestGPIOAccess);
+					primaryDevice = false;
+				}
 				if ( prevConnectedDevices[mbBleDevice.id] != "diconnectFromWebApps" ){
 					prevConnectedDevices[mbBleDevice.id] = "diconnectFromDevice";
 				}
@@ -741,6 +748,40 @@
 				var returnData = await mbBleUart.sendCmd2MicroBit( cmd );
 			}
 			
+			async function readBytes(bLength){
+				if ( bLength >8){
+					throw Error("Read length overflow > bytes.");
+				}
+				var cmd = "r" + toHex2(slaveAddress)+ toHex2(2) + toHex2(0)+ toHex2(bLength);
+				var returnData = await mbBleUart.sendCmd2MicroBit( cmd );
+				console.log("i2c read16:",returnData);
+				if ( returnData[0].startsWith("ENDr")){
+					var ans = [];
+					for ( var i = 0; i < bLength ; i++){
+						var val = parseInt(returnData[0].substr(4 + i*2,2),16);
+//						console.log("val:",val, " src:",returnData[0].substr(4 + i*2,2));
+						ans.push( val );
+					}
+//					var ans = parseInt(returnData[0].substring(5),16);
+//					var ans = parseInt(returnData[0].substr(7,2)+returnData[0].substr(5,2),16);
+//					var ans = Number((returnData[0].substring(2)).split(",")[2]);
+					console.log("(bytes):",ans);
+					return ( ans );
+				} else {
+					throw Error("Read failed..");
+				}
+			}
+			
+			async function writeByte(byte){
+				var ret;
+				var cmd = "W" + toHex2(slaveAddress)+toHex2(1);
+				cmd = cmd + toHex2(byte);
+				if ( cmd.length > 1 ){
+					ret = await mbBleUart.sendCmd2MicroBit( cmd );
+				}
+				console.log("writeByte:",ret, byte);
+			}
+			
 			async function writeBytes(bytes){
 				var ret;
 				var cmd = "W" + toHex2(slaveAddress)+toHex2(bytes.length);
@@ -764,7 +805,9 @@
 				write8: write8,
 				read16: read16, // read/write16 is Little Endian
 				write16: write16,
-				writeBytes: writeBytes
+				readBytes: readBytes,
+				writeBytes: writeBytes,
+				writeByte: writeByte
 			}
 		}
 		

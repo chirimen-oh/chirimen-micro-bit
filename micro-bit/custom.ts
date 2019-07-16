@@ -63,7 +63,9 @@ namespace custom {
         commandCode = -1
         //        commandVal = str
         let command = str.substr(0, 1)
-        if (command == "R") { // I2C read
+        if (command == "r") { // I2C Read(NoReg)
+            commandCode = 0
+        } else if (command == "R") { // I2C Read
             commandCode = 1
         } else if (command == "W") { // I2C Write
             commandCode = 2
@@ -84,18 +86,18 @@ namespace custom {
         } else if (command == "P") { // GPIO pull mode set
             commandCode = 10
         }
-        if (commandCode == 1 || commandCode == 2) { //I2C R/W
+        if (commandCode == 1 || commandCode == 2 || commandCode == 0) { //I2C R/W
             i2cAddr = parseHex(str.substr(1, 2))
             dLength = parseHex(str.substr(3, 2)) // dLengthは最初のバイト（レジスタ番号）も含んで計算
             bleBuffer = pins.createBuffer(dLength)
             fillPos = 0
             for (let i = 5; i < str.length - 1; i = i + 2) {
-                bleBuffer.setNumber(NumberFormat.Int8LE, fillPos, parseHex(str.substr(i, 2)))
+                bleBuffer.setNumber(NumberFormat.UInt8LE, fillPos, parseHex(str.substr(i, 2)))
                 ++fillPos
             }
         } else if (commandCode == 3) { // I2C Cont
             for (let i = 1; i < str.length; i = i + 2) {
-                bleBuffer.setNumber(NumberFormat.Int8LE, fillPos, parseHex(str.substr(i, 2)))
+                bleBuffer.setNumber(NumberFormat.UInt8LE, fillPos, parseHex(str.substr(i, 2)))
                 ++fillPos
             }
         } else if (commandCode == 4) { // LED
@@ -204,10 +206,12 @@ namespace custom {
      * I2Cread処理
      */
     //% block
-    export function processI2Cread(): string {
-        let readReg = bleBuffer.getNumber(NumberFormat.Int8LE, 0)
-        let readLength = bleBuffer.getNumber(NumberFormat.Int8LE, 1)
-        pins.i2cWriteNumber(i2cAddr, readReg, NumberFormat.Int8LE, true)
+    export function processI2Cread(withReg: boolean): string {
+        let readReg = bleBuffer.getNumber(NumberFormat.UInt8LE, 0)
+        let readLength = bleBuffer.getNumber(NumberFormat.UInt8LE, 1)
+        if (withReg) {
+            pins.i2cWriteNumber(i2cAddr, readReg, NumberFormat.UInt8LE, true)
+        }
         let readBuf = pins.i2cReadBuffer(i2cAddr, readLength, false)
         bleBuffer = null
         return (custom.bufferToString(readBuf))
@@ -234,7 +238,7 @@ namespace custom {
     //% block
     export function parseContData(str: string, inBuf: Buffer, pos: number): Buffer {
         for (let i = 1; i < str.length; i = i + 2) {
-            inBuf.setNumber(NumberFormat.Int8LE, pos, parseHex(str.substr(i, 2)))
+            inBuf.setNumber(NumberFormat.UInt8LE, pos, parseHex(str.substr(i, 2)))
             ++pos
         }
         fillPos = pos

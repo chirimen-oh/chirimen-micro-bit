@@ -43,8 +43,11 @@ basic.forever(function () {
         if (originCommandCode == 2) {
             bleRes = custom.processI2Cwrite()
             bluetooth.uartWriteString("END:W" + bleRes)
+        } else if (originCommandCode == 0) {
+            bleRes = custom.processI2Cread(false)
+            bluetooth.uartWriteString("ENDr" + bleRes)
         } else if (originCommandCode == 1) {
-            bleRes = custom.processI2Cread()
+            bleRes = custom.processI2Cread(true)
             bluetooth.uartWriteString("END:R" + bleRes)
         } else if (originCommandCode == 4) {
             ledMsg = custom.getCommandVal()

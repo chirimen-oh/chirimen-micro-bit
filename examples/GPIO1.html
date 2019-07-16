@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title></title>
+</head>
+
+<script type="text/javascript" src="../polyfill/microBitBLE.js"></script>
+
+<script>
+var microBitBle;
+
+var gpioPort0;
+
+var blinkEnable;
+
+async function connect(){
+	microBitBle = await microBitBleFactory.connect();
+	msg.innerHTML=("micro:bit BLE接続しました。");
+	var gpioAccess = await microBitBle.requestGPIOAccess();
+	var mbGpioPorts = gpioAccess.ports;
+	gpioPort0 = mbGpioPorts.get(0);
+	await gpioPort0.export("out"); //port0 out
+	blinkEnable = true;
+	LEDblink();
+}
+
+async function disconnect(){
+	blinkEnable = false;
+	await microBitBle.disconnect();
+	msg.innerHTML=("micro:bit BLE接続を切断しました。");
+}
+
+async function LEDblink(){
+	var gpio0Val = 0;
+	while ( blinkEnable ){
+		gpio0Val = (gpio0Val === 1 ) ? 0 : 1; // 条件 (三項) 演算子
+		await gpioPort0.write(gpio0Val);
+		msg.innerHTML= gpio0Val ;
+		await sleep(1000);
+	}
+}
+
+
+</script>    
+
+<body>
+<form name="js">
+<input type="button" value="接続" onclick="connect();"/> 
+<input type="button" value="切断" onclick="disconnect();" /> 
+<hr>
+
+<div id="msg">---</div>
+
+<img src="../imgs/CMMB_GPIO_example1.png" width="400"/>
+</body>
+</html>
