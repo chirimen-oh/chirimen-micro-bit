@@ -6,7 +6,7 @@
 
 ## 概要
 [micro:bit](https://microbit.org/)を利用した[CHIRIMEN](https://chirimen.org/#about)の実装を公開しています。CHIRIMENとはボードコンピュータの端子につないだセンサやアクチュエータを使用した(ブラウザ上で動作する)ウェブアプリを動作させる環境です。[WebGPIO](https://github.com/browserobo/WebGPIO)と[WebI2C](https://github.com/browserobo/WebI2C) APIが使えるようになります。
-micro:bitではウェブラウザは(多分)動きませんが、Bluetoothを介して、PC等のウェブブラウザ(ChromeなどwebBluetoothをサポートしたもの)とmicro:bitを接続することで、CHIRIMEN環境を構築します。
+micro:bitではウェブラウザは(多分)動きませんが、Bluetoothを介して、PC等で動くウェブブラウザ(ChromeなどwebBluetoothをサポートしたもの)とmicro:bitを接続することで、CHIRIMEN環境を構築します。
 また、CHIRIMEN with micro:bitでは、WebGPIO,WebI2Cに加え、micro:bitが内蔵しているセンサーやLEDをウェブアプリで使うことができる機能が追加されています。
 
 ## Web Page
