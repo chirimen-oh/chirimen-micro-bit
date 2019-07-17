@@ -64,7 +64,7 @@ CHIRIMEN with micro:bitでは、PCのブラウザ上で動かすウェブアプ�
 - [ソースコードはこちら](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/GPIO1.html)
 - ```<script type="text/javascript" src="../polyfill/microBitBLE.js"></script>``` でCHIRIMEN with micro:bit用のWebGPIO, WebI2C APIのポリフィルをロードしています。
 - ```microBitBle = await microBitBleFactory.connect();``` でmicro:bitにBluetooth接続します。
-- 以下でmicro:bitのGPIO-0番端子を出力に設定して初期化します。この端子はgpioPort0という変数でアクセスできるようになります。
+- 以下でmicro:bitのGPIO-0番端子を出力に設定して初期化します。この端子は```gpioPort0```という変数でアクセスできるようになります。
 ```javascript
 var gpioAccess = await microBitBle.requestGPIOAccess();
 var mbGpioPorts = gpioAccess.ports;
