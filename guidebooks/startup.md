@@ -75,9 +75,10 @@ await gpioPort0.export("out"); //port0 out
 
 ## CHIRIMEN for Raspberry Pi3との差分
 - 読み込むポリフィルライブラリが異なります
-- 最初にBluetoothで接続が必要　(この部分```microBitBle = await microBitBleFactory.connect();```)
+- 最初にBluetoothで接続が必要です　(この部分```microBitBle = await microBitBleFactory.connect();```)
 - webGPIOやwebI2C APIが、```navigator```ではなく、自分で指定した変数に設置されます。
    - ただし最初の一台分は```navigator```にも設置されます。複数のmicro:bitを同時に繋げられるのでこうなっています。
+- GPIOの端子番号が違います
 - 遅いです (Bluetoothでの通信のオーバーヘッドのため)　レーザー距離センサーを使うと気になります
 - 5Vを使う回路の場合 別電源が必要です
 
