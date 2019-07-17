@@ -23,4 +23,4 @@
 
 |ファイル名  |説明  |
 |---|---|
-| [test0.html](../tests/test0.html) |  TBD [test0.htmlの回路図](../igs/test0.png) |
+| [test0.html](../tests/test0.html) |  TBD (全テストのコードを置いておきます・・)[test0.htmlの回路図](../imgs/test0.png) |
