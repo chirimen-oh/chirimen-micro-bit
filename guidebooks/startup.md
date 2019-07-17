@@ -6,15 +6,15 @@ CHIRIMEN with micro:bitをはじめてつかうときの流れを解説します
 ## 準備するもの
 - Bluetooth (4.0以上) が載ったコンピュータ ＋ Web Bluetooth APIをサポートしたブラウザ（以下のいずれか）
    - ( Windows10 PC ｜ MacOS PC ｜ Linux PC ) ＋ ( Chrome ｜ Chromium ｜ [blinkエンジン搭載のEdge(現在Devリリース)](https://www.microsoftedgeinsider.com) )
-   - Rasoberry Pi3 + Chromium ([Chirimen for Raspberry Pi3](https://tutorial.chirimen.org/raspi3/ja/sdcard)は、CHIRIMEN with micro:bit用としても使える環境設定済みのOSイメージになっています。raspbianで自分で設定して使うこともできます)
+   - Raspberry Pi3 + Chromium ([Chirimen for Raspberry Pi3](https://tutorial.chirimen.org/raspi3/ja/sdcard)は、CHIRIMEN with micro:bit用としても使える環境設定済みのOSイメージになっています。raspbianで自分で設定して使うこともできます)
    - *Note: Bluetoothが載っていないPCでもBluetooth USBドングルで使えるものがあります。(Windows10マシン+エレコムLBT-UAN05C2など)*
 - micro:bit (amazonや秋月電子通商などで購入可能です。2000円程)
 - microUSBケーブル(PCとmicro:bitを繋いでサポートプログラムを書き込んだり、micro:bitの電源用に必要)
 - micro:bit用ブレークアウトボード （micro:bitのエッジコネクタをピンヘッダに変換するパーツ。 下記に例を紹介します　数百円～）
-   - http://akizukidenshi.com/catalog/g/gP-12836/
-   - https://www.switch-science.com/catalog/3181/
-   - https://www.amazon.co.jp/dp/B07QGZ3DKK
-   - https://www.amazon.co.jp/dp/B07GTQ21ST
+   - [http://akizukidenshi.com/catalog/g/gP-12836/](http://akizukidenshi.com/catalog/g/gP-12836/)
+   - [https://www.switch-science.com/catalog/3181/](https://www.switch-science.com/catalog/3181/)
+   - [https://www.amazon.co.jp/dp/B07QGZ3DKK](https://www.amazon.co.jp/dp/B07QGZ3DKK)
+   - [https://www.amazon.co.jp/dp/B07GTQ21ST](https://www.amazon.co.jp/dp/B07GTQ21ST)
 - Examplesに応じたパーツやジャンパー線
    - CHIRIMENスターターキットを使うと、GPIOおよび、I2C(温度センサ)のExamplesが試せます
    - Lチカに必要なパーツは以下を参照してください
@@ -30,7 +30,7 @@ micro:bitにはGPIO等の端子が備わっていますが、ブレッドボー�
 
 ### micro:bitのピン配置
 ![micro:bit](https://pxt.azureedge.net/blob/64c6ccff8e3ee82c4224874e5cacc9d0d5c60132/static/mb/device/pins-0.png) 
-オリジナルページ：https://makecode.microbit.org/device/pins
+オリジナルページ：[https://makecode.microbit.org/device/pins](https://makecode.microbit.org/device/pins)
 
 ### ブレークアウトボードの使い方
 micro:bitのエッジコネクタをブレークアウトボードに差し込みます。
@@ -48,7 +48,7 @@ CHIRIMEN with micro:bitでは、PCのブラウザ上で動かすウェブアプ�
    - micro:bitをUSBでPCに接続 (USBドライブとしてPC上にマウント)
    - ダウンロードしたプログラムをマウントしたmicro:bit USBドライブにコピー
    - 自動的に再起動しインストール完了
-   - これで準備完了です！ USBケーブルを外して次に進みましょう。
+   - これで準備完了です！ USBケーブルを外して次に進みましょう。(micro:bitのプログラムは電源を落としても消えません)
 
 *なお、このCHIRIMEN用のサポートプログラムは、micro:bit上で動かす他のプログラムと同じ動作環境で構築してありますので、CHIRIMEN with micro:bitを使わないときは、特別な手順は必要なく自由に他のプログラムと置き換えることができます。*
 
