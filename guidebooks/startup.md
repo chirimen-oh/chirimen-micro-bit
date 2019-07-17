@@ -13,6 +13,7 @@ CHIRIMEN with micro:bitをはじめてつかうときの流れを解説します
 - micro:bit用ブレークアウトボード （micro:bitのエッジコネクタをピンヘッダに変換するパーツ。 下記に例を紹介します　数百円～）
    - [http://akizukidenshi.com/catalog/g/gP-12836/](http://akizukidenshi.com/catalog/g/gP-12836/)
    - [https://www.switch-science.com/catalog/3181/](https://www.switch-science.com/catalog/3181/)
+   - [https://www.amazon.co.jp/dp/B0787DHG2M](https://www.amazon.co.jp/dp/B0787DHG2M)
    - [https://www.amazon.co.jp/dp/B07QGZ3DKK](https://www.amazon.co.jp/dp/B07QGZ3DKK)
    - [https://www.amazon.co.jp/dp/B07GTQ21ST](https://www.amazon.co.jp/dp/B07GTQ21ST)
 - Examplesに応じたパーツやジャンパー線
