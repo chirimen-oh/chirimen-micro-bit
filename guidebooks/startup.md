@@ -10,7 +10,7 @@ CHIRIMEN with micro:bitをはじめてつかうときの流れを解説します
    - *Note: Bluetoothが載っていないPCでもBluetooth USBドングルで使えるものがあります。(Windows10マシン+エレコムLBT-UAN05C2など)*
 - micro:bit (amazonや秋月電子通商などで購入可能です。2000円程)
 - microUSBケーブル(PCとmicro:bitを繋いでサポートプログラムを書き込んだり、micro:bitの電源用に必要)
-- micro:bit用ブレークアウトボード （micro:bitのエッジコネクタをピンヘッダに変換するパーツ 下記に例を紹介します　数百円～）
+- micro:bit用ブレークアウトボード （micro:bitのエッジコネクタをピンヘッダに変換するパーツ。 下記に例を紹介します　数百円～）
    - http://akizukidenshi.com/catalog/g/gP-12836/
    - https://www.switch-science.com/catalog/3181/
    - https://www.amazon.co.jp/dp/B07QGZ3DKK
