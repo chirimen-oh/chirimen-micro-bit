@@ -37,7 +37,7 @@ micro:bitのエッジコネクタをブレークアウトボードに差し込�
 
 ブレークアウトボードにはmicro:bitのすべての端子にアクセスできるピンヘッダが付けられています。脇には端子の名称も印刷されています。
 
-Exampleや以降の解説の実体配線図では、ブレークアウトボードは省略されています。GPIO番号やSCL,SDA,GND,VCCなどの端子の機能をもとにつないでください。
+Exampleや以降の解説の実体配線図では、ブレークアウトボードは省略されています。GPIO番号やSCL,SDA,GND,VCCなどの端子の名称をもとにつないでください。
 
 ## mircro:bitにCHIRIMENサポート用プログラムを書き込む
 CHIRIMEN with micro:bitでは、PCのブラウザ上で動かすウェブアプリケーションを開発します。mircro:bit側のプログラム開発は基本的に必要ありません。ただし、Bluetooth経由でGPIOやI2C端子などを使用できるようにする[専用のサポートプログラム](https://makecode.microbit.org/_DEy9fTMpreEu)をmicro:bitに書き込んでおく必要があります。
@@ -71,13 +71,15 @@ var mbGpioPorts = gpioAccess.ports;
 gpioPort0 = mbGpioPorts.get(0);
 await gpioPort0.export("out"); //port0 out
 ```
-- ``` await gpioPort0.write(gpio0Val);```　でGPIO-0の出力のHigh / Lowを指定します。
+- ``` await gpioPort0.write(gpio0Val);```　でGPIO-0の出力のHigh(点灯) / Low(消灯)を指定します。
 
 ## CHIRIMEN for Raspberry Pi3との差分
 - 読み込むポリフィルライブラリが異なります
 - 最初にBluetoothで接続が必要　(この部分```microBitBle = await microBitBleFactory.connect();```)
-- webGPIOやwebI2C APIが、```navigator```ではなく、自分で指定した変数に設置されます。(ただし最初の一台分は```navigator```にも設置されます。複数のmicro:bitを同時に繋げられるのでこうなっています。)
+- webGPIOやwebI2C APIが、```navigator```ではなく、自分で指定した変数に設置されます。
+   - ただし最初の一台分は```navigator```にも設置されます。複数のmicro:bitを同時に繋げられるのでこうなっています。
 - 遅いです (Bluetoothでの通信のオーバーヘッドのため)　レーザー距離センサーを使うと気になります
+- 5Vを使う回路の場合 別電源が必要です
 
 ## 次にやること
 [こちらのExamples](../examples/)を試してみましょう。
