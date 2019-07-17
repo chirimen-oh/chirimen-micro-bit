@@ -5,7 +5,7 @@
 # CHIRIMEN with micro:bit
 
 ## 概要
-micro:bitを利用したCHIRIMEN環境の実装を公開しています。CHIRIMENとはボードコンピュータのGPIOやI2Cを使用した(ブラウザ上で動作する)ウェブアプリを動作させる環境です。WebGPIOとWebI2Cが使えるようになります。
+micro:bitを利用した(CHIRIMEN環境)[https://chirimen.org/#about]の実装を公開しています。CHIRIMENとはボードコンピュータのGPIOやI2Cを使用した(ブラウザ上で動作する)ウェブアプリを動作させる環境です。WebGPIOとWebI2Cが使えるようになります。
 micro:bitではウェブラウザは(多分)動きませんが、Bluetoothを介して、PC等のウェブブラウザ(ChromeなどwebBluetoothをサポートしたもの)とmicro:bitを接続することで、CHIRIMEN環境を構築します。
 また、CHIRIMEN with micro:bitでは、WebGPIO,WebI2Cに加え、micro:bitが内蔵しているセンサーやLEDをウェブアプリで使うことができる機能が追加されています。
 
