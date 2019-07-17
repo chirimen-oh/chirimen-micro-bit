@@ -81,7 +81,7 @@ await gpioPort0.export("out"); //port0 out
 - GPIOの端子番号やプルアップ・ダウン状態が異なります
 - 遅いです (Bluetooth通信のオーバーヘッドなどのため)　レーザー距離センサーを使うと気になります
 - 5Vを使う回路の場合 別電源が必要です
-- 内蔵センサー読み込み他、[いくつかの拡張機能](extendedFunctions.md]があります
+- 内蔵センサー値取得他、[いくつかの拡張機能](extendedFunctions.md)があります
 
 ## 次にやること
 [こちらのExamples](../examples/)を試してみましょう。
