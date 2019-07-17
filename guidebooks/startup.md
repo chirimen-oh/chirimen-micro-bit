@@ -78,7 +78,7 @@ await gpioPort0.export("out"); //port0 out
 - 最初にBluetoothで接続が必要です　(この部分```microBitBle = await microBitBleFactory.connect();```)
 - webGPIOやwebI2C APIが、```navigator```ではなく、自分で指定した変数に設置されます。(上の例では```microBitBle```)
    - ただし最初の一台分は```navigator```にも設置されます。複数のmicro:bitを同時に繋げられるのでこうなっています。
-- GPIOの端子番号が違います
+- GPIOの端子番号が異なります
 - 遅いです (Bluetooth通信のオーバーヘッドなどのため)　レーザー距離センサーを使うと気になります
 - 5Vを使う回路の場合 別電源が必要です
 
