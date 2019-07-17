@@ -14,7 +14,7 @@ micro:bitではウェブラウザは(多分)動きませんが、Bluetoothを介
 - https://chirimen.org/chirimen-micro-bit/
 
 ## スタートアップガイド
-- [こちらです](guidebooke/startup.md)
+- [こちらです](guidebooks/startup.md)
 
 ## Examples
 以下のページに使用例を掲載します。
