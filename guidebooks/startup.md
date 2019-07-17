@@ -37,7 +37,7 @@ micro:bitのエッジコネクタをブレークアウトボードに差し込�
 
 ブレークアウトボードにはmicro:bitのすべての端子にアクセスできるピンヘッダが付けられています。脇には端子の名称も印刷されています。
 
-Exampleや以降の解説の実体配線図では、ブレークアウトボードは省略されています。GPIO番号やSCL,SDA,GND,VCCなどの端子の名称をもとにつないでください。
+Examplesや以降の解説の実体配線図では、ブレークアウトボードは省略されています。GPIO番号やSCL,SDA,GND,VCCなどの端子の名称をもとにつないでください。
 
 ## mircro:bitにCHIRIMENサポート用プログラムを書き込む
 CHIRIMEN with micro:bitでは、PCのブラウザ上で動かすウェブアプリケーションを開発します。mircro:bit側のプログラム開発は基本的に必要ありません。ただし、Bluetooth経由でGPIOやI2C端子などを使用できるようにする[専用のサポートプログラム](https://makecode.microbit.org/_DEy9fTMpreEu)をmicro:bitに書き込んでおく必要があります。
@@ -62,7 +62,7 @@ CHIRIMEN with micro:bitでは、PCのブラウザ上で動かすウェブアプ�
 
 ### プログラムの解説
 - [ソースコードはこちら](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/GPIO1.html)
-- ```<script type="text/javascript" src="../polyfill/microBitBLE.js"></script>``` でCHIRIMEN with micro:bit用のWebGPIO, WebI2C APIのポリフィルライブラリをロードしています。
+- ```<script type="text/javascript" src="../polyfill/microBitBLE.js"></script>``` でCHIRIMEN with micro:bit用のWebGPIO, WebI2C APIの[ポリフィル](https://developer.mozilla.org/ja/docs/Glossary/Polyfill)ライブラリをロードしています。
 - ```microBitBle = await microBitBleFactory.connect();``` でmicro:bitにBluetooth接続します。
 - 以下でmicro:bitのGPIO-0番端子を出力に設定して初期化します。この端子は```gpioPort0```という変数でアクセスできるようになります。
 ```javascript
@@ -75,12 +75,13 @@ await gpioPort0.export("out"); //port0 out
 
 ## CHIRIMEN for Raspberry Pi3との差分
 - 読み込むポリフィルライブラリが異なります
-- 最初にBluetoothで接続が必要です　(この部分```microBitBle = await microBitBleFactory.connect();```)
+- 最初にBluetoothで接続が必要です　(この部分```microBitBle = await microBitBleFactory.connect();```  切断はこちら```microBitBle.disconnect()```) 
 - webGPIOやwebI2C APIが、```navigator```ではなく、自分で指定した変数に設置されます。(上の例では```microBitBle```)
    - ただし最初の一台分は```navigator```にも設置されます。複数のmicro:bitを同時に繋げられるのでこうなっています。
-- GPIOの端子番号が異なります
+- GPIOの端子番号やプルアップ・ダウン状態が異なります
 - 遅いです (Bluetooth通信のオーバーヘッドなどのため)　レーザー距離センサーを使うと気になります
 - 5Vを使う回路の場合 別電源が必要です
+- 内蔵センサー読み込み他、[いくつかの拡張機能](extendedFunctions.md]があります
 
 ## 次にやること
 [こちらのExamples](../examples/)を試してみましょう。
