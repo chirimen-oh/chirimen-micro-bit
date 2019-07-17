@@ -25,3 +25,8 @@ CHIRIMEN with micro:bitをはじめてつかうときの流れを解説します
 - リード付き LED × 1
 - リード付き抵抗器 (150Ω-1KΩ) × 1 (赤色のものは大きい抵抗値でも点灯するでしょう)
 - ジャンパーワイヤー (オス-メス) x 2
+
+### micro:bitのピンのことを知る
+micro:bitにはGPIO等の端子が備わっていますが、ブレッドボードを接続するのに便利なピンヘッダではなく、少し独特な[エッジコネクタ](https://ja.wikipedia.org/wiki/%E3%82%A8%E3%83%83%E3%82%B8%E3%83%BB%E3%82%B3%E3%83%8D%E3%82%AF%E3%82%BF)になっています。
+![micro:bit](https://pxt.azureedge.net/blob/64c6ccff8e3ee82c4224874e5cacc9d0d5c60132/static/mb/device/pins-0.png) 
+オリジナルページ：https://makecode.microbit.org/device/pins
