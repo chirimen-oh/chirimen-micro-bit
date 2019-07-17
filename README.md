@@ -1,15 +1,25 @@
+<p align="right">Language: <a href="https://chirimen.org/chirimen-micro-bit/">Japanese</a>, <a href="https://translate.google.com/translate?sl=ja&tl=en&u=https%3A%2F%2Fchirimen.org%2Fchirimen-micro-bit%2F">English (Google Translation)</a></p>
+
 ![CHIRIMEN with micro:bit](imgs/CHIRIMEN_MICROBIT.png "CHIRIMEN with micro:bit")
 
 # CHIRIMEN with micro:bit
 
-## About
-This repository contains an implementation of the CHIRIMEN environment, which combines a micro:bit and a computer with a web browser over Bluetooth. You can use micro:bit's I2C, GPIO pins, and even built-in sensors and displays from WebApps through WebGPIO, WebI2C, etc.
+## 概要
+micro:bitを利用したCHIRIMEN環境の実装を公開しています。CHIRIMENとはボードコンピュータのGPIOやI2Cを使用した(ブラウザ上で動作する)ウェブアプリを動作させる環境です。WebGPIOとWebI2Cが使えるようになります。
+micro:bitではウェブラウザは(多分)動きませんが、Bluetoothを介して、PC等のウェブブラウザ(ChromeなどwebBluetoothをサポートしたもの)とmicro:bitを接続することで、CHIRIMEN環境を構築します。
+また、CHIRIMEN with micro:bitでは、WebGPIO,WebI2Cに加え、micro:bitが内蔵しているセンサーやLEDをウェブアプリで使うことができる機能が追加されています。
 
-### Note
-The predecessor of this is https://github.com/chirimen-oh/webGPIO-etc-on-microbit-via-webBluetooth, but it has a completely different implementation due to the limited resources of micro:bit. So a new repository has been launched.
-
-### Web Page
+## Web Page
+このリポジトリは以下のURLからウェブサイトとしてアクセスできます。
 https://chirimen.org/chirimen-micro-bit/
 
-### Examples
+## スタートアップガイド
+[TBD](TBD)
+
+## Examples
+以下のページに使用例を掲載します。
 [Examples](https://chirimen.org/chirimen-micro-bit/examples/)
+
+### 注記
+この実装は、webGPIOだけを実装した[webGPIO-etc-on-microbit-via-webBluetooth](https://github.com/chirimen-oh/webGPIO-etc-on-microbit-via-webBluetooth)を前身として持ちます。しかしmicro:bitのリソース上の制限から、この実装はそれとまったく異なるものになっています。
+
