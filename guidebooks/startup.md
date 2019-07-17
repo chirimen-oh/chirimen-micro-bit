@@ -62,7 +62,7 @@ CHIRIMEN with micro:bitでは、PCのブラウザ上で動かすウェブアプ�
 
 ### プログラムの解説
 - [ソースコードはこちら](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/GPIO1.html)
-- ```<script type="text/javascript" src="../polyfill/microBitBLE.js"></script>``` でCHIRIMEN with micro:bit用のWebGPIO, WebI2C APIのポリフィルをロードしています。
+- ```<script type="text/javascript" src="../polyfill/microBitBLE.js"></script>``` でCHIRIMEN with micro:bit用のWebGPIO, WebI2C APIのポリフィルライブラリをロードしています。
 - ```microBitBle = await microBitBleFactory.connect();``` でmicro:bitにBluetooth接続します。
 - 以下でmicro:bitのGPIO-0番端子を出力に設定して初期化します。この端子は```gpioPort0```という変数でアクセスできるようになります。
 ```javascript
@@ -72,3 +72,12 @@ gpioPort0 = mbGpioPorts.get(0);
 await gpioPort0.export("out"); //port0 out
 ```
 - ``` await gpioPort0.write(gpio0Val);```　でGPIO-0の出力のHigh / Lowを指定します。
+
+## CHIRIMEN for Raspberry Pi3との差分
+- 読み込むポリフィルライブラリが異なります
+- 最初にBluetoothで接続が必要　(この部分```microBitBle = await microBitBleFactory.connect();```)
+- webGPIOやwebI2C APIが、```navigator```ではなく、自分で指定した変数に設置されます。(ただし最初の一台分は```navigator```にも設置されます。複数のmicro:bitを同時に繋げられるのでこうなっています。)
+- 遅いです (Bluetoothでの通信のオーバーヘッドのため)　レーザー距離センサーを使うと気になります
+
+## 次にやること
+[こちらのExamples](../examples/)を試してみましょう。
