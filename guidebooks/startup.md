@@ -5,7 +5,7 @@ CHIRIMEN with micro:bitをはじめてつかうときの流れを解説します
 
 ## 準備するもの
 - Bluetooth (4.0以上) が載ったコンピュータ ＋ Web Bluetooth APIをサポートしたブラウザ（以下のいずれか）
-   - ( Windows10 PC | MacOS PC | Linux PC ) ＋ ( Chrome | Chromium | [blinkエンジン搭載のEdge(現在Devリリース)](https://www.microsoftedgeinsider.com) )
+   - ( Windows10 PC ｜ MacOS PC ｜ Linux PC ) ＋ ( Chrome ｜ Chromium ｜ [blinkエンジン搭載のEdge(現在Devリリース)](https://www.microsoftedgeinsider.com) )
    - Rasoberry Pi3 + Chromium ([Chirimen for Raspberry Pi3](https://tutorial.chirimen.org/raspi3/ja/sdcard)は、CHIRIMEN with micro:bit用としても使える環境設定済みのOSイメージになっています。raspbianで自分で設定して使うこともできます)
    - *Note: Bluetoothが載っていないPCでもBluetooth USBドングルで使えるものがあります。(Windows10マシン+エレコムLBT-UAN05C2など)*
 - micro:bit (amazonや秋月電子通商などで購入可能です。2000円程)
