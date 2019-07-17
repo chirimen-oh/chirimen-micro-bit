@@ -2,7 +2,7 @@
  
 ## 概要
 CHIRIMEN with micro:bitをはじめてつかうときの流れを解説します。
- 
+
 ## 準備するもの
 - Bluetooth (4.0以上) が載ったコンピュータ ＋ Web Bluetooth APIをサポートしたブラウザ
    - ( Windows10 PC | MacOS PC | Linux PC ) ＋ ( Chrome | Chromium )
@@ -34,11 +34,16 @@ micro:bitにはGPIO等の端子が備わっていますが、ブレッドボー�
 オリジナルページ：https://makecode.microbit.org/device/pins
 
 ### ブレークアウトボードの使い方
+micro:bitにエッジコネクタをブレークアウトボードに差し込みます。
+
+ブレークアウトボードにはmicro:bitのすべての端子にアクセスできるピンヘッダが付けられています。またピンヘッダのそばには、micro:bitの端子の名前・機能も印刷されています。これを参考にしながらジャンパピンをつないでください。
+
+Exampleや以降の解説の実体配線図では、ブレークアウトボードは省略されています。GPIO番号やSCL,SDA,GND,VCCなどの端子の機能をもとにつないでください。
 
 ## mircro:bitにCHIRIMENサポート用プログラムを書き込む
-CHIRIMEN with micro:bitでは、ホストのPC上のブラウザでウェブアプリケーションを動かしますので、基本的にmircro:bit側のプログラム開発は必要ありません。ただし、Bluetooth経由でGPIOやI2C端子などを使用できるようにする専用のサポートプログラムをあらかじめ書き込んでおく必要があります。
+CHIRIMEN with micro:bitでは、PC上のブラウザでウェブアプリケーションの開発をします。mircro:bit側のプログラム開発は基本的に必要ありません。ただし、Bluetooth経由でGPIOやI2C端子などを使用できるようにする[専用のサポートプログラム](https://makecode.microbit.org/_DEy9fTMpreEu)をmicro:bitに書き込んでおく必要があります。
 
-- こちらのページにアクセスして、micro:bitにサポートプログラムを書き込みます。
+- [こちらのページ](https://makecode.microbit.org/_DEy9fTMpreEu)にアクセスして、micro:bitにサポートプログラムを書き込みます。
    - 書き込み方は通常のmicro:bit用プログラムと全く同じです。
    - PCにプログラムをダウンロード
    - micro:bitをUSBでPCに接続 (USBドライブとしてPC上にマウント)
@@ -46,4 +51,5 @@ CHIRIMEN with micro:bitでは、ホストのPC上のブラウザでウェブア�
    - 自動的に再起動しインストール完了
    - これで準備完了です！
 
-なお、のこのCHIRIMEN用のサポートプログラムは、micro:bit上で動かす、他の一般的なプログラムと同じ動作環境で構築してありますので、CHIRIMEN with micro:bitを使わないときには、特別な手順は必要なく自由に他のプログラムと置き換えることができます。
+なお、このCHIRIMEN用のサポートプログラムは、micro:bit上で動かす、他の一般的なプログラムと同じ動作環境で構築してありますので、CHIRIMEN with micro:bitを使わないときには、特別な手順は必要なく自由に他のプログラムと置き換えることができます。
+　
