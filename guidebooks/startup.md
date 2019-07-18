@@ -79,7 +79,7 @@ await gpioPort0.export("out"); //port0 out
 
 ## CHIRIMEN for Raspberry Pi3との差分
 - 読み込むポリフィルライブラリが異なります
-- 最初にBluetoothで接続が必要です　(この部分```microBitBle = await microBitBleFactory.connect();```  切断はこちら```microBitBle.disconnect()```) また、この接続関数はユーザがHMIで指示する形で起動される必要があります。(この例ではボタンUI)
+- 最初にBluetoothで接続が必要です　(この部分```microBitBle = await microBitBleFactory.connect();```  切断はこちら```microBitBle.disconnect()```) また、この接続関数はユーザがHMIで指示する形で呼び出される必要があります。(この例ではボタンUI)
 - webGPIOやwebI2C APIが、```navigator```ではなく、自分で指定した変数に設置されます。(上の例では```microBitBle```)
    - ただし最初の一台分は```navigator```にも設置されます。複数のmicro:bitを同時に繋げられるのでこうなっています。
 - GPIOの端子番号やプルアップ・ダウン状態が異なります
