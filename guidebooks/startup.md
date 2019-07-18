@@ -34,9 +34,11 @@ micro:bitにはGPIO等の端子が備わっていますが、ブレッドボー�
 オリジナルページ：[https://makecode.microbit.org/device/pins](https://makecode.microbit.org/device/pins)
 
 ### ブレークアウトボードの使い方
-micro:bitのエッジコネクタをブレークアウトボードに差し込みます。
-
 ブレークアウトボードにはmicro:bitのすべての端子にアクセスできるピンヘッダが付けられています。脇には端子の名称も印刷されています。
+![ブレークアウトボードの例](../imgs/MBBO.JPG)
+
+micro:bitのエッジコネクタをブレークアウトボードに差し込みます。
+![ブレークアウトボードをmicro:bitに接続した写真](../imgs/MBBOD.JPG)
 
 Examplesや以降の解説の実体配線図では、ブレークアウトボードは省略されています。GPIO番号やSCL,SDA,GND,VCCなどの端子の名称をもとにつないでください。
 
@@ -60,6 +62,7 @@ CHIRIMEN with micro:bitでは、PCのブラウザ上で動かすウェブアプ�
 - [こちらのページ](../examples/GPIO1.html)にアクセス
 - [接続]ボタンを押して、micro:bitとペアリングします　ペアリングが成功すると◇マークがmicro:bitに表示されます
 - LEDが点滅します
+![LED点滅の写真](../imgs/MBHR.JPG)
 
 ### プログラムの解説
 - [ソースコードはこちら](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/GPIO1.html)
