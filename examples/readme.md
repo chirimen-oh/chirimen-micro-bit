@@ -10,6 +10,7 @@
 | [CMMB_GPIO_example3.png](../imgs/CMMB_GPIO_example3.png) | タクトスイッチに反応してモーター動作(回路図のみ。コードは上と同じ) |
 
 ## I2C
+micro:bitのI2C端子はpin19(SCL)とpin20(SDA)です。
 
 |ファイル名  |説明  |
 |---|---|
