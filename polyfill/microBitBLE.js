@@ -51,6 +51,7 @@
 	2019.06.25: https://makecode.microbit.org/_d4hA9cWMz5rC   少しきれいにした程度　本当はネイティブonchangeを入れようとしたが020ERR...
 	2019.07.02: https://makecode.microbit.org/_gozVrxVwyUhf   micro:bitのinput.lightLevelとpins.analogReadPinはコンフリクトしてる。 led.setDisplayMode(DisplayMode.BlackAndWhite)とpins.digitalWritePin(DigitalPin.P2, 0)を双方呼ぶとなんとかリセットされるので"P"にそれを入れた  ( test: https://makecode.microbit.org/_YLeAM8JDAF5x )
 	2019.07.16: https://makecode.microbit.org/_DEy9fTMpreEu   readBytes(<9bytes)をサポート
+	2019.07.19: https://makecode.microbit.org/_chw6fvg6KW2m   readBytes(<65bytes)をサポート
 	=======================================================================================================
 	
 	References:
@@ -718,7 +719,7 @@
 				if ( returnData[0].startsWith("END:R")){
 					var ans = parseInt(returnData[0].substring(5),16);
 //					var ans = Number((returnData[0].substring(2)).split(",")[2]);
-					console.log("(16):",ans.toString(16));
+					console.log("read8:",ans.toString(16));
 					return ( ans );
 				} else {
 					throw Error("Read failed..");
@@ -737,7 +738,7 @@
 //					var ans = parseInt(returnData[0].substring(5),16);
 					var ans = parseInt(returnData[0].substr(7,2)+returnData[0].substr(5,2),16);
 //					var ans = Number((returnData[0].substring(2)).split(",")[2]);
-					console.log("(16):",ans.toString(16));
+					console.log("read16:",ans.toString(16));
 					return ( ans );
 				} else {
 					throw Error("Read failed..");
@@ -749,19 +750,29 @@
 			}
 			
 			async function readBytes(bLength){
-				if ( bLength >8){
-					throw Error("Read length overflow > bytes.");
+				if ( bLength >64){
+					throw Error("Read length overflow > 64 bytes.");
 				}
 				var cmd = "r" + toHex2(slaveAddress)+ toHex2(2) + toHex2(0)+ toHex2(bLength);
 				var returnData = await mbBleUart.sendCmd2MicroBit( cmd );
-				console.log("i2c read16:",returnData);
-				if ( returnData[0].startsWith("ENDr")){
+				console.log("i2c readBytes:",returnData);
+				if ( returnData[returnData.length-1].startsWith("ENDr")){
 					var ans = [];
+					for ( var i =0 ;i < returnData.length ; i++){
+						var oneRet = returnData[i];
+						oneRet = oneRet.substring(oneRet.indexOf("r")+1);
+						for ( var j = 0 ; j < oneRet.length  ; j=j+2){
+							var val = parseInt(oneRet.substring(j ,j+2),16);
+							ans.push( val );
+						}
+					}
+					/**
 					for ( var i = 0; i < bLength ; i++){
 						var val = parseInt(returnData[0].substr(4 + i*2,2),16);
 //						console.log("val:",val, " src:",returnData[0].substr(4 + i*2,2));
 						ans.push( val );
 					}
+					**/
 //					var ans = parseInt(returnData[0].substring(5),16);
 //					var ans = parseInt(returnData[0].substr(7,2)+returnData[0].substr(5,2),16);
 //					var ans = Number((returnData[0].substring(2)).split(",")[2]);
