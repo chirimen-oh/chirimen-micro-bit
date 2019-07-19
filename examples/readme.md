@@ -19,6 +19,7 @@ micro:bitのI2C端子はpin19(SCL)とpin20(SDA)です。
 | [I2C2_BMP280.html](I2C2_BMP280.html) | 気圧・温度センサー |
 | [I2C3_VL53L0X.html](I2C3_VL53L0X.html) | レーザー距離センサー |
 | [I2C4_S11059.html](I2C4_S11059.html) |  色センサー |
+| [I2C5_NEOPIXEL.html](I2C5_NEOPIXEL.html) |  NEOPIXEL I2C  |
 
 - [I2Cデバイスをリストアップするツール](i2cdetect.html)
 
@@ -27,4 +28,4 @@ micro:bitのI2C端子はpin19(SCL)とpin20(SDA)です。
 
 |ファイル名  |説明  |
 |---|---|
-| [test0.html](../tests/test0.html) |  TBD (全テストのコードを置いておきます・・)[test0.htmlの回路図](../imgs/test0.png) |
+| [Embed.html](Embed.html) |  内蔵デバイス(LED, 加速度, 磁気, 温度, 明るさ, スイッチAB) |
