@@ -280,7 +280,6 @@
 			async function disconnect() {
 				console.log("mbBLE:",mbBLE);
 				conn=false;
-				navigator.requestI2CAccess = null;
 				uartCallBackObj.conn = conn;
 				if (mbBleDevice && mbBleDevice.gatt.connected){
 					var charas=mbBLE.characteristics;
@@ -300,10 +299,9 @@
 			}
 			
 			if ( !navigator.requestI2CAccess){
+				primaryDevice = true;
 				console.log("set navigator.requestI2CAccess");
 				navigator.requestI2CAccess = requestI2CAccess;
-			}
-			if ( !navigator.requestGPIOAccess){
 				console.log("set navigator.requestGPIOAccess");
 				navigator.requestGPIOAccess = requestGPIOAccess;
 			}
@@ -501,6 +499,9 @@
 				case "in":
 					out = false;
 					ain = false;
+					if (!pullMode ){
+						pullMode = "up"; // CHIRIMEN for RPi3はしばしばpull upのサンプルがあるため・・
+					}
 					break;
 				case "out":
 					if ( canOutPorts[pNumber] == 0 ){
