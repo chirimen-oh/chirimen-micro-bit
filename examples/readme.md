@@ -21,7 +21,8 @@ micro:bitのI2C端子はpin19(SCL)とpin20(SDA)です。
 | [I2C4_S11059.html](I2C4_S11059.html) |  色センサー |
 | [I2C5_NEOPIXEL.html](I2C5_NEOPIXEL.html) |  NEOPIXEL I2C  |
 
-- [I2Cデバイスをリストアップするツール](i2cdetect.html)
+<br>
+- [I2Cデバイスをリストアップするツール (i2cdetect.html)](i2cdetect.html)
 
 
 ## 内蔵デバイス
