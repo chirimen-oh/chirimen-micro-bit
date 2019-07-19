@@ -33,6 +33,7 @@ micro:bitのI2C端子はpin19(SCL)とpin20(SDA)です。
 | [Embed.html](Embed.html) |  内蔵デバイス(LED, 加速度, 磁気, 温度, 明るさ, スイッチAB) |
 
 ## 拡張GPIO
+
 |ファイル名  |説明  |
 |---|---|
 | [GPIO_EXT0.html](GPIO_EXT0.html) |  アナログ出力 (LEDが緩やかに明滅) |
