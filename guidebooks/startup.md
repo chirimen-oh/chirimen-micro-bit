@@ -86,6 +86,7 @@ await gpioPort0.export("out"); //port0 out
 - 遅いです (Bluetooth通信のオーバーヘッドなどのため)　レーザー距離センサーを使うと気になります
 - 5Vを使う回路の場合 別電源が必要です
 - 内蔵センサー値取得他、[いくつかの拡張機能](extendedFunctions.md)があります
+- [内蔵センサーがI2Cアドレスを２つ占有しています](https://tech.microbit.org/hardware/i2c/)
 
 ## 次にやること
 [こちらのExamples](../examples/)を試してみましょう。
