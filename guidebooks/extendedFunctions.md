@@ -16,6 +16,7 @@
 ### GPIOの拡張機能
 - アナログ入出力 : `export ("analogin")`, `export ("analogout")`
 - プルアップ/プルダウン設定 : `export ("in","up")`, `export ("in","down")`, `export ("in","none")`
+   - `in`のデフォルトは`up`としています
 
 [サンプル](../examples#拡張gpio)
 
