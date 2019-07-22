@@ -57,7 +57,7 @@ patial interface GPIOPort : EventTarget {
 };
 
 enum DirectionMode { "", "in", "out", "analogin", "analogout" }
-enum PullMode { "up", "down" }
+enum PullMode { "none", "up", "down" }
 
 ```
 
