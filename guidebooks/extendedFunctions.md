@@ -1,21 +1,21 @@
 # 拡張機能について
 
 ## 内蔵デバイスの利用機能
-- 内蔵センサー
+- 内蔵センサー : `readSensor()`
    - 3軸磁気センサ
    - 3軸加速度センサ
    - 温度
    - 明るさ
-- ボタン
+- ボタン : `readSensor()`
    - ボタンA
    - ボタンB
-- マトリクスLED
+- マトリクスLED : `printLED()`
 
 [サンプル](../examples#内蔵デバイス)
 
 ### GPIOの拡張機能
-- アナログ入出力
-- プルアップ/プルダウン設定
+- アナログ入出力 : `export ("analogin")`, `export ("analogout")`
+- プルアップ/プルダウン設定 : `export ("in","up")`, `export ("in","down")`, `export ("in","none")`
 
 [サンプル](../examples#拡張gpio)
 
