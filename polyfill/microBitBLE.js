@@ -34,7 +34,7 @@
 	2019.06.25: onchangeを実装。　ただしこのドライバがBLE経由でポーリングしている・・・
 	2019.07.12: 外的要因によるonDisconnectedでnotificationsが出なくなる問題があるようなので、そのエラー処理をしました
 	2019.07.16: readBytes(<9bytes)をサポート ( for S11059.... )
-	
+	2019.07.19: readBytes(<33bytes)をサポート
 	=======================================================================================================
 	Firm Ware on micro:bit:
 	 (以下の中の最新リビジョンのファームとのペアで本ドライバは動作するようになっています)
@@ -51,7 +51,7 @@
 	2019.06.25: https://makecode.microbit.org/_d4hA9cWMz5rC   少しきれいにした程度　本当はネイティブonchangeを入れようとしたが020ERR...
 	2019.07.02: https://makecode.microbit.org/_gozVrxVwyUhf   micro:bitのinput.lightLevelとpins.analogReadPinはコンフリクトしてる。 led.setDisplayMode(DisplayMode.BlackAndWhite)とpins.digitalWritePin(DigitalPin.P2, 0)を双方呼ぶとなんとかリセットされるので"P"にそれを入れた  ( test: https://makecode.microbit.org/_YLeAM8JDAF5x )
 	2019.07.16: https://makecode.microbit.org/_DEy9fTMpreEu   readBytes(<9bytes)をサポート
-	2019.07.19: https://makecode.microbit.org/_chw6fvg6KW2m   readBytes(<65bytes)をサポート
+	2019.07.19: https://makecode.microbit.org/_chw6fvg6KW2m   readBytes(<33bytes)をサポート
 	=======================================================================================================
 	
 	References:
@@ -751,8 +751,8 @@
 			}
 			
 			async function readBytes(bLength){
-				if ( bLength >64){
-					throw Error("Read length overflow > 64 bytes.");
+				if ( bLength >32){
+					throw Error("Read length overflow > 32 bytes.");
 				}
 				var cmd = "r" + toHex2(slaveAddress)+ toHex2(2) + toHex2(0)+ toHex2(bLength);
 				var returnData = await mbBleUart.sendCmd2MicroBit( cmd );
