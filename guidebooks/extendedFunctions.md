@@ -42,14 +42,14 @@ interface MicroBitBle {
 interface MicroBitSensData{
     attribute readonly VectorValue acceleration;
     attribute readonly VectorValue magneticField;
-    attribute readonly float temperature;
-    attribute readonly float brightness;
+    attribute readonly int temperature;
+    attribute readonly int brightness;
 };
 
 interface VectorValue{
-   attribute float x;
-   attribute float y;
-   attribute float z;
+   attribute int x;
+   attribute int y;
+   attribute int z;
 };
 
 patial interface GPIOPort : EventTarget {
