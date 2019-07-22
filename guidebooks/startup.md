@@ -59,7 +59,7 @@ CHIRIMEN with micro:bitでは、PCのブラウザ上で動かすウェブアプ�
 - 以下の実態配線図のように配線しましょう。*(ブレークアウトボードは省略しています)*
 ![LED blink](../imgs/CMMB_GPIO_example1.png)
 - micro:bitにUSBケーブルをつなぎ、電源を供給します。(PCのUSBポートからも電源供給可能) ♡がmicro:bitに表示されます
-- [こちらのページ](../examples/GPIO1.html)にアクセス
+- <a href="../examples/GPIO1.html" target="_blank">こちらのページ</a>にアクセス
 - [Connect]ボタンを押して、micro:bitとペアリングします　ペアリングが成功すると◇マークがmicro:bitに表示されます
 - LEDが点滅します
 ![LED点滅の写真](../imgs/MBHR.JPG)
