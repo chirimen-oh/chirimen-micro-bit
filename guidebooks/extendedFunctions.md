@@ -44,6 +44,7 @@ interface MicroBitSensData{
     attribute readonly VectorValue magneticField;
     attribute readonly int temperature;
     attribute readonly int brightness;
+    attribute readonly int button;
 };
 
 interface VectorValue{
