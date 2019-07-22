@@ -19,7 +19,7 @@
 
 [サンプル](../examples#拡張gpio)
 
-## IDL (TBD)
+## IDL
 
 ```
 partial interface Navigator {
