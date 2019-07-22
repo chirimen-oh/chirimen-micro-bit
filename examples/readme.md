@@ -4,7 +4,7 @@
 
 |ファイル名  |説明  |
 |---|---|
-| [GPIO1.html](GPIO1.html) | Hello Real World (Lチカ) |
+| <a href="GPIO1.html" target="_blank">GPIO1.html</a> | Hello Real World (Lチカ) |
 | [GPIO0.html](GPIO0.html) | タクトスイッチに反応して画面表示|
 | [GPIO2.html](GPIO2.html) | タクトスイッチに反応してLEDが点灯 |
 | [CMMB_GPIO_example3.png](../imgs/CMMB_GPIO_example3.png) | タクトスイッチに反応してモーター動作(回路図のみ。コードは上と同じ) |
