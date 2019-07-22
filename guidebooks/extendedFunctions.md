@@ -35,8 +35,8 @@ interface MicroBitBle {
     Promise<I2CAccess> requestI2CAccess ();
     Promise disconnect ();
     attribute readonly boolean connected;
-    Promise<MicroBitSensData> readSensor();
-    Promise printLED(DOMString);
+    Promise<MicroBitSensData> readSensor ();
+    Promise printLED (DOMString message);
 };
 
 interface MicroBitSensData{
@@ -53,8 +53,7 @@ interface VectorValue{
 };
 
 patial interface GPIOPort : EventTarget {
-    Promise  export(DirectionMode direction);
-    Promise  setPull(PullMode pullMode);
+    Promise  export (DirectionMode direction , optional PullMode pullMode);
 };
 
 enum DirectionMode { "", "in", "out", "analogin", "analogout" }
