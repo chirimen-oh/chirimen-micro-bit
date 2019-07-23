@@ -23,7 +23,7 @@
 ## IDL
 
 ```
-partial interface Navigator {
+partial interface Window {
     MicroBitBleFactory microBitBleFactory;
 };
 
