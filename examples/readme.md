@@ -14,12 +14,13 @@ micro:bitのI2C端子はpin19(SCL)とpin20(SDA)です。
 
 |ファイル名  |説明  |
 |---|---|
-| <a href="I2C1_ADT7410.html" target="_blank">I2C1_ADT7410.html</a> | 温度センサー |
-| <a href="I2C1b_ADT7410.html" target="_blank">I2C1b_ADT7410.html</a> | 温度センサー(ドライバ使わずに) |
-| <a href="I2C2_BMP280.html" target="_blank">I2C2_BMP280.html</a> | 気圧・温度センサー |
-| <a href="I2C3_VL53L0X.html" target="_blank">I2C3_VL53L0X.html</a> | レーザー距離センサー |
-| <a href="I2C4_S11059.html" target="_blank">I2C4_S11059.html</a> |  色センサー |
+| <a href="I2C1_ADT7410.html" target="_blank">I2C1_ADT7410.html</a> | ADT7410 温度センサー |
+| <a href="I2C1b_ADT7410.html" target="_blank">I2C1b_ADT7410.html</a> | ADT7410 温度センサー(ドライバ使わずに) |
+| <a href="I2C2_BMP280.html" target="_blank">I2C2_BMP280.html</a> | BMP280 気圧・温度センサー |
+| <a href="I2C3_VL53L0X.html" target="_blank">I2C3_VL53L0X.html</a> | VL53L0X レーザー距離センサー |
+| <a href="I2C4_S11059.html" target="_blank">I2C4_S11059.html</a> |  S11059 色センサー |
 | <a href="I2C5_NEOPIXEL.html" target="_blank">I2C5_NEOPIXEL.html</a> |  NEOPIXEL I2C  |
+| <a href="I2C6_BME280.html" target="_blank">I2C6_BME280.html</a> |  BME280 気圧・温度・湿度センサー  |
 
 <br>
 

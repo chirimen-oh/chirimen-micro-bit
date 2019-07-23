@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title></title>
+</head>
+
+<script type="text/javascript" src="../polyfill/microBitBLE.js"></script>
+<script type="text/javascript" src="https://chirimen.org/chirimen-raspi3/gc/contrib/drivers/i2c-BME280.js"></script>
+
+
+<script>
+var microBitBle;
+
+var bme280;
+
+var readEnable;
+
+async function connect(){
+	microBitBle = await microBitBleFactory.connect();
+	msg.innerHTML=("micro:bit BLE接続しました。");
+	var i2cAccess = await microBitBle.requestI2CAccess();
+	var i2cPort = i2cAccess.ports.get(1);
+	bme280 = new BME280(i2cPort, 0x76);
+	await bme280.init();
+	readEnable = true;
+	readData();
+}
+
+async function disconnect(){
+	readEnable = false;
+	await microBitBle.disconnect();
+	msg.innerHTML=("micro:bit BLE接続を切断しました。");
+}
+
+async function readData(){
+	var readVal;
+	while ( readEnable ){
+		readVal = await bme280.readData();
+		console.log('readVal:', readVal);
+		msg.innerHTML= readVal.temperature + "℃ " + readVal.pressure + "hPa " +  readVal.humidity + "%";
+		await sleep(1000);
+	}
+}
+
+
+</script>    
+
+<body>
+<form name="js">
+<input type="button" value="Connect" onclick="connect();"/> 
+<input type="button" value="Disconnect" onclick="disconnect();" /> 
+</form>
+<hr>
+
+<div id="msg">---</div>
+
+<img src="../imgs/CMMB_I2C_example6.png" width="400"/>
+</body>
+</html>
