@@ -54,12 +54,17 @@ interface VectorValue{
    attribute int z;
 };
 
-patial interface GPIOPort : EventTarget {
+partial interface GPIOPort : EventTarget {
     Promise  export (DirectionMode direction , optional PullMode pullMode);
 };
 
 enum DirectionMode { "", "in", "out", "analogin", "analogout" }
 enum PullMode { "none", "up", "down" }
 
+partial interface I2CSlaveDevice {
+    Promise<Int8Array>  readBytes(unsigned short byteLength);
+    Promise  writeByte(octet byte);
+    Promise  writeBytes(Int8Array bytes);
+};
 ```
 
