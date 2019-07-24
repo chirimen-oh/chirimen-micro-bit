@@ -34,6 +34,10 @@ micro:bitのI2C端子はpin19(SCL)とpin20(SDA)です。
 |:---|:---|:---|
 | <a href="Embed.html" target="_blank">Embed.html</a> |  内蔵デバイス(LED, 加速度, 磁気, 温度, 明るさ, スイッチAB) | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/Embed.html) |
 
+<br>
+
+- [拡張API解説](../guidebooks/extendedFunctions.html#内蔵デバイスの利用機能)
+
 ## 拡張GPIO
 
 |`LIVE`Example  |説明  |ソースコード|
@@ -41,3 +45,8 @@ micro:bitのI2C端子はpin19(SCL)とpin20(SDA)です。
 | <a href="GPIO_EXT0.html" target="_blank">GPIO_EXT0.html</a> |  アナログ出力 (LEDが緩やかに明滅) | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/GPIO_EXT0.html) |
 | <a href="GPIO_EXT1.html" target="_blank">GPIO_EXT1.html</a> |  アナログ入力 | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/GPIO_EXT1.html) |
 | <a href="GPIO_EXT1b.html" target="_blank">GPIO_EXT1b.html</a> |  アナログ入力(onchange) | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/GPIO_EXT1b.html) |
+
+<br>
+
+- [拡張API解説](../guidebooks/extendedFunctions.html#gpioの拡張機能)
+
