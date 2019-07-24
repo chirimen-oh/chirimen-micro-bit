@@ -48,7 +48,7 @@ CHIRIMEN with micro:bitでは、PCのブラウザ上で動かすウェブアプ�
 - [こちらのページ](https://makecode.microbit.org/_DEy9fTMpreEu)にアクセスして、micro:bitにサポートプログラムを書き込みます。<br>
 *書き込み方は通常のmicro:bit用プログラムと全く同じです。*
    - [編集]ボタンを押す
-   - PCにプログラムをダウンロード
+   - [ダウンロード]ボタンを押し、サポートプログラムをダウンロード
    - micro:bitをUSBでPCに接続 (USBドライブとしてPC上にマウント)
    - ダウンロードしたプログラムをマウントしたmicro:bit USBドライブにコピー
    - 自動的に再起動しインストール完了。　♡がmicro:bitに表示されます
