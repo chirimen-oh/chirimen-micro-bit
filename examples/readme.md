@@ -3,7 +3,7 @@
 
 ## GPIO
 
-|ファイル名  |説明  |ソースコード|
+|`LIVE`Example  |説明  |ソースコード|
 |:---|:---|:---|
 | <a href="GPIO1.html" target="_blank">GPIO1.html</a> | Hello Real World (Lチカ) | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/GPIO1.html) |
 | <a href="GPIO0.html" target="_blank">GPIO0.html</a> | タクトスイッチに反応して画面表示| [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/GPIO0.htm) |
@@ -13,7 +13,7 @@
 ## I2C
 micro:bitのI2C端子はpin19(SCL)とpin20(SDA)です。
 
-|ファイル名  |説明  |ソースコード|
+|`LIVE`Example  |説明  |ソースコード|
 |:---|:---|:---|
 | <a href="I2C1_ADT7410.html" target="_blank">I2C1_ADT7410.html</a> | ADT7410 温度センサー | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/I2C1_ADT7410.html) |
 | <a href="I2C1b_ADT7410.html" target="_blank">I2C1b_ADT7410.html</a> | ADT7410 温度センサー(ドライバ使わずに) | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/I2C1b_ADT7410.html) |
@@ -30,13 +30,13 @@ micro:bitのI2C端子はpin19(SCL)とpin20(SDA)です。
 
 ## 内蔵デバイス
 
-|ファイル名  |説明  |ソースコード|
+|`LIVE`Example  |説明  |ソースコード|
 |:---|:---|:---|
 | <a href="Embed.html" target="_blank">Embed.html</a> |  内蔵デバイス(LED, 加速度, 磁気, 温度, 明るさ, スイッチAB) | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/Embed.html) |
 
 ## 拡張GPIO
 
-|ファイル名  |説明  |ソースコード|
+|`LIVE`Example  |説明  |ソースコード|
 |:---|:---|:---|
 | <a href="GPIO_EXT0.html" target="_blank">GPIO_EXT0.html</a> |  アナログ出力 (LEDが緩やかに明滅) | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/GPIO_EXT0.html) |
 | <a href="GPIO_EXT1.html" target="_blank">GPIO_EXT1.html</a> |  アナログ入力 | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/GPIO_EXT1.html) |
