@@ -1,7 +1,7 @@
 # CHIRIMEN for Raspberry Pi3との差分
 - 読み込むポリフィルライブラリが異なります
    - ```https://chirimen.org/chirimen-micro-bit/polyfill/microBitBLE.js```
-- 最初にBluetoothで接続が必要です　(この部分```microBitBle = await microBitBleFactory.connect();```  切断はこちら```microBitBle.disconnect()```) また、この接続関数はユーザによるHMI操作をトリガとして呼び出される必要があります。(ExamplesではボタンUI)
+- 最初にBluetoothで接続が必要です　(この部分```microBitBle = await microBitBleFactory.connect();```  切断はこちら```microBitBle.disconnect()```) また、この接続関数はユーザによるHMI操作をトリガとして呼び出される必要があります。([Examples](../examples/)ではボタンUI)
 - webGPIOやwebI2C APIが、```navigator```ではなく、自分で指定した変数に設置されます。(上の例では```microBitBle```)
    - ただし最初の一台分は```navigator```にも設置されます。複数のmicro:bitを同時に繋げられるのでこうなっています。
 - GPIOの端子番号やプルアップ・ダウン状態が異なります
