@@ -1,5 +1,6 @@
 # CHIRIMEN for Raspberry Pi3との差分
 - 読み込むポリフィルライブラリが異なります
+   - ```https://chirimen.org/chirimen-micro-bit/polyfill/microBitBLE.js```
 - 最初にBluetoothで接続が必要です　(この部分```microBitBle = await microBitBleFactory.connect();```  切断はこちら```microBitBle.disconnect()```) また、この接続関数はユーザによるHMI操作をトリガとして呼び出される必要があります。(この例ではボタンUI)
 - webGPIOやwebI2C APIが、```navigator```ではなく、自分で指定した変数に設置されます。(上の例では```microBitBle```)
    - ただし最初の一台分は```navigator```にも設置されます。複数のmicro:bitを同時に繋げられるのでこうなっています。
@@ -8,3 +9,4 @@
 - 5Vを使う回路の場合 別電源が必要です
 - 内蔵センサー値取得他、[いくつかの拡張機能](extendedFunctions.md)があります
 - 内蔵センサーがI2Cアドレスを占有しています(多くの場合0x19と0x1E) - [こちらを参照](https://tech.microbit.org/hardware/i2c/)
+- *I2Cデバイスのドライバーは基本的にCHIRIMEN for Raspberry PI3と共通です*
