@@ -12,8 +12,7 @@ micro:bitではウェブラウザは(多分:-)動きませんが、Bluetoothを�
 ## Web Page
 このリポジトリは以下のURLからウェブサイトとしてアクセスできます。
 - [https://chirimen.org/chirimen-micro-bit/](https://chirimen.org/chirimen-micro-bit/)
-
-*GitHubリポジトリのURL: [https://github.com/chirimen-oh/chirimen-micro-bit](https://github.com/chirimen-oh/chirimen-micro-bit)*
+- *GitHubリポジトリのURL: [https://github.com/chirimen-oh/chirimen-micro-bit](https://github.com/chirimen-oh/chirimen-micro-bit)*
 
 ## スタートアップガイド
 - [こちらです](guidebooks/startup.md)
