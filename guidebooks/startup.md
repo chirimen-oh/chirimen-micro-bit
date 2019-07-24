@@ -56,7 +56,7 @@ CHIRIMEN with micro:bitでは、PCのブラウザ上で動かすウェブアプ�
 *なお、このCHIRIMEN用のサポートプログラムは、micro:bit上で動かす他のプログラムと同じ動作環境で構築してありますので、CHIRIMEN with micro:bitを使わないときは、特別な手順は必要なく自由に他のプログラムと置き換えることができます。*
 
 ## LEDを点滅させてみる
-- 以下の実態配線図のように配線しましょう。*(ブレークアウトボードは省略しています)*
+- 以下の実体配線図のように配線しましょう。*(ブレークアウトボードは省略しています)*
 ![LED blink](../imgs/CMMB_GPIO_example1.png)
 - micro:bitにUSBケーブルをつなぎ、電源を供給します。(PCのUSBポートからも電源供給可能) ♡がmicro:bitに表示されます
 - <a href="../examples/GPIO1.html" target="_blank">こちらのページ</a>にアクセス
