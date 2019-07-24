@@ -5,9 +5,9 @@
 |ファイル名  |説明  |ソースコード|
 |---|---|---|
 | <a href="GPIO1.html" target="_blank">GPIO1.html</a> | Hello Real World (Lチカ) | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/GPIO1.html) |
-| <a href="GPIO0.html" target="_blank">GPIO0.html</a> | タクトスイッチに反応して画面表示| [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/GPIO1.htm0) |
+| <a href="GPIO0.html" target="_blank">GPIO0.html</a> | タクトスイッチに反応して画面表示| [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/GPIO0.htm) |
 | <a href="GPIO2.html" target="_blank">GPIO2.html</a> | タクトスイッチに反応してLEDが点灯 | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/GPIO2.html) |
-| [CMMB_GPIO_example3.png](../imgs/CMMB_GPIO_example3.png) | タクトスイッチに反応してモーター動作(回路図のみ。コードは上と同じ) | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/GPIO3.html) |
+| [CMMB_GPIO_example3.png](../imgs/CMMB_GPIO_example3.png) | タクトスイッチに反応してモーター動作(回路図のみ。コードは上と同じ) |- |
 
 ## I2C
 micro:bitのI2C端子はpin19(SCL)とpin20(SDA)です。
