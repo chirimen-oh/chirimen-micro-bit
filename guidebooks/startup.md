@@ -45,7 +45,7 @@ Examplesや以降の解説の実体配線図では、ブレークアウトボー
 ## mircro:bitにCHIRIMENサポート用プログラムを書き込む
 CHIRIMEN with micro:bitでは、PCのブラウザ上で動かすウェブアプリケーションを開発します。mircro:bit側のプログラム開発は基本的に必要ありません。ただし、Bluetooth経由でGPIOやI2C端子などを使用できるようにする<a href="link2original.html#https://makecode.microbit.org/_DEy9fTMpreEu" target="_blank">専用のサポートプログラム</a>をmicro:bitに書き込んでおく必要があります。
 
-- [こちらのページ](https://makecode.microbit.org/_DEy9fTMpreEu)にアクセスして、micro:bitにサポートプログラムを書き込みます。<br>
+- <a href="link2original.html#https://makecode.microbit.org/_DEy9fTMpreEu" target="_blank">こちらのページ</a>にアクセスして、micro:bitにサポートプログラムを書き込みます。<br>
 *書き込み方は通常のmicro:bit用プログラムと全く同じです。*
    - [編集]ボタンを押す
    - [ダウンロード]ボタンを押し、サポートプログラムをダウンロード
