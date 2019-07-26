@@ -43,7 +43,7 @@ micro:bitのエッジコネクタをブレークアウトボードに差し込�
 Examplesや以降の解説の実体配線図では、ブレークアウトボードは省略されています。GPIO番号やSCL,SDA,GND,3V(3.3V,VDD)などの端子の名称をもとにつないでください。
 
 ## mircro:bitにCHIRIMENサポート用プログラムを書き込む
-CHIRIMEN with micro:bitでは、PCのブラウザ上で動かすウェブアプリケーションを開発します。mircro:bit側のプログラム開発は基本的に必要ありません。ただし、Bluetooth経由でGPIOやI2C端子などを使用できるようにする[専用のサポートプログラム](https://makecode.microbit.org/_DEy9fTMpreEu)をmicro:bitに書き込んでおく必要があります。
+CHIRIMEN with micro:bitでは、PCのブラウザ上で動かすウェブアプリケーションを開発します。mircro:bit側のプログラム開発は基本的に必要ありません。ただし、Bluetooth経由でGPIOやI2C端子などを使用できるようにする<a href="link2original.html#https://makecode.microbit.org/_DEy9fTMpreEu" target="_blank">専用のサポートプログラム</a>をmicro:bitに書き込んでおく必要があります。
 
 - [こちらのページ](https://makecode.microbit.org/_DEy9fTMpreEu)にアクセスして、micro:bitにサポートプログラムを書き込みます。<br>
 *書き込み方は通常のmicro:bit用プログラムと全く同じです。*
