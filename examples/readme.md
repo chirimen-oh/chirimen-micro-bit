@@ -20,7 +20,7 @@ micro:bitのI2C端子はpin19(SCL)とpin20(SDA)です。
 | <a href="I2C2_BMP280.html" target="_blank">I2C2_BMP280.html</a> | BMP280 気圧・温度センサー | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/I2C2_BMP280.html) |
 | <a href="I2C3_VL53L0X.html" target="_blank">I2C3_VL53L0X.html</a> | VL53L0X レーザー距離センサー | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/I2C3_VL53L0X.html) |
 | <a href="I2C4_S11059.html" target="_blank">I2C4_S11059.html</a> |  S11059 色センサー | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/I2C4_S11059.html) |
-| <a href="I2C5_NEOPIXEL.html" target="_blank">I2C5_NEOPIXEL.html</a> |  NEOPIXEL I2C  | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/I2C5_NEOPIXEL.html) |
+| <a href="I2C5_NEOPIXEL.html" target="_blank">I2C5_NEOPIXEL.html</a> |  [NEOPIXEL I2C](https://gist.github.com/satakagi/608f6c2c963c8e9453864f11b6fb1f3d#file-readme-md)  | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/I2C5_NEOPIXEL.html) |
 | <a href="I2C6_BME280.html" target="_blank">I2C6_BME280.html</a> |  BME280 気圧・温度・湿度センサー  | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/I2C6_BME280.html) |
 
 <br>
