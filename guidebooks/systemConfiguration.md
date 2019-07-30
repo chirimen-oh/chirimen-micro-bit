@@ -4,7 +4,7 @@
 
 - Web Apps
    - CHIRIMEN with micro:bit環境の開発者はこのWeb Appsを開発します
-   - [Examples](../Examples)の内容もこの部分に相当します
+   - [Examples](../examples/)の内容もこの部分に相当します
    - I2Cデバイスのドライバライブラリは、この部分に位置します(micro:bit内にはありません)
 - WebGPIO WebI2C Polyfill
    - WebGPIO WebI2C API、およびmicro:bit内蔵デバイスを操作するためのAPIのポリフィル実装
