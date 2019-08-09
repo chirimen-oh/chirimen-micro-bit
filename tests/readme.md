@@ -7,4 +7,4 @@
 
 ## Test circuit for test code
 
-![test circuit](../imgs/test1.png)
+![test circuit](../imgs/test0.png)
