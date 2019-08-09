@@ -22,7 +22,7 @@
 
 ## IDL
 
-```
+```webidl
 partial interface Window {
     MicroBitBleFactory microBitBleFactory;
 };

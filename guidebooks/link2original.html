@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<script>
+var redirectURL;
+onload=function(){
+	redirectURL=location.hash;
+	redirectURL=redirectURL.substring(1);
+	var msgP = document.createElement("p");
+	
+	msgP.innerText=redirectURL;
+	document.getElementsByTagName("body")[0].appendChild(msgP);
+	setTimeout(goHref,500);
+}
+
+function goHref(){
+	top.location.href=redirectURL;
+}
+
+</script>
+<body>
+<p>Redirecting to original page:</p>
+</body>
+</html>

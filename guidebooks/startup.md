@@ -43,20 +43,21 @@ micro:bitのエッジコネクタをブレークアウトボードに差し込�
 Examplesや以降の解説の実体配線図では、ブレークアウトボードは省略されています。GPIO番号やSCL,SDA,GND,3V(3.3V,VDD)などの端子の名称をもとにつないでください。
 
 ## mircro:bitにCHIRIMENサポート用プログラムを書き込む
-CHIRIMEN with micro:bitでは、PCのブラウザ上で動かすウェブアプリケーションを開発します。mircro:bit側のプログラム開発は基本的に必要ありません。ただし、Bluetooth経由でGPIOやI2C端子などを使用できるようにする[専用のサポートプログラム](https://makecode.microbit.org/_DEy9fTMpreEu)をmicro:bitに書き込んでおく必要があります。
+CHIRIMEN with micro:bitでは、PCのブラウザ上で動かすウェブアプリケーションを開発します。mircro:bit側のプログラム開発は基本的に必要ありません。ただし、Bluetooth経由でGPIOやI2C端子などを使用できるようにする<a href="link2original.html#https://makecode.microbit.org/_DEy9fTMpreEu" target="_blank">専用のサポートプログラム</a>をmicro:bitに書き込んでおく必要があります。
 
-- [こちらのページ](https://makecode.microbit.org/_DEy9fTMpreEu)にアクセスして、micro:bitにサポートプログラムを書き込みます。
-   - 書き込み方は通常のmicro:bit用プログラムと全く同じです。
-   - PCにプログラムをダウンロード
+- <a href="link2original.html#https://makecode.microbit.org/_DEy9fTMpreEu" target="_blank">こちらのページ</a>にアクセスして、micro:bitにサポートプログラムを書き込みます。<br>
+*書き込み方は通常のmicro:bit用プログラムと全く同じです。*
+   - [編集]ボタンを押す
+   - [ダウンロード]ボタンを押し、サポートプログラムをダウンロード
    - micro:bitをUSBでPCに接続 (USBドライブとしてPC上にマウント)
    - ダウンロードしたプログラムをマウントしたmicro:bit USBドライブにコピー
    - 自動的に再起動しインストール完了。　♡がmicro:bitに表示されます
    - これで準備完了です！ USBケーブルを外して次に進みましょう。(micro:bitのプログラムは電源を落としても消えません)
 
-*なお、このCHIRIMEN用のサポートプログラムは、micro:bit上で動かす他のプログラムと同じ動作環境で構築してありますので、CHIRIMEN with micro:bitを使わないときは、特別な手順は必要なく自由に他のプログラムと置き換えることができます。*
+*なお、このCHIRIMEN用のサポートプログラムは、micro:bit上で動かす他のプログラムと同じ動作環境(makecode)で構築してありますので、CHIRIMEN with micro:bitを使わないときは、特別な手順は必要なく自由に他のプログラムと置き換えることができます。*
 
 ## LEDを点滅させてみる
-- 以下の実態配線図のように配線しましょう。*(ブレークアウトボードは省略しています)*
+- 以下の実体配線図のように配線しましょう。*(ブレークアウトボードは省略しています)*
 ![LED blink](../imgs/CMMB_GPIO_example1.png)
 - micro:bitにUSBケーブルをつなぎ、電源を供給します。(PCのUSBポートからも電源供給可能) ♡がmicro:bitに表示されます
 - <a href="../examples/GPIO1.html" target="_blank">こちらのページ</a>にアクセス
@@ -66,7 +67,7 @@ CHIRIMEN with micro:bitでは、PCのブラウザ上で動かすウェブアプ�
 
 ### プログラムの解説
 - [ソースコードはこちら](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/GPIO1.html)
-- ```<script type="text/javascript" src="../polyfill/microBitBLE.js"></script>``` でCHIRIMEN with micro:bit用のWebGPIO, WebI2C APIの[ポリフィル](https://developer.mozilla.org/ja/docs/Glossary/Polyfill)ライブラリをロードしています。
+- ```<script type="text/javascript" src="https://chirimen.org/chirimen-micro-bit/polyfill/microBitBLE.js"></script>``` でCHIRIMEN with micro:bit用のWebGPIO, WebI2C APIの[ポリフィル](https://developer.mozilla.org/ja/docs/Glossary/Polyfill)ライブラリをロードしています。
 - ```microBitBle = await microBitBleFactory.connect();``` でmicro:bitにBluetooth接続します。
 - 以下でmicro:bitのGPIO-0番端子を出力に設定して初期化します。この端子は```gpioPort0```という変数でアクセスできるようになります。
 ```javascript
