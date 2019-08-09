@@ -17,3 +17,8 @@
    - Bluetoothを用いて、ウェブブラウザと通信を行う
    - ソースコード: [このディレクトリの内容](https://github.com/chirimen-oh/chirimen-micro-bit/tree/master/micro-bit)
    - インストール:  <a href="link2original.html#https://makecode.microbit.org/_chw6fvg6KW2m" target="_blank">https://makecode.microbit.org/_chw6fvg6KW2m</a>
+
+
+### Tests
+
+[フレームワークのテストページ](../tests/)
