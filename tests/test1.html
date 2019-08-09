@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>GPIO-1 Analog-out sample</title>
+</head>
+
+<script type="text/javascript" src="../polyfill/microBitBLE.js"></script>
+
+<script>
+var microBitBle;
+
+var gpioPort0;
+var gpioPort1;
+var i2cSlaveDevice;
+var connected;
+
+async function connect(){
+	microBitBle = await microBitBleFactory.connect();
+	msg.innerHTML=("micro:bit BLE接続しました。");
+	connected = true;
+	
+	// I2C ADT7410
+	var i2cAccess = await microBitBle.requestI2CAccess();
+	var i2cPort = i2cAccess.ports.get(1);
+	i2cSlaveDevice = await i2cPort.open(0x48);
+	readData();
+	
+	// GPIO
+	var gpioAccess = await microBitBle.requestGPIOAccess();
+	var mbGpioPorts = gpioAccess.ports;
+	gpioPort0 = mbGpioPorts.get(0);
+	await gpioPort0.export("out"); //port0 out
+	gpioPort1 = mbGpioPorts.get(1);
+	await gpioPort1.export("analogout"); //port1 aout
+	wave();
+}
+async function readData(){
+	var readVal;
+	while ( connected ){
+		var MSB = await i2cSlaveDevice.read8(0x00); // これ以下の３行が肝です
+		var LSB = await i2cSlaveDevice.read8(0x01);
+		var temperature = ((MSB << 8) | (LSB & 0xff)) / 128.0;
+		console.log('temperature:', temperature);
+		i2cdata1.innerHTML=  temperature + "℃  " + new Date();
+		await sleep(300);
+	}
+}
+
+async function disconnect(){
+	connected = false;
+	await gpioPort1.write(0);
+	await microBitBle.disconnect();
+	msg.innerHTML=("micro:bit BLE接続を切断しました。");
+}
+
+
+
+async function wave(){
+	var g1Val=0;
+	var dif = 200;
+	while( connected ){
+		g1Val += dif;
+		if ( g1Val > 1023 ){
+			g1Val = 1023;
+			dif = -200;
+		} else if ( g1Val < 0 ){
+			g1Val = 0;
+			dif = +200;
+		}
+		await gpioPort1.write(g1Val);
+		gdata1.innerHTML=g1Val;
+		await sleep(50);
+	}
+	await gpioPort1.write(0);
+}
+
+
+var led0 = false;
+async function toggle(){
+	if (led0==false){
+		led0=true;
+	} else {
+		led0=false;
+	}
+	await gpioPort0.write(led0);
+	gdata0.innerHTML=led0;
+}
+
+</script>    
+
+<body>
+<form name="js">
+<input type="button" value="Connect" onclick="connect();"/> 
+<input type="button" value="Disconnect" onclick="disconnect();" /> 
+</form>
+<hr>
+
+<input type="button" value="LED0 TOGGLE" onclick="toggle();"/> 
+
+<table>
+	<tr><td>msg1:</td><td id="msg">-</td></tr>
+	<tr><td>温度:</td><td id="i2cdata1">-</td></tr>
+	<tr><td>GPIO_0:</td><td id="gdata0">NULL</td></tr>
+	<tr><td>GPIO_1:</td><td id="gdata1">NULL</td></tr>
+</table>
+
+<img src="../imgs/test1.png" width="400"/>
+
+</body>
+</html>

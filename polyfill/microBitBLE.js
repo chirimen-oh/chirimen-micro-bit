@@ -35,6 +35,7 @@
 	2019.07.12: 外的要因によるonDisconnectedでnotificationsが出なくなる問題があるようなので、そのエラー処理をしました
 	2019.07.16: readBytes(<9bytes)をサポート ( for S11059.... )
 	2019.07.19: readBytes(<33bytes)をサポート
+	2019.08.09: キューを実装 Now sending command....エラーを出さなくした
 	=======================================================================================================
 	Firm Ware on micro:bit:
 	 (以下の中の最新リビジョンのファームとのペアで本ドライバは動作するようになっています)
@@ -180,8 +181,9 @@
 			}
 			**/
 			var uartCallBackObj={
+				cmdQueue:[], //   ここには、処理待ちの、cbFunc:func、blmsg:stringを入れる 2019/8/9
 				uartCallBack:null,
-				sending:false,
+				sending:false, 
 				mbCmdReturnValue:[],
 				conn:false
 			}
@@ -199,6 +201,10 @@
 						uartCallBackObj.sending = false;
 						uartCallBackObj.uartCallBack(uartCallBackObj.mbCmdReturnValue);
 						uartCallBackObj.mbCmdReturnValue = [];
+						if( uartCallBackObj.cmdQueue.length >0){
+							// キューにたまっている場合、次のコマンドを処理
+							mbBleUart.processNextQueue();
+						}
 					} else {
 				//		uartCallBackObj.mbCmdReturnValue.push(str);
 					}
@@ -429,22 +435,39 @@
 		
 		function getMbUartService(mbBleDevice,uartCallBackObj,mbBleUartRx){
 			async function sendCmd2MicroBit(sendValue){
-				if ( uartCallBackObj.sending ){
-					throw Error("Now sending command....");
-				}
-				uartCallBackObj.sending = true;
-				return new Promise( function (resolve){
-					sendCmd2MicroBitS2(sendValue, resolve);
+//				if ( uartCallBackObj.sending ){
+//					throw Error("Now sending command....");
+//				}
+//				uartCallBackObj.sending = true;
+				return new Promise( async function (resolve){
+					await sendCmd2MicroBitS2(sendValue, resolve);
 				});
 			}
 
 			async function sendCmd2MicroBitS2(sendValue, cbFunc){
+				console.log("sendVal:",sendValue);
+				var blmsg = string_to_buffer(sendValue+"\n");
+				uartCallBackObj.cmdQueue.push(
+					{
+						blmsg:blmsg,
+						cbFunc: cbFunc
+					}
+				);
+//				console.log(uartCallBackObj.cmdQueue.length);
+				if ( uartCallBackObj.cmdQueue.length == 1 && !(uartCallBackObj.sending)){
+					await processNextQueue();
+				} else {
+					console.log("ADD QUEUE:",sendValue);
+				}
+			}
+			
+			async function processNextQueue(){
 				if ( uartCallBackObj.conn ){
-					console.log("sendVal:",sendValue);
-					var blmsg = string_to_buffer(sendValue+"\n");
+					nextCmd = uartCallBackObj.cmdQueue.shift();
 					uartCallBackObj.mbCmdReturnValue =[];
-					uartCallBackObj.uartCallBack = cbFunc;
-					await mbBleUartRx.writeValue(blmsg);
+					uartCallBackObj.uartCallBack = nextCmd.cbFunc;
+					uartCallBackObj.sending = true;
+					await mbBleUartRx.writeValue(nextCmd.blmsg);
 					// この後、microBitから返事が返ると、onCharacteristicValueChanged()がn回連続で呼び出され、最後に"END"の値が返ったものが来る
 				} else {
 					console.log("uartCallBackObj:",uartCallBackObj);
@@ -453,7 +476,8 @@
 			}
 			
 			return {
-				sendCmd2MicroBit: sendCmd2MicroBit
+				sendCmd2MicroBit: sendCmd2MicroBit,
+				processNextQueue: processNextQueue
 			}
 		}
 		
