@@ -4,10 +4,11 @@
 CHIRIMEN with micro:bitをはじめてつかうときの流れを解説します。
 
 ## 準備するもの
-- Bluetooth (4.0以上) が載ったコンピュータ ＋ Web Bluetooth APIをサポートしたブラウザ（以下のいずれか）
-   - ( Windows10 PC ｜ MacOS PC ｜ Linux PC ) ＋ ( [Chrome](https://www.google.com/intl/ja/chrome/) ｜ [Chromium](https://www.chromium.org/getting-involved/download-chromium) ｜ [blinkエンジン版次期Edge(Devリリース)](https://www.microsoftedgeinsider.com) )
-   - Raspberry Pi3 + Chromium ([Chirimen for Raspberry Pi3](https://tutorial.chirimen.org/raspi3/ja/sdcard)は、CHIRIMEN with micro:bit用としても使える環境設定済みのOSイメージになっています。raspbianで自分で設定して使うこともできます)
-   - *Note: Bluetoothが載っていないPCでもBluetooth USBドングルで使えるものがあります。(Windows10マシン+エレコムLBT-UAN05C2など)*
+- Bluetooth (4.0 以上) 対応コンピュータ ＋ Web Bluetooth API をサポートするブラウザ (Blink エンジン採用ブラウザ)
+   - Windows10 PC, macOS PC Linux PC の場合: [Chrome](https://www.google.com/intl/ja/chrome/), [Chromium](https://www.chromium.org/getting-involved/download-chromium), [Egde (Dev リリース)](https://www.microsoftedgeinsider.com), [Brave](https://brave.com/ja/) などのブラウザ
+   - Android スマートフォンの場合： [Chrome](https://play.google.com/store/apps/details?id=com.android.chrome), [VideoMark Browser](https://play.google.com/store/apps/details?id=org.webdino.videomarkbrowser) などのブラウザ
+   - Raspberry Pi3 の場合: Raspbian や ([Chirimen for Raspberry Pi3](https://tutorial.chirimen.org/raspi3/ja/sdcard) で Chromium ブラウザ
+   - *Note: Bluetooth が載っていない PC でも Bluetooth USB ドングルで使えるものがあります。(Windows10 PC+エレコムLBT-UAN05C2など)*
 - micro:bit (amazonや秋月電子通商などで購入可能です。2000円程)
 - microUSBケーブル(PCとmicro:bitを繋いでサポートプログラムを書き込んだり、micro:bitの電源用に必要)
 - micro:bit用ブレークアウトボード （micro:bitのエッジコネクタをピンヘッダに変換するパーツ。 下記に例を紹介します　数百円～）
@@ -55,6 +56,10 @@ CHIRIMEN with micro:bitでは、PCのブラウザ上で動かすウェブアプ�
    - これで準備完了です！ USBケーブルを外して次に進みましょう。(micro:bitのプログラムは電源を落としても消えません)
 
 *なお、このCHIRIMEN用のサポートプログラムは、micro:bit上で動かす他のプログラムと同じ動作環境(makecode)で構築してありますので、CHIRIMEN with micro:bitを使わないときは、特別な手順は必要なく自由に他のプログラムと置き換えることができます。*
+
+### ブラウザの設定を確認
+
+コンピュータと micro:bit との無線通信に利用する Web Bluetooth API はまだ実験的な実装という扱いであり、ブラウザや環境によっては有効化されていません。Chrome などのブラウザで `chrome://flags` ページを開き `Experimental Web Platform features` が有効になっていることを確認、無効の場合は有効化してからブラウザを再起動 (環境によっては設定変更後に一度 Bluetooth のオンオフも) してください。開発者ツールのコンソールで `navigator.bluetooth` オブジェクトが見えるようになっていれば有効化されています。
 
 ## LEDを点滅させてみる
 - 以下の実体配線図のように配線しましょう。*(ブレークアウトボードは省略しています)*
