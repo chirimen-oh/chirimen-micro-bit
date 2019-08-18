@@ -11,12 +11,10 @@ CHIRIMEN with micro:bitをはじめてつかうときの流れを解説します
    - *Note: Bluetooth が載っていない PC でも Bluetooth USB ドングルで使えるものがあります。(Windows10 PC+エレコムLBT-UAN05C2など)*
 - micro:bit (amazonや秋月電子通商などで購入可能です。2000円程)
 - microUSBケーブル(PCとmicro:bitを繋いでサポートプログラムを書き込んだり、micro:bitの電源用に必要)
-- micro:bit用ブレークアウトボード （micro:bitのエッジコネクタをピンヘッダに変換するパーツ。 下記に例を紹介します　数百円～）
-   - [http://akizukidenshi.com/catalog/g/gP-12836/](http://akizukidenshi.com/catalog/g/gP-12836/)
-   - [https://www.switch-science.com/catalog/3181/](https://www.switch-science.com/catalog/3181/)
-   - [https://www.amazon.co.jp/dp/B0787DHG2M](https://www.amazon.co.jp/dp/B0787DHG2M)
-   - [https://www.amazon.co.jp/dp/B07QGZ3DKK](https://www.amazon.co.jp/dp/B07QGZ3DKK)
-   - [https://www.amazon.co.jp/dp/B07GTQ21ST](https://www.amazon.co.jp/dp/B07GTQ21ST)
+- micro:bit用ブレークアウトボード （micro:bitのエッジコネクタをピンヘッダに変換するパーツ。数百円～）
+   - [IoBit (Amazon)](https://www.amazon.co.jp/gp/product/B07TXBXJ4X/), [IoBit (Amazon)](https://www.amazon.co.jp/dp/B07QGZ3DKK)
+   - [kitronik (秋月電子)](http://akizukidenshi.com/catalog/g/gP-12836/), [kitronik (Switch Science)](https://www.switch-science.com/catalog/3181/)
+   - [keystudio (Amazon)](https://www.amazon.co.jp/dp/B0787DHG2M), [keystudio (Amazon)](https://www.amazon.co.jp/dp/B07GTQ21ST)
 - Examplesに応じたパーツやジャンパー線
    - CHIRIMENスターターキットを使うと、GPIOおよび、I2C(温度センサ)のExamplesが試せます
    - Lチカに必要なパーツは以下を参照してください
