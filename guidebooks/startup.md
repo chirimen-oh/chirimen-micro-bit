@@ -1,38 +1,43 @@
 # スタートアップガイド
  
 ## 概要
+
 CHIRIMEN with micro:bitをはじめてつかうときの流れを解説します。
 
 ## 準備するもの
-- Bluetooth (4.0 以上) 対応コンピュータ ＋ Web Bluetooth API をサポートするブラウザ (Blink エンジン採用ブラウザ)
-   - Windows10 PC, macOS PC Linux PC の場合: [Chrome](https://www.google.com/intl/ja/chrome/), [Chromium](https://www.chromium.org/getting-involved/download-chromium), [Egde (Dev リリース)](https://www.microsoftedgeinsider.com), [Brave](https://brave.com/ja/) などのブラウザ
-   - Android スマートフォンの場合： [Chrome](https://play.google.com/store/apps/details?id=com.android.chrome), [VideoMark Browser](https://play.google.com/store/apps/details?id=org.webdino.videomarkbrowser) などのブラウザ
-   - Raspberry Pi3 の場合: Raspbian や ([Chirimen for Raspberry Pi3](https://tutorial.chirimen.org/raspi3/ja/sdcard) で Chromium ブラウザ
+
+- Bluetooth (4.0 以上) 対応コンピュータ ＋ Web Bluetooth API をサポートする (Blink エンジン採用) ブラウザ
+   - Windows10/macOS/Linux PC: [Chrome](https://www.google.com/intl/ja/chrome/), [Chromium](https://www.chromium.org/getting-involved/download-chromium), [Egde (Dev リリース)](https://www.microsoftedgeinsider.com), [Brave](https://brave.com/ja/) などのブラウザ
+   - Android スマートフォン/タブレット： [Chrome](https://play.google.com/store/apps/details?id=com.android.chrome), [VideoMark Browser](https://play.google.com/store/apps/details?id=org.webdino.videomarkbrowser) などのブラウザ
+   - Raspberry Pi などのシングルボードコンピュータ: Raspbian や ([Chirimen for Raspberry Pi3](https://tutorial.chirimen.org/raspi3/ja/sdcard) で Chromium ブラウザ
    - *Note: Bluetooth が載っていない PC でも Bluetooth USB ドングルで使えるものがあります。(Windows10 PC+エレコムLBT-UAN05C2など)*
-- micro:bit (amazonや秋月電子通商などで購入可能です。2000円程)
-- microUSBケーブル(PCとmicro:bitを繋いでサポートプログラムを書き込んだり、micro:bitの電源用に必要)
-- micro:bit用ブレークアウトボード （micro:bitのエッジコネクタをピンヘッダに変換するパーツ。数百円～）
+- micro:bit ([秋月電子通商](http://akizukidenshi.com/catalog/g/gM-12513/), [Switch Science](https://www.switch-science.com/catalog/5263/), [Amazon](https://www.amazon.co.jp/dp/B07L2KXWGH/) などで購入可能です。2000円程)
+- microUSB ケーブル (PC と micro:bit を繋いでサポートプログラムを書き込んだり、micro:bitの電源用に必要)
+- micro:bit 用ブレークアウトボード （micro:bitのエッジコネクタをピンヘッダに変換するパーツ。いろいろ種類があります。数百円～）
    - [IoBit (Amazon)](https://www.amazon.co.jp/gp/product/B07TXBXJ4X/), [IoBit (Amazon)](https://www.amazon.co.jp/dp/B07QGZ3DKK)
    - [kitronik (秋月電子)](http://akizukidenshi.com/catalog/g/gP-12836/), [kitronik (Switch Science)](https://www.switch-science.com/catalog/3181/)
    - [keystudio (Amazon)](https://www.amazon.co.jp/dp/B0787DHG2M), [keystudio (Amazon)](https://www.amazon.co.jp/dp/B07GTQ21ST)
-- Examplesに応じたパーツやジャンパー線
-   - CHIRIMENスターターキットを使うと、GPIOおよび、I2C(温度センサ)のExamplesが試せます
-   - Lチカに必要なパーツは以下を参照してください
+- 試したい例に応じたジャンパー線、パーツなど
+   - CHIRIMEN スターターキットを使うと、GPIO 入出力と、I2C 温度センサ (ADT7410)の例が試せます
 
 ### L チカに必要となるパーツ
+
 - ブレッドボード × 1
 - リード付き LED × 1
-- リード付き抵抗器 (150Ω-1KΩ) × 1 (赤色LEDは大きい抵抗値でも点灯するでしょう)
+- リード付き抵抗器 (150Ω-1KΩ) x 1 (赤色LEDは大きい抵抗値でも点灯します)
 - ジャンパーワイヤー (オス-メス) x 2
 
 ## micro:bitのピンのことを知る
+
 micro:bitにはGPIO等の端子が備わっていますが、ブレッドボードを接続するのに便利なピンヘッダではなく、少し独特な[エッジコネクタ](https://ja.wikipedia.org/wiki/%E3%82%A8%E3%83%83%E3%82%B8%E3%83%BB%E3%82%B3%E3%83%8D%E3%82%AF%E3%82%BF)になっています。GPIO0～2と、GND及び3Vは大きな端子になっていて、ワニ口クリップなどで簡単にLEDなどをつなぐことができますが、CHIRIMEN with micro:bitではこれ(GPIO端子)に加えて、I2C端子(SCL,SDA)を使った例が多いです。これらはとても細い端子(下図の19番(SCL)と20番の端子(SDA))なので、先述のブレークアウトボードが便利です。
 
 ### micro:bitのピン配置
+
 ![micro:bit](https://pxt.azureedge.net/blob/64c6ccff8e3ee82c4224874e5cacc9d0d5c60132/static/mb/device/pins-0.png) 
 オリジナルページ：[https://makecode.microbit.org/device/pins](https://makecode.microbit.org/device/pins)
 
 ### ブレークアウトボードの使い方
+
 ブレークアウトボードにはmicro:bitのすべての端子にアクセスできるピンヘッダが付けられています。脇には端子の名称も印刷されています。
 ![ブレークアウトボードの例](../imgs/MBBO.JPG)
 
@@ -41,8 +46,9 @@ micro:bitのエッジコネクタをブレークアウトボードに差し込�
 
 Examplesや以降の解説の実体配線図では、ブレークアウトボードは省略されています。GPIO番号やSCL,SDA,GND,3V(3.3V,VDD)などの端子の名称をもとにつないでください。
 
-## mircro:bitにCHIRIMENサポート用プログラムを書き込む
-CHIRIMEN with micro:bitでは、PCのブラウザ上で動かすウェブアプリケーションを開発します。mircro:bit側のプログラム開発は基本的に必要ありません。ただし、Bluetooth経由でGPIOやI2C端子などを使用できるようにする<a href="link2original.html#https://makecode.microbit.org/_DEy9fTMpreEu" target="_blank">専用のサポートプログラム</a>をmicro:bitに書き込んでおく必要があります。
+## mircro:bit に CHIRIMEN サポートプログラムを書き込む
+
+CHIRIMEN with micro:bit では WebGPIO/WebI2C API を後述の Polyfill ライブラリと合わせて利用することでアプリケーションを開発します。各 API を呼び出すとライブラリ内では Web Bluetooth API を用いて micro:bit と通信しますが、micro:bit 側には PC からの制御命令を受け取るため専用の <a href="link2original.html#https://makecode.microbit.org/_DEy9fTMpreEu" target="_blank">CHIRIMEN サポートプログラム</a> を書き込んでおく必要があります。
 
 - <a href="link2original.html#https://makecode.microbit.org/_DEy9fTMpreEu" target="_blank">こちらのページ</a>にアクセスして、micro:bitにサポートプログラムを書き込みます。<br>
 *書き込み方は通常のmicro:bit用プログラムと全く同じです。*
