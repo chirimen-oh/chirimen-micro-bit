@@ -36,6 +36,7 @@
 	2019.07.16: readBytes(<9bytes)をサポート ( for S11059.... )
 	2019.07.19: readBytes(<33bytes)をサポート
 	2019.08.09: キューを実装 Now sending command....エラーを出さなくした
+	2019.08.20: 例外処理を少し強化(processNextQueue()周り)
 	=======================================================================================================
 	Firm Ware on micro:bit:
 	 (以下の中の最新リビジョンのファームとのペアで本ドライバは動作するようになっています)
@@ -112,7 +113,10 @@
 	var location = window.location;
 	
 	var prevConnectedDevices = [];
-
+	
+	var debugLog = false;
+	var consoleRed = '\u001b[31m';
+	var consoleReset = '\u001b[0m';
 
 	var microBitBleFactory = ( function(){ 
 		var pollingInterval = 250;
@@ -195,7 +199,7 @@
 						str_arr[i]=this.value.getUint8(i);
 					}
 					var str= String.fromCharCode.apply(null,str_arr);
-					console.log("btStr:",str);
+					if(debugLog){console.log("btStr:",str);}
 					uartCallBackObj.mbCmdReturnValue.push(str);
 					if ( str.startsWith("END")){
 						uartCallBackObj.sending = false;
@@ -445,7 +449,7 @@
 			}
 
 			async function sendCmd2MicroBitS2(sendValue, cbFunc){
-				console.log("sendVal:",sendValue);
+				if(debugLog){console.log("sendVal:",sendValue);}
 				var blmsg = string_to_buffer(sendValue+"\n");
 				uartCallBackObj.cmdQueue.push(
 					{
@@ -457,7 +461,7 @@
 				if ( uartCallBackObj.cmdQueue.length == 1 && !(uartCallBackObj.sending)){
 					await processNextQueue();
 				} else {
-					console.log("ADD QUEUE:",sendValue);
+					if(debugLog){console.log("ADD QUEUE:",sendValue, " queueL:", uartCallBackObj.cmdQueue.length,"  sending:",uartCallBackObj.sending);}
 				}
 			}
 			
@@ -467,8 +471,19 @@
 					uartCallBackObj.mbCmdReturnValue =[];
 					uartCallBackObj.uartCallBack = nextCmd.cbFunc;
 					uartCallBackObj.sending = true;
-					await mbBleUartRx.writeValue(nextCmd.blmsg);
+					try{
+						await mbBleUartRx.writeValue(nextCmd.blmsg);
 					// この後、microBitから返事が返ると、onCharacteristicValueChanged()がn回連続で呼び出され、最後に"END"の値が返ったものが来る
+					} catch ( err ){
+						// まだ原因がよくわからないがエラーが起きる時があるので、その時はそのコマンド処理をスキップしnullを返す・・・(console.log出し過ぎが問題だった？？？出さなくしたらそもそもエラーが出なくなった感がある・・・) 2019/8/20
+						console.log(consoleRed+"[[[ERROR]]] on calling mbBleUartRx.writeValue : "+consoleReset,err);
+						uartCallBackObj.sending = false;
+						uartCallBackObj.uartCallBack(null);
+						uartCallBackObj.mbCmdReturnValue = [];
+						if( uartCallBackObj.cmdQueue.length >0){
+							processNextQueue();
+						}
+					}
 				} else {
 					console.log("uartCallBackObj:",uartCallBackObj);
 					throw Error("Bluetooth is not connected..");
@@ -581,6 +596,7 @@
 					var cmd = "P" + zeroPadding(pNumber,2)+zeroPadding(pm,2);
 //					console.log("GPIO cmd:",cmd);
 					var returnData = await mbBleUart.sendCmd2MicroBit( cmd );
+					if (returnData==null){ throw new Error('mbBLE com error...'); } 
 					console.log("GPIO set pullMode[n,d,u]:",pNumber,returnData);
 				}
 			}
@@ -609,6 +625,7 @@
 					}
 					cmd += zeroPadding(pNumber,2);
 					var returnData = await mbBleUart.sendCmd2MicroBit( cmd );
+					if (returnData==null){ throw new Error('mbBLE com error...'); } 
 					console.log("GPIO read:",pNumber,returnData);
 					var ans = Number(returnData[0].split(",")[1]);
 					return ( ans );
@@ -638,7 +655,8 @@
 					}
 					cmd += zeroPadding(pNumber,2)+zeroPadding(value,4);
 					var returnData = await mbBleUart.sendCmd2MicroBit( cmd );
-					console.log("GPIO write:",pNumber,returnData);
+					if (returnData==null){ throw new Error('mbBLE com error...'); } 
+					if(debugLog){console.log("GPIO write:",pNumber,returnData);}
 					return ( true );
 				} else {
 					throw Error("Can't write. This port's mode is " + direction);
@@ -667,7 +685,7 @@
 						cVal = pVal;
 					}
 					if (pVal != cVal ){
-						console.log("Value Changed:",cVal);
+						if(debugLog){console.log("Value Changed:",cVal);}
 						onChangeFunc(cVal);
 					}
 					pVal = cVal;
@@ -740,11 +758,12 @@
 			async function read8(register){
 				var cmd = "R" + toHex2(slaveAddress)+ toHex2(2) + toHex2(register)+ toHex2(1);
 				var returnData = await mbBleUart.sendCmd2MicroBit( cmd );
-				console.log("i2c read8: ",returnData);
+				if (returnData==null){ throw new Error('mbBLE com error...'); } 
+				if(debugLog){console.log("i2c read8: ",returnData);}
 				if ( returnData[0].startsWith("END:R")){
 					var ans = parseInt(returnData[0].substring(5),16);
 //					var ans = Number((returnData[0].substring(2)).split(",")[2]);
-					console.log("read8:",ans.toString(16));
+					if(debugLog){console.log("read8:",ans.toString(16));}
 					return ( ans );
 				} else {
 					throw Error("Read failed..");
@@ -753,17 +772,19 @@
 			async function write8(register,val){
 				var cmd = "W" + toHex2(slaveAddress) + toHex2(2) + toHex2(register) + toHex2(val);
 				var returnData = await mbBleUart.sendCmd2MicroBit( cmd );
-				console.log("i2c write8:",returnData);
+				if (returnData==null){ throw new Error('mbBLE com error...'); } 
+				if(debugLog){console.log("i2c write8:",returnData);}
 			}
 			async function read16(register){
 				var cmd = "R" + toHex2(slaveAddress)+ toHex2(2) + toHex2(register)+ toHex2(2);
 				var returnData = await mbBleUart.sendCmd2MicroBit( cmd );
-				console.log("i2c read16:",returnData);
+				if (returnData==null){ throw new Error('mbBLE com error...'); } 
+				if(debugLog){console.log("i2c read16:",returnData);}
 				if ( returnData[0].startsWith("END:R")){
 //					var ans = parseInt(returnData[0].substring(5),16);
 					var ans = parseInt(returnData[0].substr(7,2)+returnData[0].substr(5,2),16);
 //					var ans = Number((returnData[0].substring(2)).split(",")[2]);
-					console.log("read16:",ans.toString(16));
+					if(debugLog){console.log("read16:",ans.toString(16));}
 					return ( ans );
 				} else {
 					throw Error("Read failed..");
@@ -772,6 +793,7 @@
 			async function write16(register,val){
 				var cmd = "w" + slaveAddress + "," + register + "," + val;
 				var returnData = await mbBleUart.sendCmd2MicroBit( cmd );
+				if (returnData==null){ throw new Error('mbBLE com error...'); } 
 			}
 			
 			async function readBytes(bLength){
@@ -780,7 +802,8 @@
 				}
 				var cmd = "r" + toHex2(slaveAddress)+ toHex2(2) + toHex2(0)+ toHex2(bLength);
 				var returnData = await mbBleUart.sendCmd2MicroBit( cmd );
-				console.log("i2c readBytes:",returnData);
+				if (returnData==null){ throw new Error('mbBLE com error...'); } 
+				if(debugLog){console.log("i2c readBytes:",returnData);}
 				if ( returnData[returnData.length-1].startsWith("ENDr")){
 					var ans = [];
 					for ( var i =0 ;i < returnData.length ; i++){
@@ -801,7 +824,7 @@
 //					var ans = parseInt(returnData[0].substring(5),16);
 //					var ans = parseInt(returnData[0].substr(7,2)+returnData[0].substr(5,2),16);
 //					var ans = Number((returnData[0].substring(2)).split(",")[2]);
-					console.log("(bytes):",ans);
+					if(debugLog){console.log("(bytes):",ans);}
 					return ( ans );
 				} else {
 					throw Error("Read failed..");
@@ -814,8 +837,9 @@
 				cmd = cmd + toHex2(byte);
 				if ( cmd.length > 1 ){
 					ret = await mbBleUart.sendCmd2MicroBit( cmd );
+					if (ret==null){ throw new Error('mbBLE com error...'); } 
 				}
-				console.log("writeByte:",ret, byte);
+				if(debugLog){console.log("writeByte:",ret, byte);}
 			}
 			
 			async function writeBytes(bytes){
@@ -825,17 +849,19 @@
 					cmd = cmd + toHex2(bytes[i]);
 					if ( cmd.length >18){
 						ret = await mbBleUart.sendCmd2MicroBit( cmd );
+						if (ret==null){ throw new Error('mbBLE com error...'); } 
 //						console.log("partRet:",ret);
 						cmd ="C";
 					}
 				}
 				if ( cmd.length > 1 ){
 					ret = await mbBleUart.sendCmd2MicroBit( cmd );
+					if (ret==null){ throw new Error('mbBLE com error...'); } 
 				}
-				console.log("writeBytes:",ret, bytes);
+				if(debugLog){console.log("writeBytes:",ret, bytes);}
 			}
 			
-			console.log("ret");
+//			console.log("ret");
 			return{
 				read8: read8,
 				write8: write8,
@@ -856,7 +882,8 @@
 		sensed = false; //light sensした後analoginを行うとポートが不具合起こしてるので・・
 		async function readSensorInt(mbBleUart){
 			var ret = await mbBleUart.sendCmd2MicroBit("S");
-			console.log("readSensor:",ret);
+			if (ret==null){ throw new Error('mbBLE com error...'); } 
+			if(debugLog){console.log("readSensor:",ret);}
 			var acc = getRetVal(ret[0]).split(",");
 			var mag = getRetVal(ret[1]).split(",");
 			var tbr = getRetVal(ret[2]).split(",");
@@ -881,9 +908,10 @@
 		}
 
 		async function printLedInt(mbBleUart, ptext){
-			console.log("printLED:",ptext);
+			if(debugLog){console.log("printLED:",ptext);}
 			var ret = await mbBleUart.sendCmd2MicroBit("L"+ptext);
-			console.log("printLED:",ret);
+			if (ret==null){ throw new Error('mbBLE com error...'); } 
+			if(debugLog){console.log("printLED:",ret);}
 			return ret;
 		}
 

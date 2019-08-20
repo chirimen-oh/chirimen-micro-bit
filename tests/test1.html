@@ -40,11 +40,15 @@ async function connect(){
 async function readData(){
 	var readVal;
 	while ( connected ){
-		var MSB = await i2cSlaveDevice.read8(0x00); // これ以下の３行が肝です
-		var LSB = await i2cSlaveDevice.read8(0x01);
-		var temperature = ((MSB << 8) | (LSB & 0xff)) / 128.0;
-		console.log('temperature:', temperature);
-		i2cdata1.innerHTML=  temperature + "℃  " + new Date();
+		try{
+			var MSB = await i2cSlaveDevice.read8(0x00); // これ以下の３行が肝です
+			var LSB = await i2cSlaveDevice.read8(0x01);
+			var temperature = ((MSB << 8) | (LSB & 0xff)) / 128.0;
+			console.log('temperature:', temperature);
+			i2cdata1.innerHTML=  temperature + "℃  " + new Date();
+		} catch ( err ){
+			console.log("catch ERR on I2CreadData:",err,"  skip");
+		}
 		await sleep(300);
 	}
 }
@@ -70,7 +74,11 @@ async function wave(){
 			g1Val = 0;
 			dif = +200;
 		}
-		await gpioPort1.write(g1Val);
+		try{
+			await gpioPort1.write(g1Val);
+		} catch ( err ){
+			console.log("catch ERR on wave:",err,"  skip");
+		}
 		gdata1.innerHTML=g1Val;
 		await sleep(50);
 	}
@@ -89,6 +97,19 @@ async function toggle(){
 	gdata0.innerHTML=led0;
 }
 
+async function toggle10(){
+	for ( var i= 0 ; i < 10 ; i++){
+		if (led0==false){
+			led0=true;
+		} else {
+			led0=false;
+		}
+		gpioPort0.write(led0); // awaitを付けずに超連打の試験を・・
+		gdata0.innerHTML=led0;
+	}
+}
+
+
 </script>    
 
 <body>
@@ -99,6 +120,7 @@ async function toggle(){
 <hr>
 
 <input type="button" value="LED0 TOGGLE" onclick="toggle();"/> 
+<input type="button" value="LED0 TOGGLE x 10 " onclick="toggle10();"/> 
 
 <table>
 	<tr><td>msg1:</td><td id="msg">-</td></tr>
