@@ -9,7 +9,7 @@
 - ボタン : `readSensor()`
    - ボタンA
    - ボタンB
-- マトリクスLED : `printLED()`
+- マトリクスLED : `printLED()` および `showIconLED()`
 
 [サンプル](../examples#内蔵デバイス)
 
