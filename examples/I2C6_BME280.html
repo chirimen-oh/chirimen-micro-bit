@@ -38,9 +38,13 @@ async function disconnect(){
 async function readData(){
 	var readVal;
 	while ( readEnable ){
-		readVal = await bme280.readData();
-		console.log('readVal:', readVal);
-		msg.innerHTML= readVal.temperature + "℃ " + readVal.pressure + "hPa " +  readVal.humidity + "%";
+		try{
+			readVal = await bme280.readData();
+			console.log('readVal:', readVal);
+			msg.innerHTML= readVal.temperature + "℃ " + readVal.pressure + "hPa " +  readVal.humidity + "%";
+		} catch(e){
+			console.log("Err:",e," SKIP");
+		}
 		await sleep(1000);
 	}
 }

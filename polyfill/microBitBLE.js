@@ -37,6 +37,8 @@
 	2019.07.19: readBytes(<33bytes)をサポート
 	2019.08.09: キューを実装 Now sending command....エラーを出さなくした
 	2019.08.20: 例外処理を少し強化(processNextQueue()周り)
+	2019.08.20: showIconLED()
+	2019.08.30: sendCmd2MicroBit()タイムアウト処理　を実装中 (テスト用ファーム(エラーをあえて出すので実用は×):https://makecode.microbit.org/_Uf7d6eL1WYDb)
 	=======================================================================================================
 	Firm Ware on micro:bit:
 	 (以下の中の最新リビジョンのファームとのペアで本ドライバは動作するようになっています)
@@ -54,6 +56,7 @@
 	2019.07.02: https://makecode.microbit.org/_gozVrxVwyUhf   micro:bitのinput.lightLevelとpins.analogReadPinはコンフリクトしてる。 led.setDisplayMode(DisplayMode.BlackAndWhite)とpins.digitalWritePin(DigitalPin.P2, 0)を双方呼ぶとなんとかリセットされるので"P"にそれを入れた  ( test: https://makecode.microbit.org/_YLeAM8JDAF5x )
 	2019.07.16: https://makecode.microbit.org/_DEy9fTMpreEu   readBytes(<9bytes)をサポート
 	2019.07.19: https://makecode.microbit.org/_chw6fvg6KW2m   readBytes(<33bytes)をサポート
+	2019.08.20: https://makecode.microbit.org/_0jhPcA3iX0gC   showIconLEDサポート
 	=======================================================================================================
 	
 	References:
@@ -186,9 +189,9 @@
 			**/
 			var uartCallBackObj={
 				cmdQueue:[], //   ここには、処理待ちの、cbFunc:func、blmsg:stringを入れる 2019/8/9
-				uartCallBack:null,
+				uartCallBack:null, 
 				sending:false, 
-				mbCmdReturnValue:[],
+				mbCmdReturnValue:[], 
 				conn:false
 			}
 			async function onCharacteristicValueChanged(e) {
@@ -202,6 +205,7 @@
 					if(debugLog){console.log("btStr:",str);}
 					uartCallBackObj.mbCmdReturnValue.push(str);
 					if ( str.startsWith("END")){
+						clearTimeout(uartCallBackObj.timoutTimer);
 						uartCallBackObj.sending = false;
 						uartCallBackObj.uartCallBack(uartCallBackObj.mbCmdReturnValue);
 						uartCallBackObj.mbCmdReturnValue = [];
@@ -250,6 +254,10 @@
 			
 			async function printLED(ptext){
 				return await printLedInt(mbBleUart, ptext);
+			}
+			
+			async function showIconLED(iconNumber){
+				return await showIconLedInt(mbBleUart, iconNumber);
 			}
 			
 			var requestI2CAccess = requestI2CAccessGenerator(mbBleUart);
@@ -324,6 +332,7 @@
 				requestGPIOAccess : requestGPIOAccess,
 				readSensor: readSensor,
 				printLED: printLED,
+				showIconLED: showIconLED
 			}
 		}
 		
@@ -450,11 +459,14 @@
 
 			async function sendCmd2MicroBitS2(sendValue, cbFunc){
 				if(debugLog){console.log("sendVal:",sendValue);}
+				var timeOutMsec = 500;
+				if ( sendValue.charAt(0)=="L"){ timeOutMsec=20000} // LEDにtextを出す場合はスクロール完了までの時間がかかるのでtimeOutを長くする・・・(TBD)
 				var blmsg = string_to_buffer(sendValue+"\n");
 				uartCallBackObj.cmdQueue.push(
 					{
 						blmsg:blmsg,
-						cbFunc: cbFunc
+						cbFunc: cbFunc,
+						timeOutMsec: timeOutMsec
 					}
 				);
 //				console.log(uartCallBackObj.cmdQueue.length);
@@ -471,6 +483,7 @@
 					uartCallBackObj.mbCmdReturnValue =[];
 					uartCallBackObj.uartCallBack = nextCmd.cbFunc;
 					uartCallBackObj.sending = true;
+					uartCallBackObj.timoutTimer=setTimeout(checkCmdCompleted,nextCmd.timeOutMsec);
 					try{
 						await mbBleUartRx.writeValue(nextCmd.blmsg);
 					// この後、microBitから返事が返ると、onCharacteristicValueChanged()がn回連続で呼び出され、最後に"END"の値が返ったものが来る
@@ -487,6 +500,17 @@
 				} else {
 					console.log("uartCallBackObj:",uartCallBackObj);
 					throw Error("Bluetooth is not connected..");
+				}
+			}
+			
+			function checkCmdCompleted(){
+				console.log("called checkCmdCompleted",uartCallBackObj.sending);
+				if ( uartCallBackObj.sending == true ){
+					console.log(consoleRed+"[[[ERROR]]] No micro:bit response."+consoleReset);
+					uartCallBackObj.sending = false;
+					uartCallBackObj.uartCallBack(null);
+					uartCallBackObj.mbCmdReturnValue = [];
+					uartCallBackObj.cmdQueue =[];
 				}
 			}
 			
@@ -908,10 +932,23 @@
 		}
 
 		async function printLedInt(mbBleUart, ptext){
+			// MAX strLen:19 (sendVal: L012345678901234567) リミッターを設けた(2019/8/30)
+			ptext=ptext.substring(0,18); 
 			if(debugLog){console.log("printLED:",ptext);}
 			var ret = await mbBleUart.sendCmd2MicroBit("L"+ptext);
 			if (ret==null){ throw new Error('mbBLE com error...'); } 
 			if(debugLog){console.log("printLED:",ret);}
+			return ret;
+		}
+		
+		async function showIconLedInt(mbBleUart, iconNumb){ // iconNum:0..39
+			if ( isNaN(iconNumb) || iconNumb <0 || iconNumb > 39 ){
+				iconNumb=0;
+			}
+			if(debugLog){console.log("printLEDicon:",iconNumb);}
+			var ret = await mbBleUart.sendCmd2MicroBit("l"+iconNumb);
+			if (ret==null){ throw new Error('mbBLE com error...'); } 
+			if(debugLog){console.log("printLEDicon:",ret);}
 			return ret;
 		}
 

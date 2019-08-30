@@ -4,12 +4,6 @@
  * 詳しくはこちらを参照してください：https://makecode.microbit.org/blocks/custom
  */
 
-enum MyEnum {
-    //% block="one"
-    One,
-    //% block="two"
-    Two
-}
 
 /**
  * カスタムブロック
@@ -17,14 +11,6 @@ enum MyEnum {
 //% weight=100 color=#0fbc11 icon=""
 namespace custom {
 
-    /**
-     * TODO: ここに関数を記述してください
-     * @param value ここで値の説明をしてください。, eg: 5
-     */
-    //% block
-    export function fib(value: number): number {
-        return value <= 1 ? value : fib(value - 1) + fib(value - 2);
-    }
 
     /**
      * 16進数文字列を数字に変換する
@@ -85,6 +71,8 @@ namespace custom {
             commandCode = 9
         } else if (command == "P") { // GPIO pull mode set
             commandCode = 10
+        } else if (command == "l") { // showIcon LED
+            commandCode = 11
         }
         if (commandCode == 1 || commandCode == 2 || commandCode == 0) { //I2C R/W
             i2cAddr = parseHex(str.substr(1, 2))
@@ -102,11 +90,9 @@ namespace custom {
             }
         } else if (commandCode == 4) { // LED
             commandVal = str.substr(1, str.length - 1)
-            dLength = commandVal.length
-            fillPos = dLength
+        } else if (commandCode == 11) { // icon LED
+            commandVal = str.substr(1, str.length - 1)
         } else if (commandCode == 5) { // Internal Sensors
-            dLength = 0
-            fillPos = 0
         } else if (commandCode == 6 || commandCode == 7) { // GPIO A/D In
             gpioPort = parseInt(str.substr(1, 2))
         } else if (commandCode == 8 || commandCode == 9) { // GPIO D Out

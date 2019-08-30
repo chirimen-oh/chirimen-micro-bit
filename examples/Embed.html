@@ -29,8 +29,12 @@ async function readSensor(){
 	isens.innerHTML="acceleration:"+sdat.acceleration.x+","+sdat.acceleration.y+","+sdat.acceleration.z+"  magneticField:"+sdat.magneticField.x+","+sdat.magneticField.y+","+sdat.magneticField.z+","+"  temperature:"+sdat.temperature+"  brightness:"+sdat.brightness+"  button:"+sdat.button;
 }
 
-async function printLED(){
+async function print(){
 	await microBitBle.printLED(txt.value);
+}
+
+async function showIcon(){
+	await microBitBle.showIconLED(Number(txt2.value));
 }
 
 </script>    
@@ -46,7 +50,8 @@ async function printLED(){
 	<tr><td colspan="2"><input type="button" value="Read Sensors" onclick="readSensor();" /></td></tr>
 	<tr><td>Internal Sensors</td><td id="isens">-</td></tr>
 	<tr><td colspan="2">LED</td></tr>
-	<tr><td ><input id="txt" type="text" value="Hello!" ></td><td><input type="button" value="Print" onclick="printLED();"/></td></tr>
+	<tr><td ><input id="txt" type="text" value="Hello!" ></td><td><input type="button" value="Print" onclick="print();"/></td></tr>
+	<tr><td ><input id="txt2" style="width:50px" type="text" value="0" >(0..39)</td><td><input type="button" value="showIcon" onclick="showIcon();"/></td></tr>
 </table>
 
 <img src="../imgs/CMMB_Embed.png" width="300"/>

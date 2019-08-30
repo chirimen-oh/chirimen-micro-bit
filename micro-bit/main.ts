@@ -23,14 +23,14 @@ bluetooth.onBluetoothConnected(function () {
         `)
 })
 let ledMsg = ""
-let bleRes = ""
 let bleMsg = ""
 let button = 0
+let bleRes = ""
+let rp = 0
 let commandCode = -1
 let originCommandCode = -1
 bluetooth.startUartService()
 basic.showIcon(IconNames.Heart)
-
 // basic.showNumber(custom.parseHex("FF"))
 // basic.showString(custom.toHex8(254))
 basic.forever(function () {
@@ -45,7 +45,13 @@ basic.forever(function () {
             bluetooth.uartWriteString("END:W" + bleRes)
         } else if (originCommandCode == 0) {
             bleRes = custom.processI2Cread(false)
-            bluetooth.uartWriteString("ENDr" + bleRes)
+            for (rp = 0; rp < bleRes.length; rp = rp + 16) {
+                if (rp + 16 >= bleRes.length) {
+                    bluetooth.uartWriteString("ENDr" + bleRes.substr(rp, 16))
+                } else {
+                    bluetooth.uartWriteString("r" + bleRes.substr(rp, 16))
+                }
+            }
         } else if (originCommandCode == 1) {
             bleRes = custom.processI2Cread(true)
             bluetooth.uartWriteString("END:R" + bleRes)
@@ -53,26 +59,30 @@ basic.forever(function () {
             ledMsg = custom.getCommandVal()
             basic.showString(ledMsg)
             bluetooth.uartWriteString("END:L" + ledMsg.length)
+        } else if (originCommandCode == 11) {
+            basic.showIcon(parseInt(custom.getCommandVal()), 10)
+            bluetooth.uartWriteString("END:l" + custom.getCommandVal())
         } else if (originCommandCode == 5) {
             bluetooth.uartWriteString("A:" + input.acceleration(Dimension.X) + "," + input.acceleration(Dimension.Y) + "," + input.acceleration(Dimension.Z))
             bluetooth.uartWriteString("M:" + input.magneticForce(Dimension.X) + "," + input.magneticForce(Dimension.Y) + "," + input.magneticForce(Dimension.Z))
             bluetooth.uartWriteString("T:" + input.temperature() + "," + input.lightLevel())
-            // bluetooth.uartWriteString("T:" + input.temperature() + "," + 0)
+            // bluetooth.uartWriteString("T:" +
+            // input.temperature() + "," + 0)
             bluetooth.uartWriteString("END:B:" + button)
             button = 0
-        } else if (originCommandCode == 6) { // GPIO Din
+        } else if (originCommandCode == 6) {
             bleRes = custom.processGpioDread()
             bluetooth.uartWriteString("END:I" + bleRes)
-        } else if (originCommandCode == 7) { // GPIO Ain
+        } else if (originCommandCode == 7) {
             bleRes = custom.processGpioAread()
             bluetooth.uartWriteString("END:i" + bleRes)
-        } else if (originCommandCode == 8) { // GPIO Dout
+        } else if (originCommandCode == 8) {
             bleRes = custom.processGpioDwrite()
             bluetooth.uartWriteString("END:O" + bleRes)
-        } else if (originCommandCode == 9) { // GPIO Aout
+        } else if (originCommandCode == 9) {
             bleRes = custom.processGpioAwrite()
             bluetooth.uartWriteString("END:o" + bleRes)
-        } else if (originCommandCode == 10) { // GPIO pullmode set and other init
+        } else if (originCommandCode == 10) {
             bleRes = custom.processGpioPullMode()
             bluetooth.uartWriteString("END:P" + bleRes)
         }
