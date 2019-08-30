@@ -38,6 +38,7 @@ interface MicroBitBle {
     attribute readonly boolean connected;
     Promise<MicroBitSensData> readSensor ();
     Promise printLED (DOMString message);
+    Promise showIconLED (int iconNumber);
 };
 
 interface MicroBitSensData{
