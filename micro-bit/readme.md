@@ -8,4 +8,4 @@ CHIRIMEN with micro:bit環境での開発者は、ウェブブラウザ上で動
 
 micro:bitにこのプログラムを簡単にインストールするには、以下のページにアクセスしてください。
 
-<a href="link2original.html#https://makecode.microbit.org/_chw6fvg6KW2m" target="_blank">https://makecode.microbit.org/_chw6fvg6KW2m</a>
+<a href="link2original.html#https://makecode.microbit.org/_0jhPcA3iX0gC" target="_blank">https://makecode.microbit.org/_chw6fvg6KW2m</a>
