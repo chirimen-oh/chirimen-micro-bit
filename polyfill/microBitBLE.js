@@ -815,7 +815,8 @@
 				}
 			}
 			async function write16(register,val){
-				var cmd = "w" + slaveAddress + "," + register + "," + val;
+//				var cmd = "w" + slaveAddress + "," + register + "," + val; // older spec? 
+				var cmd = "W" + toHex2(slaveAddress) + toHex2(3) + toHex2(register) + toHex2(0xFF & val) + toHex2(val>>>8);
 				var returnData = await mbBleUart.sendCmd2MicroBit( cmd );
 				if (returnData==null){ throw new Error('mbBLE com error...'); } 
 			}
