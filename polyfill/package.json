@@ -1,0 +1,15 @@
+{
+  "name": "@chirimen/microbit",
+  "version": "1.0.0",
+  "description": "CHIRIMEN with micro:bit",
+  "main": "microBitBLE.js",
+  "license": "GPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chirimen-oh/chirimen-micro-bit.git",
+    "directory": "polyfill"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
