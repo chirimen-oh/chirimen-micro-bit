@@ -50,3 +50,14 @@ micro:bitのI2C端子はpin19(SCL)とpin20(SDA)です。
 
 - [拡張API解説](../guidebooks/extendedFunctions.html#gpioの拡張機能)
 
+
+## リモートコントロール ([RelayServer.js](https://chirimen.org/remote-connection/)を使います)
+
+まずPC-sideのwebAppsを開きます。次にmicro:bit-sideとPC-sideを開き、micro:bit-sideのwebAppsでmicro-bitを接続すると、二つのwebApps間で遠隔制御が実行されます。もちろんそれぞれを別々の場所のPCで開いてもOKです。
+
+|`LIVE`Example PC-side | micro:bit-side |説明  |ソースコード|
+|:---|:---|:---|:---|
+| <a href="remote_example1/pc.html" target="_blank">PC-side</a> | <a href="remote_example1/mbit.html" target="_blank2">microbit-side</a> | 内蔵センサーの値を配信 | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/remote_example1/) |
+| <a href="remote_example2/pc.html" target="_blank">PC-side</a> | <a href="remote_example2/mbit.html" target="_blank2">microbit-side</a> | 内蔵センサーの値をPC側からリクエスト | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/remote_example2/) |
+| <a href="remote_example3/pc.html" target="_blank">PC-side</a> | <a href="remote_example3/mbit.html" target="_blank2">microbit-side</a> | LEDにメッセージを表示 | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/remote_example3/) |
+| <a href="remote_example4/pc.html" target="_blank">PC-side</a> | <a href="remote_example4/mbit.html" target="_blank2">microbit-side</a> | GPIOに繋いだLEDをPCから点灯 | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/remote_example4/) |
