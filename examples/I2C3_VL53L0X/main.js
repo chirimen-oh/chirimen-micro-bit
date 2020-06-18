@@ -1,17 +1,3 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-<meta charset="utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-<title></title>
-</head>
-
-<script type="text/javascript" src="../polyfill/microBitBLE.js"></script>
-<script type="text/javascript" src="https://chirimen.org/chirimen/gc/i2c/i2c-VL53L0X/node_modules/@chirimen-raspi/chirimen-driver-i2c-vl53l0x/VL53L0X.js"></script>
-
-
-<script>
 var microBitBle;
 
 var vl53;
@@ -45,18 +31,3 @@ async function readData(){
 	}
 }
 
-
-</script>    
-
-<body>
-<form name="js">
-<input type="button" value="Connect" onclick="connect();"/> 
-<input type="button" value="Disconnect" onclick="disconnect();" /> 
-</form>
-<hr>
-
-<div id="msg">---</div>
-
-<img src="../imgs/CMMB_I2C_example3.png" width="400"/>
-</body>
-</html>

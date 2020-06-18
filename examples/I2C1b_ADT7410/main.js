@@ -1,16 +1,3 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-<meta charset="utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-<title></title>
-</head>
-
-<script type="text/javascript" src="../polyfill/microBitBLE.js"></script>
-
-
-<script>
 var microBitBle;
 
 var i2cSlaveDevice;
@@ -44,19 +31,3 @@ async function readData(){
 		await sleep(1000);
 	}
 }
-
-
-</script>    
-
-<body>
-<form name="js">
-<input type="button" value="Connect" onclick="connect();"/> 
-<input type="button" value="Disconnect" onclick="disconnect();" /> 
-</form>
-<hr>
-
-<div id="msg">---</div>
-
-<img src="../imgs/CMMB_I2C_example1.png" width="400"/>
-</body>
-</html>

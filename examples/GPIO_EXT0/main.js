@@ -1,15 +1,3 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-<meta charset="utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-<title>GPIO-1 Analog-out sample</title>
-</head>
-
-<script type="text/javascript" src="../polyfill/microBitBLE.js"></script>
-
-<script>
 var microBitBle;
 
 var gpioPort1;
@@ -54,22 +42,3 @@ async function wave(){
 	}
 	await gpioPort1.write(0);
 }
-
-</script>    
-
-<body>
-<form name="js">
-<input type="button" value="Connect" onclick="connect();"/> 
-<input type="button" value="Disconnect" onclick="disconnect();" /> 
-</form>
-<hr>
-
-<table>
-	<tr><td>msg1:</td><td id="msg">-</td></tr>
-	<tr><td id="gdata1">NULL</td></tr>
-</table>
-
-<img src="../imgs/CMMB_GPIO_EXT_example0.png" width="400"/>
-
-</body>
-</html>

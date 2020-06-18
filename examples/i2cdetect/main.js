@@ -1,26 +1,3 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-<meta charset="utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-<title>I2C Devices Detector</title>
-</head>
-
-<style>
-table {
-  table-layout: fixed;
-}
-
-td {
-  width: 30px
-}
-</style>
-
-<script type="text/javascript" src="../polyfill/microBitBLE.js"></script>
-
-
-<script>
 // i2cDetect的なものを実装してみます
 // https://kernel.googlesource.com/pub/scm/utils/i2c-tools/i2c-tools/+/v3.1.2/tools/i2cdetect.c
 // によると、 readmodeの場合はi2c_smbus_read_byteしてるだけなんですね・・
@@ -122,20 +99,3 @@ function makeTable(){
 	}
 	detect.appendChild(tbl);
 }
-
-</script>    
-
-<body>
-<form name="js">
-<input type="button" value="Connect" onclick="connect();"/> 
-<input type="button" value="Disconnect" onclick="disconnect();" /> 
-</form>
-<hr>
-
-<input type="button" value="RE Detection" onclick="readData();" /> 
-
-<div id="msg">---</div>
-<div id="detect"></div>
-
-</body>
-</html>
