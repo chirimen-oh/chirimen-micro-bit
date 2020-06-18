@@ -48,9 +48,9 @@ Examplesや以降の解説の実体配線図では、ブレークアウトボー
 
 ## mircro:bit に CHIRIMEN サポートプログラムを書き込む
 
-CHIRIMEN with micro:bit では WebGPIO/WebI2C API を後述の Polyfill ライブラリと合わせて利用することでアプリケーションを開発します。各 API を呼び出すとライブラリ内では Web Bluetooth API を用いて micro:bit と通信しますが、micro:bit 側には PC からの制御命令を受け取るため専用の <a href="link2original.html#https://makecode.microbit.org/_0jhPcA3iX0gC" target="_blank">CHIRIMEN サポートプログラム</a> を書き込んでおく必要があります。
+CHIRIMEN with micro:bit では WebGPIO/WebI2C API を後述の Polyfill ライブラリと合わせて利用することでアプリケーションを開発します。各 API を呼び出すとライブラリ内では Web Bluetooth API を用いて micro:bit と通信しますが、micro:bit 側には PC からの制御命令を受け取るため専用の <a href="link2original.html#https://makecode.microbit.org/_faJAJMave2Xy" target="_blank">CHIRIMEN サポートプログラム</a> を書き込んでおく必要があります。
 
-- <a href="link2original.html#https://makecode.microbit.org/_0jhPcA3iX0gC" target="_blank">こちらのページ</a>にアクセスして、micro:bitにサポートプログラムを書き込みます。<br>
+- <a href="link2original.html#https://makecode.microbit.org/_faJAJMave2Xy" target="_blank">こちらのページ</a>にアクセスして、micro:bitにサポートプログラムを書き込みます。<br>
 *書き込み方は通常のmicro:bit用プログラムと全く同じです。*
    - [編集]ボタンを押す
    - [ダウンロード]ボタンを押し、サポートプログラムをダウンロード
