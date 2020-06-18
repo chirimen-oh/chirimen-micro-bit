@@ -1,15 +1,9 @@
 input.onButtonPressed(Button.AB, function () {
     input.calibrateCompass()
 })
-input.onButtonPressed(Button.A, function () {
-    button = 1
-})
 bluetooth.onBluetoothDisconnected(function () {
     basic.showIcon(IconNames.No)
     basic.pause(1000)
-})
-input.onButtonPressed(Button.B, function () {
-    button = 2
 })
 bluetooth.onBluetoothConnected(function () {
     basic.showIcon(IconNames.Diamond)
@@ -24,7 +18,6 @@ bluetooth.onBluetoothConnected(function () {
 })
 let ledMsg = ""
 let bleMsg = ""
-let button = 0
 let bleRes = ""
 let rp = 0
 let commandCode = -1
@@ -68,8 +61,7 @@ basic.forever(function () {
             bluetooth.uartWriteString("T:" + input.temperature() + "," + input.lightLevel())
             // bluetooth.uartWriteString("T:" +
             // input.temperature() + "," + 0)
-            bluetooth.uartWriteString("END:B:" + button)
-            button = 0
+            bluetooth.uartWriteString("END:B:" + custom.getButton())
         } else if (originCommandCode == 6) {
             bleRes = custom.processGpioDread()
             bluetooth.uartWriteString("END:I" + bleRes)
