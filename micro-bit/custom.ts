@@ -213,6 +213,19 @@ namespace custom {
         return (dLength.toString())
     }
 
+    /**
+     * button状態取得
+     */
+    export function getButton():number{
+        if (input.buttonIsPressed(Button.A)){
+            return (1)
+        } else if (input.buttonIsPressed(Button.B)){
+            return (2)
+        } else {
+            return(0)
+        }
+    }
+
 
     /**
      * BLEで受信した継続コマンドをパースする
