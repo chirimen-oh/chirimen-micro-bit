@@ -53,7 +53,7 @@ micro:bitのI2C端子はpin19(SCL)とpin20(SDA)です。
 
 ## リモートコントロール ([RelayServer.js](https://chirimen.org/remote-connection/)を使います)
 
-まずPC-sideのwebAppsを開きます。次にmicro:bit-sideとPC-sideを開き、micro:bit-sideのwebAppsでmicro-bitを接続すると、二つのwebApps間で遠隔制御が実行されます。もちろんそれぞれを別々の場所のPCで開いてもOKです。
+まずPC-sideのwebAppsを開きます。次にmicro:bit-sideを開きます。　そのあと、micro:bit-sideのwebAppsでmicro-bitを接続すると、二つのwebApps間で遠隔制御が実行されます。もちろんそれぞれを別々の場所のPCで開いてもOKです。
 
 |`LIVE`Example PC-side | micro:bit-side |説明  |ソースコード|
 |:---|:---|:---|:---|
