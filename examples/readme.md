@@ -56,7 +56,7 @@ micro:bitのI2C端子はpin19(SCL)とpin20(SDA)です。
 システム構成イメージは以下の通りです
 ![構成図](imgs/systemConf.png)
 
-まずPC-sideのwebAppsを開きます。次にmicro:bit-sideを開きます。　そのあと、micro:bit-sideのwebAppsでmicro-bitを接続すると、二つのwebApps間で遠隔制御が実行されます。もちろんそれぞれを別々の場所のPCで開いてもOKです。
+まずPC-sideのwebAppsを開きます。次にmicro:bit-sideを開きます。　その後、micro:bit-sideのwebAppsでmicro-bitを接続すると、二つのwebApps間で遠隔制御が実行されます。動作確認であれば両方のwebAppsをひとつのPCで開いても動きます。もちろんそれぞれを別々の場所のPCで開いても動きます。
 
 |`LIVE`Example<br> PC-side | micro:bit-side |説明  |ソースコード|
 |:---|:---|:---|:---|
