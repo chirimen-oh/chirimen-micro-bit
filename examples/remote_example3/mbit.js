@@ -13,7 +13,7 @@ async function connect(){
 	var relay = RelayServer("achex", "chirimenSocket" );
 	channel = await relay.subscribe("chirimenMatrix");
 	msgDiv.innerText="achex web socketリレーサービスに接続しました";
-	channel.onMessage(printMessage);
+	channel.onmessage(printMessage);
 }
 
 async function printMessage(message){
@@ -21,11 +21,11 @@ async function printMessage(message){
 		var msgTxt = message.print;
 		msgDiv.innerText="get print command :" + msgTxt;
 		
-		channel.sendMessage({start: msgTxt}); // 表示の開始を知らせるメッセージを通知
+		channel.send({start: msgTxt}); // 表示の開始を知らせるメッセージを通知
 		
 		await microBitBle.printLED(msgTxt); // micro:bitに表示を指示する(表示の完了に時間がかかる)
 		
-		channel.sendMessage({done: msgTxt}); // 表示の完了を知らせるメッセージを通知
+		channel.send({done: msgTxt}); // 表示の完了を知らせるメッセージを通知
 	}
 }
 

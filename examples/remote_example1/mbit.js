@@ -21,7 +21,7 @@ async function pollButtonPush(){
 		var sensorData = await microBitBle.readSensor();
 		if ( sensorData.button!=0){
 			sensorData.time=(new Date()).toString();
-			channel.sendMessage(sensorData);
+			channel.send(sensorData);
 			msgDiv.innerText="センサデータを送信しました： " + JSON.stringify(sensorData);
 		}
 		await sleep(200);

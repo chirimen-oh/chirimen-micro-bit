@@ -13,14 +13,14 @@ async function connect(){
 	var relay = RelayServer("achex", "chirimenSocket" );
 	channel = await relay.subscribe("chirimenMbitSensors");
 	msgDiv.innerText="achex web socketリレーサービスに接続しました";
-	channel.onMessage(transmitSensorData);
+	channel.onmessage(transmitSensorData);
 }
 
 async function transmitSensorData(messge){
 	msgDiv.innerText=messge;
 	if ( messge =="GET SENSOR DATA"){
 		var sensorData = await microBitBle.readSensor();
-		channel.sendMessage(sensorData);
+		channel.send(sensorData);
 		msgDiv.innerText=JSON.stringify(sensorData);
 	}
 }

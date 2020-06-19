@@ -6,7 +6,7 @@ onload = async function(){
 	var relay = RelayServer("achex", "chirimenSocket" );
 	channel = await relay.subscribe("chirimenMbitSensors");
 	messageDiv.innerText="achex web socketリレーサービスに接続しました";
-	channel.onMessage(getMessage);
+	channel.onmessage(getMessage);
 }
 
 function getMessage(msg){ // メッセージを受信したときに起動する関数
