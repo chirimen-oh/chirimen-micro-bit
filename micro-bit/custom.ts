@@ -17,12 +17,7 @@ namespace custom {
      */
     //% block
     export function parseHex(inp: string): number { // Hex String to Integer parser
-        let ans2: number = 0
-        for (let i = 0; i < inp.length; i++) {
-            ans2 *= 16
-            ans2 += parseOneHex(inp[i])
-        }
-        return ans2
+        return parseInt(inp, 16)
     }
 
     /**
@@ -31,8 +26,8 @@ namespace custom {
     //% block
     export function toHex8(inp: number): string {
         //    return(inp.toString())
-        let lw = inp % 16
-        let up = inp >>> 4
+        let lw = inp & 0xf
+        let up = (inp >> 4) & 0xf
         return (getHexStr(up) + getHexStr(lw))
     }
 
@@ -283,25 +278,8 @@ namespace custom {
         return ans
     }
 
-    function parseOneHex(inp: string): number {
-        let ans3: number
-        ans3 = inp.charCodeAt(0)
-        if (ans3 <= 57) {
-            ans3 = ans3 - 48
-        } else {
-            ans3 = ans3 - 55
-        }
-        return ans3
-    }
-
     function getHexStr(inp: number): string {
-        let ans: string
-        if (inp < 10) {
-            ans = inp.toString()
-        } else {
-            ans = String.fromCharCode(inp + 55)
-        }
-        return ans
+        return "0123456789ABCDEF"[inp]
     }
 }
 
