@@ -1,5 +1,5 @@
 # スタートアップガイド
- 
+
 ## 概要
 
 CHIRIMEN with micro:bitをはじめてつかうときの流れを解説します。
@@ -33,7 +33,7 @@ micro:bitにはGPIO等の端子が備わっていますが、ブレッドボー�
 
 ### micro:bitのピン配置
 
-![micro:bit](https://pxt.azureedge.net/blob/64c6ccff8e3ee82c4224874e5cacc9d0d5c60132/static/mb/device/pins-0.png) 
+![micro:bit](https://pxt.azureedge.net/blob/64c6ccff8e3ee82c4224874e5cacc9d0d5c60132/static/mb/device/pins-0.png)
 オリジナルページ：[https://makecode.microbit.org/device/pins](https://makecode.microbit.org/device/pins)
 
 ### ブレークアウトボードの使い方
@@ -69,13 +69,13 @@ CHIRIMEN with micro:bit では WebGPIO/WebI2C API を後述の Polyfill ライ�
 - 以下の実体配線図のように配線しましょう。*(ブレークアウトボードは省略しています)*
 ![LED blink](../imgs/CMMB_GPIO_example1.png)
 - micro:bitにUSBケーブルをつなぎ、電源を供給します。(PCのUSBポートからも電源供給可能) ♡がmicro:bitに表示されます
-- <a href="../examples/GPIO1.html" target="_blank">こちらのページ</a>にアクセス
+- <a href="../examples/GPIO1/index.html" target="_blank">こちらのページ</a>にアクセス
 - [Connect]ボタンを押して、micro:bitとペアリングします　ペアリングが成功すると◇マークがmicro:bitに表示されます
 - LEDが点滅します
 ![LED点滅の写真](../imgs/MBHR.JPG)
 
 ### プログラムの解説
-- [ソースコードはこちら](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/GPIO1.html)
+- [ソースコードはこちら](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/GPIO1)
 - ```<script type="text/javascript" src="https://chirimen.org/chirimen-micro-bit/polyfill/microBitBLE.js"></script>``` でCHIRIMEN with micro:bit用のWebGPIO, WebI2C APIの[ポリフィル](https://developer.mozilla.org/ja/docs/Glossary/Polyfill)ライブラリをロードしています。
 - ```microBitBle = await microBitBleFactory.connect();``` でmicro:bitにBluetooth接続します。
 - 以下でmicro:bitのGPIO-0番端子を出力に設定して初期化します。この端子は```gpioPort0```という変数でアクセスできるようになります。
