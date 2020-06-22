@@ -7,10 +7,10 @@
 <title></title>
 </head>
 
-<script type="text/javascript" src="../polyfill/microBitBLE.js"></script>
-<script type="text/javascript" src="https://chirimen.org/chirimen-raspi3/gc/contrib/examples/i2c-NEOPIXEL_I2C/node_modules/@chirimen-raspi/chirimen-driver-i2c-neopixel-i2c/NEOPIXEL_I2C.js"></script>
-<script type="text/javascript" src="https://chirimen.org/chirimen-raspi3/gc/contrib/examples/i2c-BMP280/node_modules/@chirimen-raspi/chirimen-driver-i2c-bmp280/BMP280.js"></script>
-<script type="text/javascript" src="https://chirimen.org/chirimen-raspi3/gc/i2c/i2c-VL53L0X/node_modules/@chirimen-raspi/chirimen-driver-i2c-vl53l0x/VL53L0X.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@chirimen/microbit"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@chirimen/neopixel-i2c"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@chirimen/bmp280"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@chirimen/vl53l0x"></script>
 
 <script>
 var microBitBle, mbI2Cport, adt, npix, bmp280, vl53;
@@ -24,27 +24,27 @@ async function connect(){
 	var i2caccess = await microBitBle.requestI2CAccess();
 //	var i2caccess = await navigator.requestI2CAccess();  // 最初の一台は、これでも使えるよ
 	mbI2Cport = i2caccess.ports.get(1);
-	
+
 	console.log("navigator:",navigator);
 	console.log("microBitBle:",microBitBle);
 	msg.innerHTML=("micro:bit BLE接続を確立しました。");
-	
+
 	// neopixel
 	npix = new NEOPIXEL_I2C(mbI2Cport, 0x41);
 	console.log("npix init");
 	await npix.init(neoPixels);
 	msg.innerHTML=("micro:bit neopixelを初期化しました。BMP280初期化中。");
-	
+
 	// bmp280
 	bmp280 = new BMP280(mbI2Cport, 0x76);
 	await bmp280.init();
 	msg.innerHTML=("micro:bit BMP280を初期化しました。VL53L0X初期化中。");
-	
+
 	// vl53l0x
 	vl53 = new VL53L0X(mbI2Cport, 0x29);
 	await vl53.init();
 	msg.innerHTML=("micro:bit VL53L0Xを初期化しました。");
-	
+
 	// GPIO
 	var gpioAccess = await microBitBle.requestGPIOAccess();
 	var mbGpioPorts = gpioAccess.ports;
@@ -156,7 +156,7 @@ async function setPattern0(iH){
 // from https://qiita.com/hachisukansw/items/633d1bf6baf008e82847
 function hsvToRgb(H,S,V) {
     //https://en.wikipedia.org/wiki/HSL_and_HSV#From_HSV
-	
+
 	H = H %360;
 
     var C = V * S;
@@ -258,19 +258,19 @@ async function readVL53(){
 	vl.innerHTML= distance + "mm";
 }
 
-</script>    
+</script>
 
 <body>
 <form name="js">
-<input type="button" value="接続" onclick="connect();"/> 
-<input type="button" value="切断" onclick="disconnect();" /> 
+<input type="button" value="接続" onclick="connect();"/>
+<input type="button" value="切断" onclick="disconnect();" />
 <!--<input id ="pauseB" type="button" value="Pause" onclick="pause();" /> -->
 <hr>
-<input id ="ADTi" type="button" value="ADTinit" onclick="ADTinit();" /> 
-<input id ="ADTr" type="button" value="ADTread" onclick="ADTread();" /> 
-<input id ="ADTr16" type="button" value="ADTread16" onclick="ADTread16();" /> 
-<input id ="nPix" type="button" value="nPixTest1" onclick="nPixTest1();" /> 
-<input id ="nPix" type="button" value="nPixTest2" onclick="setPattern0();" /> 
+<input id ="ADTi" type="button" value="ADTinit" onclick="ADTinit();" />
+<input id ="ADTr" type="button" value="ADTread" onclick="ADTread();" />
+<input id ="ADTr16" type="button" value="ADTread16" onclick="ADTread16();" />
+<input id ="nPix" type="button" value="nPixTest1" onclick="nPixTest1();" />
+<input id ="nPix" type="button" value="nPixTest2" onclick="setPattern0();" />
 
 <hr>
 
