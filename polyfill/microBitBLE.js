@@ -118,8 +118,6 @@
   var prevConnectedDevices = [];
 
   var debugLog = false;
-  var consoleRed = "\u001b[31m";
-  var consoleReset = "\u001b[0m";
 
   var microBitBleFactory = (function () {
     var pollingInterval = 250;
@@ -532,10 +530,8 @@
             // この後、microBitから返事が返ると、onCharacteristicValueChanged()がn回連続で呼び出され、最後に"END"の値が返ったものが来る
           } catch (err) {
             // まだ原因がよくわからないがエラーが起きる時があるので、その時はそのコマンド処理をスキップしnullを返す・・・(console.log出し過ぎが問題だった？？？出さなくしたらそもそもエラーが出なくなった感がある・・・) 2019/8/20
-            console.log(
-              consoleRed +
-                "[[[ERROR]]] on calling mbBleUartRx.writeValue : " +
-                consoleReset,
+            console.error(
+              "[[[ERROR]]] on calling mbBleUartRx.writeValue : ",
               err
             );
             uartCallBackObj.sending = false;
@@ -554,9 +550,7 @@
       function checkCmdCompleted() {
         console.log("called checkCmdCompleted", uartCallBackObj.sending);
         if (uartCallBackObj.sending == true) {
-          console.log(
-            consoleRed + "[[[ERROR]]] No micro:bit response." + consoleReset
-          );
+          console.error("[[[ERROR]]] No micro:bit response.");
           uartCallBackObj.sending = false;
           uartCallBackObj.uartCallBack(null);
           uartCallBackObj.mbCmdReturnValue = [];
