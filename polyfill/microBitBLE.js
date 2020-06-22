@@ -110,10 +110,8 @@
   https://makecode.microbit.org/reference/pins/i2c-read-buffer
 **/
 
-(function (window, undefined) {
-  var document = window.document;
+(function (window) {
   var navigator = window.navigator;
-  var location = window.location;
 
   var prevConnectedDevices = [];
 
