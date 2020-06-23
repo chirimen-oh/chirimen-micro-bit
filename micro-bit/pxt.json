@@ -1,16 +1,17 @@
 {
     "name": "WebI2C_GPIO_bridge",
+    "description": "",
     "dependencies": {
         "core": "*",
         "bluetooth": "*"
     },
-    "description": "",
     "files": [
         "main.blocks",
         "main.ts",
         "README.md",
         "custom.ts"
     ],
+    "preferredEditor": "tsprj",
     "yotta": {
         "config": {
             "microbit-dal": {
@@ -21,6 +22,5 @@
                 }
             }
         }
-    },
-    "preferredEditor": "tsprj"
+    }
 }
