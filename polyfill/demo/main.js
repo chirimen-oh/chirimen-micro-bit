@@ -1,14 +1,20 @@
 // Setup a touch start listener to attempt an unlock in.
-let unlockResolver;
-const unlockPromise = new Promise((resolve) => {
-  unlockResolver = resolve;
-});
-function unlock() {
-  if (unlockResolver != null) unlockResolver();
+function unlockPromise() {
+  let unlockResolver;
+  const promise = new Promise((resolve) => {
+    unlockResolver = resolve;
+  });
+  function unlock() {
+    if (unlockResolver != null) unlockResolver();
+    document.removeEventListener("touchstart", unlock, true);
+    document.removeEventListener("touchend", unlock, true);
+    document.removeEventListener("click", unlock, true);
+  }
+  document.addEventListener("touchstart", unlock, true);
+  document.addEventListener("touchend", unlock, true);
+  document.addEventListener("click", unlock, true);
+  return promise;
 }
-document.addEventListener("touchstart", unlock, true);
-document.addEventListener("touchend", unlock, true);
-document.addEventListener("click", unlock, true);
 
 /** @param {number} ms */
 async function sleep(ms) {
@@ -16,10 +22,14 @@ async function sleep(ms) {
 }
 
 async function main() {
-  await unlockPromise;
+  await unlockPromise();
   const microbit = await window.microBitBleFactory.connect();
   while (true) {
     try {
+      if (!microbit.connected) {
+        document.location.reload();
+        return;
+      }
       await loop(microbit);
     } catch (error) {
       console.error(error);
