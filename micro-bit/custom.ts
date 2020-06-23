@@ -211,14 +211,15 @@ namespace custom {
     /**
      * button状態取得
      */
-    export function getButton():number{
+    export function getButton(): number {
+        let ret = 0;
         if (input.buttonIsPressed(Button.A)){
-            return (1)
-        } else if (input.buttonIsPressed(Button.B)){
-            return (2)
-        } else {
-            return(0)
+            ret |= 1
         }
+        if (input.buttonIsPressed(Button.B)) {
+            ret |= 2
+        }
+        return ret
     }
 
 

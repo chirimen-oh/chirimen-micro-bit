@@ -1,6 +1,3 @@
-input.onButtonPressed(Button.AB, function () {
-    input.calibrateCompass()
-})
 bluetooth.onBluetoothDisconnected(function () {
     basic.showIcon(IconNames.No)
     basic.pause(1000)
