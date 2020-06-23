@@ -17,10 +17,7 @@
                 "bluetooth": {
                     "open": 1,
                     "whitelist": 0,
-                    "device_info_service": 0,
-                    "event_service": 0,
-                    "eddystone_url": 0,
-                    "eddystone_uid": 0
+                    "event_service": 0
                 }
             }
         }
