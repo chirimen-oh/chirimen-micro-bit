@@ -8,13 +8,7 @@ bluetooth.onBluetoothDisconnected(function () {
 bluetooth.onBluetoothConnected(function () {
     basic.showIcon(IconNames.Diamond)
     basic.pause(2000)
-    basic.showLeds(`
-        . . . . .
-        . . . . .
-        . . . . .
-        . . . . .
-        . . . . .
-        `)
+    basic.clearScreen()
 })
 let ledMsg = ""
 let bleMsg = ""
