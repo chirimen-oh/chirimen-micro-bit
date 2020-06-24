@@ -16,7 +16,7 @@
     "parcel": "^1.12.4"
   },
   "scripts": {
-    "dev": "parcel demo/index.html"
+    "dev": "parcel demo.html --open"
   },
   "browserslist": [
     "last 1 chrome version"
