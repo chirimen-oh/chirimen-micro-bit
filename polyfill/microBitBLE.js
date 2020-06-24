@@ -225,6 +225,28 @@
         pinCallBack,
         onCharacteristicValueChanged
       );
+      var conn = mbBLE != null;
+      if (!conn) {
+        const message = [
+          "接続に失敗しました。",
+          "Web Bluetooth APIに対応していないか、Bluetoothデバイスへのアクセスが許可されていない可能性があります。",
+          " https://caniuse.com/#feat=web-bluetooth ",
+          "デスクトップ環境のChrome/Chromiumの場合、試験的なWebプラットフォーム機能を有効化してください。",
+          " chrome://flags/#enable-experimental-web-platform-features",
+        ].join("");
+        console.error(message);
+        alert(message);
+        return {
+          connected: conn,
+          disconnect: () => Promise.reject(),
+          requestI2CAccess: () => Promise.reject(),
+          requestGPIOAccess: () => Promise.reject(),
+          readSensor: () => Promise.reject(),
+          printLED: () => Promise.reject(),
+          showIconLED: () => Promise.reject(),
+        };
+      }
+
       console.log("connected MicroBit mbBLE:", mbBLE);
       var mbBleDevice = mbBLE.device;
       // var mbBlePin ...... // for WebGPIO and switches? err020....
@@ -254,7 +276,6 @@
       }
       prevConnectedDevices[mbBleDevice.id] = "yes";
 
-      var conn = true;
       uartCallBackObj.conn = conn;
       console.log("uartCallBackObj:", uartCallBackObj);
 
@@ -466,8 +487,7 @@
           characteristics: characteristics,
         };
       } catch (error) {
-        alert("Connection Failed : ", error);
-        console.log(error);
+        console.error(error);
       }
     }
 
