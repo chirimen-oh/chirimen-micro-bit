@@ -1,14 +1,25 @@
-// Setup a touch start listener to attempt an unlock in.
+/** Setup a touch start listener to attempt an unlock in. */
 function unlockPromise() {
   let unlockResolver;
   const promise = new Promise((resolve) => {
     unlockResolver = resolve;
   });
   function unlock() {
-    if (unlockResolver != null) unlockResolver();
+    if (window !== window.parent /** NOTE: in iframe */) {
+      console.error(
+        [
+          "iframeの中ではWeb Bluetooth APIにアクセスすることができません。",
+          "新しいウィンドウ/タブで開いてください。",
+          "https://w3c.github.io/webappsec-feature-policy/",
+        ].join("")
+      );
+      window.open(document.location.href);
+      return;
+    }
     document.removeEventListener("touchstart", unlock, true);
     document.removeEventListener("touchend", unlock, true);
     document.removeEventListener("click", unlock, true);
+    if (unlockResolver != null) unlockResolver();
   }
   document.addEventListener("touchstart", unlock, true);
   document.addEventListener("touchend", unlock, true);
@@ -46,8 +57,7 @@ async function main() {
  *   requestGPIOAccess: any,
  *   readSensor: any,
  *   printLED: any,
- *   showIconLED: any,
- *   }} microbit
+ *   showIconLED: any }} microbit
  */
 async function loop(microbit) {
   /**
