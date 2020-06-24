@@ -535,7 +535,7 @@
 
       async function processNextQueue() {
         if (uartCallBackObj.conn) {
-          nextCmd = uartCallBackObj.cmdQueue.shift();
+          const nextCmd = uartCallBackObj.cmdQueue.shift();
           uartCallBackObj.mbCmdReturnValue = [];
           uartCallBackObj.uartCallBack = nextCmd.cbFunc;
           uartCallBackObj.sending = true;
@@ -1051,7 +1051,7 @@
       return ans;
     }
 
-    sensed = false; //light sensした後analoginを行うとポートが不具合起こしてるので・・
+    var sensed = false; //light sensした後analoginを行うとポートが不具合起こしてるので・・
     async function readSensorInt(mbBleUart) {
       var ret = await mbBleUart.sendCmd2MicroBit("S");
       if (ret == null) {
