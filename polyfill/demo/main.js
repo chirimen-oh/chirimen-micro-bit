@@ -44,8 +44,8 @@ async function main() {
       await loop(microbit);
     } catch (error) {
       console.error(error);
-      await sleep(100);
     }
+    await sleep(100);
   }
 }
 
@@ -76,8 +76,10 @@ async function loop(microbit) {
    */
   const value = await microbit.readSensor();
   console.log(value);
-  document.body.style.whiteSpace = "pre-wrap";
-  document.body.textContent = JSON.stringify(value, null, 2);
+  if (value != null) {
+    document.body.style.whiteSpace = "pre-wrap";
+    document.body.textContent = JSON.stringify(value, null, 2);
+  }
 }
 
 main();
