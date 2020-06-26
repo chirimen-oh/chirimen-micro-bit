@@ -6,9 +6,8 @@
         "bluetooth": "*"
     },
     "files": [
-        "main.blocks",
         "main.ts",
-        "README.md",
+        "readme.md",
         "custom.ts"
     ],
     "preferredEditor": "tsprj",

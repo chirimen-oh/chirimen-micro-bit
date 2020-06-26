@@ -1,3 +1,4 @@
 /node_modules/
 /pxt_modules/
 /package-lock.json
+/built/
