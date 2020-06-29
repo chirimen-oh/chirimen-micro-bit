@@ -22,6 +22,8 @@ micro:bitのI2C端子はpin19(SCL)とpin20(SDA)です。
 | <a href="I2C4_S11059/index.html" target="_blank">I2C4_S11059</a> |  S11059 色センサー | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/I2C4_S11059/) |
 | <a href="I2C5_NEOPIXEL/index.html" target="_blank">I2C5_NEOPIXEL</a> |  [NEOPIXEL I2C](https://gist.github.com/satakagi/608f6c2c963c8e9453864f11b6fb1f3d#file-readme-md)  | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/I2C5_NEOPIXEL/) |
 | <a href="I2C6_BME280/index.html" target="_blank">I2C6_BME280</a> |  BME280 気圧・温度・湿度センサー  | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/I2C6_BME280/) |
+| <a href="I2C7_SHT30/index.html" target="_blank">I2C7_SHT30</a> |  SHT30 温度・湿度センサー  | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/I2C7_SHT30/) |
+| <a href="I2C7_PCA9680/index.html" target="_blank">I2C8_PCA9680</a> |  PCA9680 サーボコントロール  | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/I2C8_PCA9680/) |
 
 <br>
 
@@ -64,3 +66,4 @@ micro:bitのI2C端子はpin19(SCL)とpin20(SDA)です。
 | <a href="remote_example2/pc.html" target="_blank">PC-side</a> | <a href="remote_example2/mbit.html" target="_blank2">micro:bit-side</a> | 内蔵センサーの値をPC側からリクエスト | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/remote_example2/) |
 | <a href="remote_example3/pc.html" target="_blank">PC-side</a> | <a href="remote_example3/mbit.html" target="_blank2">micro:bit-side</a> | LEDにメッセージを表示 | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/remote_example3/) |
 | <a href="remote_example4/pc.html" target="_blank">PC-side</a> | <a href="remote_example4/mbit.html" target="_blank2">micro:bit-side</a> | GPIOに繋いだLEDをPCから点灯 | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/remote_example4/) |
+| <a href="remote_example5/pc.html" target="_blank">PC-side</a> | <a href="remote_example5/mbit.html" target="_blank2">micro:bit-side</a> | I2C温度湿度センサSHT30の値をPC側からリクエスト | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/remote_example5/) |
