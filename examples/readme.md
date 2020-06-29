@@ -23,7 +23,7 @@ micro:bitのI2C端子はpin19(SCL)とpin20(SDA)です。
 | <a href="I2C5_NEOPIXEL/index.html" target="_blank">I2C5_NEOPIXEL</a> |  [NEOPIXEL I2C](https://gist.github.com/satakagi/608f6c2c963c8e9453864f11b6fb1f3d#file-readme-md)  | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/I2C5_NEOPIXEL/) |
 | <a href="I2C6_BME280/index.html" target="_blank">I2C6_BME280</a> |  BME280 気圧・温度・湿度センサー  | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/I2C6_BME280/) |
 | <a href="I2C7_SHT30/index.html" target="_blank">I2C7_SHT30</a> |  SHT30 温度・湿度センサー  | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/I2C7_SHT30/) |
-| <a href="I2C8_PCA9680/index.html" target="_blank">I2C8_PCA9680</a> |  PCA9680 サーボコントロール  | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/I2C8_PCA9680/) |
+| <a href="I2C8_PCA9685/index.html" target="_blank">I2C8_PCA9685</a> |  PCA9685 サーボコントロール  | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/I2C8_PCA9685/) |
 
 <br>
 
