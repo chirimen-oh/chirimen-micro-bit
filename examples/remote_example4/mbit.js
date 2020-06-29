@@ -20,16 +20,16 @@ async function connect(){
 	var relay = RelayServer("achex", "chirimenSocket" );
 	channel = await relay.subscribe("chirimenLED");
 	msgDiv.innerText="achex web socketリレーサービスに接続しました";
-	channel.onmessage(controlLED);
+	channel.onmessage = controlLED;
 }
 
 function controlLED(messge){
-	msgDiv.innerText=messge;
-	if ( messge =="LED ON"){
+	msgDiv.innerText=messge.data;
+	if ( messge.data =="LED ON"){
 		gpioPort0.write(1);
 		console.log("ON");
 		channel.send("LEDをオンにしました");
-	} else if ( messge =="LED OFF"){
+	} else if ( messge.data =="LED OFF"){
 		gpioPort0.write(0);
 		console.log("OFF");
 		channel.send("LEDをオフにしました");

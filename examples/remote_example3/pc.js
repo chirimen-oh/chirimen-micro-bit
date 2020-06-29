@@ -6,14 +6,14 @@ onload = async function(){
 	var relay = RelayServer("achex", "chirimenSocket" );
 	channel = await relay.subscribe("chirimenMatrix");
 	messageDiv.innerText="achex web socketリレーサービスに接続しました";
-	channel.onmessage(getMessage);
+	channel.onmessage = getMessage;
 }
 
 function getMessage(msg){ // メッセージを受信したときに起動する関数
-	if ( msg.done ){
+	if ( msg.data.done ){
 		messageDiv.innerText = "表示が完了しました";
-	} else if ( msg.start ){
-		messageDiv.innerText = "文字列 " + msg.start + " の表示を開始しました";
+	} else if ( msg.data.start ){
+		messageDiv.innerText = "文字列 " + msg.data.start + " の表示を開始しました";
 	}
 }
 

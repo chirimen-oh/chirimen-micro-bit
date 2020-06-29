@@ -6,11 +6,11 @@ onload = async function(){
 	var relay = RelayServer("achex", "chirimenSocket" );
 	channel = await relay.subscribe("chirimenLED");
 	messageDiv.innerText="achex web socketリレーサービスに接続しました";
-	channel.onmessage(getMessage);
+	channel.onmessage = getMessage;
 }
 
 function getMessage(msg){ // メッセージを受信したときに起動する関数
-	messageDiv.innerText = msg;
+	messageDiv.innerText = msg.data;
 }
 
 function OnLED(){ // LED ON

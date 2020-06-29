@@ -13,12 +13,12 @@ async function connect(){
 	var relay = RelayServer("achex", "chirimenSocket" );
 	channel = await relay.subscribe("chirimenMatrix");
 	msgDiv.innerText="achex web socketリレーサービスに接続しました";
-	channel.onmessage(printMessage);
+	channel.onmessage = printMessage;
 }
 
 async function printMessage(message){
-	if ( message.print ){
-		var msgTxt = message.print;
+	if ( message.data.print ){
+		var msgTxt = message.data.print;
 		msgDiv.innerText="get print command :" + msgTxt;
 		
 		channel.send({start: msgTxt}); // 表示の開始を知らせるメッセージを通知
