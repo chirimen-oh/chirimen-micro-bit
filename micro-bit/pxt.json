@@ -20,7 +20,8 @@
                     "event_service": 0,
                     "eddystone_url": 0,
                     "eddystone_uid": 0
-                }
+                },
+                "gatt_table_size": "0x300"
             }
         }
     }
