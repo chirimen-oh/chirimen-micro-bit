@@ -69,3 +69,6 @@ partial interface I2CSlaveDevice {
 };
 ```
 
+### IconNumber
+
+![IconNumber](../imgs/mbitIcons.png)
