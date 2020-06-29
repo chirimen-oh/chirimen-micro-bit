@@ -70,7 +70,7 @@ micro:bitのI2C端子はpin19(SCL)とpin20(SDA)です。
 
 ### 2台のmicro:bitを使った連携サンプル
 
-micro:bitを2台用意し、それぞれに接続します。
+micro:bitを2台用意し、それぞれに接続します。2台のCHIRIMENデバイス間での連携を行います。
 
 |`LIVE`Example<br> micro:bit-sideA  | micro:bit-sideB |説明  |ソースコード|
 |:---|:---|:---|:---|
