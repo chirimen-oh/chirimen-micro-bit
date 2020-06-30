@@ -75,3 +75,4 @@ micro:bitを2台用意し、それぞれに接続します。
 |`LIVE`Example<br> micro:bit-sideA  | micro:bit-sideB |説明  |ソースコード|
 |:---|:---|:---|:---|
 | <a href="remote_example6/mbit1_2.html" target="_blank">micro:bit-sideA</a> | <a href="remote_example6/mbit1_2.html" target="_blank2">micro:bit-sideB</a> | 一方のボタンを押すともう一方のLEDに表示 | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/remote_example6/) |
+| <a href="remote_example7/mbitT.html" target="_blank">micro:bit-sideA</a> | <a href="remote_example7/mbitR.html" target="_blank2">micro:bit-sideB</a> | 一方を傾けるともう一方に接続されたサーボモーターが傾斜に応じて回転 | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/remote_example7/) |
