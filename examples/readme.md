@@ -67,6 +67,7 @@ micro:bitのI2C端子はpin19(SCL)とpin20(SDA)です。
 | <a href="remote_example3/pc.html" target="_blank">PC-side</a> | <a href="remote_example3/mbit.html" target="_blank2">micro:bit-side</a> | LEDにメッセージを表示 | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/remote_example3/) |
 | <a href="remote_example4/pc.html" target="_blank">PC-side</a> | <a href="remote_example4/mbit.html" target="_blank2">micro:bit-side</a> | GPIOに繋いだLEDをPCから点灯 | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/remote_example4/) |
 | <a href="remote_example5/pc.html" target="_blank">PC-side</a> | <a href="remote_example5/mbit.html" target="_blank2">micro:bit-side</a> | I2C温度湿度センサSHT30の値をPC側からリクエスト | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/remote_example5/) |
+| <a href="remote_example8/pc.html" target="_blank">PC-side</a> | <a href="remote_example8/mbitR.html" target="_blank2">micro:bit-side</a> | サーボモーターを遠隔コントロール | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/remote_example8/) |
 
 ### 2台のmicro:bitを使った連携サンプル
 
