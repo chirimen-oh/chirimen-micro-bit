@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "CHIRIMEN with micro:bit",
   "main": "microBitBLE.js",
+  "files": [],
   "repository": {
     "type": "git",
     "url": "https://github.com/chirimen-oh/chirimen-micro-bit.git",
@@ -10,5 +11,14 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "devDependencies": {
+    "parcel": "^1.12.4"
+  },
+  "scripts": {
+    "dev": "parcel demo.html --open"
+  },
+  "browserslist": [
+    "last 1 chrome version"
+  ]
 }

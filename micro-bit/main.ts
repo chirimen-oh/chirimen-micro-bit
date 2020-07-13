@@ -1,6 +1,3 @@
-input.onButtonPressed(Button.AB, function () {
-    input.calibrateCompass()
-})
 bluetooth.onBluetoothDisconnected(function () {
     basic.showIcon(IconNames.No)
     basic.pause(1000)
@@ -8,13 +5,7 @@ bluetooth.onBluetoothDisconnected(function () {
 bluetooth.onBluetoothConnected(function () {
     basic.showIcon(IconNames.Diamond)
     basic.pause(2000)
-    basic.showLeds(`
-        . . . . .
-        . . . . .
-        . . . . .
-        . . . . .
-        . . . . .
-        `)
+    basic.clearScreen()
 })
 let ledMsg = ""
 let bleMsg = ""
