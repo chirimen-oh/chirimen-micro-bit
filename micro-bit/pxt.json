@@ -7,7 +7,7 @@
     },
     "files": [
         "main.ts",
-        "readme.md",
+        "README.md",
         "custom.ts"
     ],
     "preferredEditor": "tsprj",
