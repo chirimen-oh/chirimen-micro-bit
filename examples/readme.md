@@ -10,6 +10,7 @@
 | <a href="GPIO2/index.html" target="_blank">GPIO2</a> | タクトスイッチに反応してLEDが点灯 | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/GPIO2/) |
 | <a href="GPIO3/index.html" target="_blank">GPIO3</a> | 画面のボタンに反応してモーター動作 | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/GPIO3/) |
 | [CMMB_GPIO_example3.png](../imgs/CMMB_GPIO_example3.png) | タクトスイッチに反応してモーター動作(回路図のみ。コードは <a href="GPIO2/index.html" target="_blank">GPIO2</a>を使用します) |[GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/GPIO2/) |
+| <a href="GPIO4/index.html" target="_blank">GPIO4</a> | 画面のボタン及びタクトスイッチに反応してモーター動作 | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/GPIO4/) |
 
 ## I2C
 micro:bitのI2C端子はpin19(SCL)とpin20(SDA)です。

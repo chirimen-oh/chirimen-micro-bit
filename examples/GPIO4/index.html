@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Parcel Sandbox</title>
+    <meta charset="UTF-8" />
+  </head>
+  <style>
+  body {
+    font-family: sans-serif;
+  }
+  #ledView {
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    background-color: black;
+  }
+  </style>
+  
+  <body>
+    <div id="app"></div>
+    <button id="connect">CONNECT</button>
+    <button id="disconnect">Disconnect</button>
+    <div id="msg">---</div>
+    <hr>
+    <button id="onoff">LED ON/OFF</button>
+    <div id="ledView"></div>
+
+    <script src="https://chirimen.org/chirimen-micro-bit/polyfill/microBitBLE.js"></script>
+    <script src="main.js"></script>
+    <img src="imgs/pinbit_microbit_motor_sw.png" width="500">
+  </body>
+</html>
