@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title></title>
+</head>
+
+<script type="text/javascript" src="https://chirimen.org/chirimen-micro-bit/polyfill/microBitBLE.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@chirimen/ina219"></script>
+<!--<script type="text/javascript" src="i2c-ADT7410.js"></script>-->
+
+<script type="text/javascript" src="main.js"></script>
+
+<body>
+<form name="js">
+<input type="button" value="Connect" onclick="connect();"/> 
+<input type="button" value="Disconnect" onclick="disconnect();" /> 
+</form>
+<span id="msg"></span>
+<hr>
+
+<p id="head">INA219</p>
+    <table>
+      <tr>
+        <td>Bus Current [mA]</td>
+        <td id="current"></td>
+      </tr>
+      <tr>
+        <td>Power [mW]</td>
+        <td id="power"></td>
+      </tr>
+      <tr>
+        <td>Shunt voltage [mV]</td>
+        <td id="shunt"></td>
+      </tr>
+      <tr>
+        <td>Voltage [V]</td>
+        <td id="voltage"></td>
+      </tr>
+      <tr>
+        <td>Supply Voltage [V]</td>
+        <td id="supply_voltage"></td>
+      </tr>
+    </table>
+<img src="imgs/pinbit_INA219.png" width="400" />
+</body>
+</html>
+
