@@ -34,8 +34,8 @@ micro:bitのI2C端子はpin19(SCL)とpin20(SDA)です。
 | <a href="I2C_INA219/index.html" target="_blank">I2C_INA219</a> |  INA219 DC電流センサ  | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/I2C_INA219/) | [csb](https://codesandbox.io/s/github/chirimen-oh/chirimen-micro-bit/tree/master/examples/I2C_INA219)|
 | <a href="I2C_MLX90614/index.html" target="_blank">I2C_MLX90614</a> |  MLX90614 赤外線温度センサ  | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/I2C_MLX90614/) | [csb](https://codesandbox.io/s/github/chirimen-oh/chirimen-micro-bit/tree/master/examples/I2C_MLX90614)|
 | <a href="I2C_MPU6050/index.html" target="_blank">I2C_MPU6050</a> |  I2C_MPU6050 ３軸ジャイロ＋３軸加速度センサ  | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/I2C_MPU6050/) | [csb](https://codesandbox.io/s/github/chirimen-oh/chirimen-micro-bit/tree/master/examples/I2C_MPU6050)|
-
 | <a href="I2C_MPU9250/index.html" target="_blank">I2C_MPU9250</a> |  I2C_MPU9250 ３軸ジャイロ＋３軸加速度＋３軸磁気センサ  | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/I2C_MPU9250/) | [csb](https://codesandbox.io/s/github/chirimen-oh/chirimen-micro-bit/tree/master/examples/I2C_MPU9250)|
+
 <br>
 
 - <a href="i2cdetect/index.html" target="_blank">I2Cデバイスをリストアップするツール (i2cdetect.html)</a>
