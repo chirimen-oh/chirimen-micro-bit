@@ -39,6 +39,8 @@
   2019.08.20: 例外処理を少し強化(processNextQueue()周り)
   2019.08.20: showIconLED()
   2019.08.30: sendCmd2MicroBit()タイムアウト処理　を実装中 (テスト用ファーム(エラーをあえて出すので実用は×):https://makecode.microbit.org/_Uf7d6eL1WYDb)
+  2020.07.13: AB両押しに対応/非対応環境向けエラーメッセージをより詳細にする/エラーハンドリングプロセスの整理など by @kou029w
+  2020.08.17: readByte()サポート ( for VEML6070 driver )
   =======================================================================================================
   Firm Ware on micro:bit:
    (以下の中の最新リビジョンのファームとのペアで本ドライバは動作するようになっています)
@@ -57,6 +59,7 @@
   2019.07.16: https://makecode.microbit.org/_DEy9fTMpreEu   readBytes(<9bytes)をサポート
   2019.07.19: https://makecode.microbit.org/_chw6fvg6KW2m   readBytes(<33bytes)をサポート
   2019.08.20: https://makecode.microbit.org/_0jhPcA3iX0gC   showIconLEDサポート
+  2020.07.13: https://makecode.microbit.org/_Jh51P7beW6Kb   コード整理 AB両押し対応 by @kou029w
   =======================================================================================================
 
   References:
@@ -947,6 +950,11 @@
         }
       }
 
+      async function readByte() {
+        var ans = await readBytes(1);
+        return( ans[0] );
+      }
+
       async function readBytes(bLength) {
         if (bLength > 32) {
           throw Error("Read length overflow > 32 bytes.");
@@ -1040,6 +1048,7 @@
         read16: read16, // read/write16 is Little Endian
         write16: write16,
         readBytes: readBytes,
+        readByte: readByte,
         writeBytes: writeBytes,
         writeByte: writeByte,
       };
