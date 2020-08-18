@@ -10,7 +10,7 @@
 | <a href="GPIO2/index.html" target="_blank">GPIO2</a> | タクトスイッチに反応してLEDが点灯 | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/GPIO2/) |[csb](https://codesandbox.io/s/github/chirimen-oh/chirimen-micro-bit/tree/master/examples/GPIO2)|
 | <a href="GPIO3/index.html" target="_blank">GPIO3</a> | 画面のボタンに反応してモーター動作 | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/GPIO3/) |[csb](https://codesandbox.io/s/github/chirimen-oh/chirimen-micro-bit/tree/master/examples/GPIO3)|
 | [回路図](../imgs/CMMB_GPIO_example3.png) | タクトスイッチに反応してモーター動作 (回路図のみ。コードは <a href="GPIO2/index.html" target="_blank">GPIO2</a>を使用します) |[GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/GPIO2/) |[csb](https://codesandbox.io/s/github/chirimen-oh/chirimen-micro-bit/tree/master/examples/GPIO2)|
-| <a href="GPIO4/index.html" target="_blank">GPIO4</a> | 画面のボタン及びタクトスイッチに反応してモーター動作 | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/GPIO4/) |[csb](https://codesandbox.io/s/github/chirimen-oh/chirimen-micro-bit/tree/master/examples/GPIO4)|
+| <a href="GPIO4/index.html" target="_blank">GPIO4</a> | 画面のボタン及びタクトスイッチに反応し モーター動作 | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/GPIO4/) |[csb](https://codesandbox.io/s/github/chirimen-oh/chirimen-micro-bit/tree/master/examples/GPIO4)|
 | <a href="GPIO_HBridge/index.html" target="_blank">GPIO_HBridge</a> | 画面のボタンに反応してモーター正逆転 (HBrideモーターコントローラ) | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/GPIO_HBridge/) |[csb](https://codesandbox.io/s/github/chirimen-oh/chirimen-micro-bit/tree/master/examples/GPIO_HBridge)|
 
 ## I2C
