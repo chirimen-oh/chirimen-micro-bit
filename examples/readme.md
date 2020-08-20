@@ -39,6 +39,7 @@ micro:bitのI2C端子はpin19(SCL)とpin20(SDA)です。
 | <a href="I2C_MPU6050/index.html" target="_blank">I2C_MPU6050</a> |  MPU6050 ３軸ジャイロ＋３軸加速度センサー  | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/I2C_MPU6050/) | [csb](https://codesandbox.io/s/github/chirimen-oh/chirimen-micro-bit/tree/master/examples/I2C_MPU6050)|
 | <a href="I2C_MPU9250/index.html" target="_blank">I2C_MPU9250</a> |  MPU9250 ３軸ジャイロ＋３軸加速度＋３軸磁気センサー  | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/I2C_MPU9250/) | [csb](https://codesandbox.io/s/github/chirimen-oh/chirimen-micro-bit/tree/master/examples/I2C_MPU9250)|
 | <a href="I2C_VL53L1X/index.html" target="_blank">I2C_VL53L1X</a> |  VL53L1X レーザー距離センサー  | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/I2C_VL53L1X/) | [csb](https://codesandbox.io/s/github/chirimen-oh/chirimen-micro-bit/tree/master/examples/I2C_VL53L1X)|
+| <a href="I2C_VEML6070/index.html" target="_blank">I2C_VEML6070</a> |  VEML6070 紫外線センサー  | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/I2C_VEML6070/) | [csb](https://codesandbox.io/s/github/chirimen-oh/chirimen-micro-bit/tree/master/examples/I2C_VEML6070)|
 
 <br>
 
