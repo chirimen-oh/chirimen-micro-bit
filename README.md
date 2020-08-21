@@ -20,6 +20,7 @@ micro:bitではウェブラウザは(多分:-)動きませんが、Bluetoothを�
 - [拡張機能](guidebooks/extendedFunctions.md)
 - [CHIRIMEN for Raspberry Pi3との差分](guidebooks/diff_rpi3.md)
 - [システム構成の説明](guidebooks/systemConfiguration.md)
+- [micro:bit 標準搭載機能を使う際のポイント](guidebooks/features.md)
 
 ### 注記
 この実装は、webGPIOだけを実装した[webGPIO-etc-on-microbit-via-webBluetooth](https://github.com/chirimen-oh/webGPIO-etc-on-microbit-via-webBluetooth)を前身として持ちます。しかしmicro:bitのリソース上の制限から、この実装はそれとまったく異なるものになっています。
