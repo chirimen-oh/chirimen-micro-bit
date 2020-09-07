@@ -17,3 +17,14 @@ USB経由でCHIRIMEN with micro:bitを動かす実装を行っています。ま
   * `microBitBleFactory.connectBluetooth()`
 
 
+## examplesのためしかた
+
+micro:bit側にUSBのを書き込んだ後、
+[examples](examples)のcsbを使い、
+* index.htmlで、読み込んでるpolyfillを以下に書き換え
+  * ```<script type="text/javascript" src="https://chirimen.org/chirimen-micro-bit/alpha/microBitBLE.js"></script>```
+* main.jsで、
+  * ``` microBitBleFactory.connect(true)```
+
+に書き換えればとりあえず動かせます。
+GPIOのOutと、内蔵センサー、I2CのSHT30, Neopixel, VL53L0Xのサンプルだけ今のところ動作確認したところです。
