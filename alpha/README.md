@@ -20,7 +20,7 @@ USB経由でCHIRIMEN with micro:bitを動かす実装を行っています。ま
 ## examplesのためしかた
 
 micro:bit側にUSBのを書き込んだ後、
-[examples](examples)のcsbを使い、
+[examples](../examples)のcsbを使い、
 * index.htmlで、読み込んでるpolyfillを以下に書き換え
   * ```<script type="text/javascript" src="https://chirimen.org/chirimen-micro-bit/alpha/microBitBLE.js"></script>```
 * main.jsで、
