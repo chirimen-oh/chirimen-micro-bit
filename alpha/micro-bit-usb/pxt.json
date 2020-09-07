@@ -1,0 +1,22 @@
+{
+    "name": "chirimenUSB",
+    "description": "",
+    "dependencies": {
+        "core": "*",
+        "radio": "*"
+    },
+    "files": [
+        "main.blocks",
+        "main.ts",
+        "README.md",
+        "custom.ts"
+    ],
+    "targetVersions": {
+        "branch": "v3.0.17",
+        "tag": "v3.0.17",
+        "commits": "https://github.com/microsoft/pxt-microbit/commits/414403fca5144b77b5c4944174a1a4f2144af5fe",
+        "target": "3.0.17",
+        "pxt": "6.0.18"
+    },
+    "preferredEditor": "tsprj"
+}
