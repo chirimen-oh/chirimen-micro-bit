@@ -1,5 +1,6 @@
 basic.forever(function () {
-	
+//    basic.pause(1000)
+//    serial.writeValue("x", input.lightLevel())
 })
 let ledMsg = ""
 let bleMsg = ""
@@ -7,8 +8,10 @@ let bleRes = ""
 let rp = 0
 let commandCode = -1
 let originCommandCode = -1
+serial.setBaudRate(BaudRate.BaudRate115200)
 serial.redirectToUSB()
-basic.showIcon(IconNames.Heart)
+basic.showIcon(IconNames.Cow)
+serial.writeValue("x", input.lightLevel())
 
 serial.onDataReceived(serial.delimiters(Delimiters.NewLine), function () {
     bleMsg = serial.readLine()

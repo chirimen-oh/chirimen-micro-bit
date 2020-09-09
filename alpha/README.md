@@ -3,8 +3,8 @@
 USB経由でCHIRIMEN with micro:bitを動かす実装を行っています。まだ検証が不十分なのと、APIの仕様がいい加減なのでalpha扱いとしてあります。
 
 ## micro:bit側のブリッジプログラムはUSB専用です
-* [コードはこちら](https://makecode.microbit.org/_FCyPDq5kUhzr)
-  * [ここにも同じものを保管・・](micro-bit-usb/)
+* [コードはこちら](https://makecode.microbit.org/_XPuM8WFsKR2E)
+  * [ここにも同じものを保管](https://github.com/chirimen-oh/chirimen-micro-bit/tree/master/alpha/micro-bit-usb/)
 
 ## polyfillは両用で、最初の接続関数が違うのみです
 * [拡張版polyfillはこちら](microBitBLE.js)
@@ -19,7 +19,7 @@ USB経由でCHIRIMEN with micro:bitを動かす実装を行っています。ま
 
 ## examplesのためしかた
 
-micro:bit側に[USB用](https://makecode.microbit.org/_FCyPDq5kUhzr)を書き込んだ後、
+micro:bit側に[USB用](https://makecode.microbit.org/_XPuM8WFsKR2E)を書き込んだ後、
 [examples](../examples)のcsbを開き、
 * index.htmlで、読み込んでるpolyfillを以下に書き換え
   * ```<script type="text/javascript" src="https://chirimen.org/chirimen-micro-bit/alpha/microBitBLE.js"></script>```

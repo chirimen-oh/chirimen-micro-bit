@@ -68,6 +68,8 @@
   
   for USB Connection:
   2020.09.07: https://makecode.microbit.org/_FCyPDq5kUhzr
+  2020.09.08: https://makecode.microbit.org/_gmeAtmHXJ1yP すこし・・
+  2020.09.09: https://makecode.microbit.org/_XPuM8WFsKR2E ビットレートを明記（不要だと思うんだけど)
   
   =======================================================================================================
 
@@ -181,14 +183,14 @@
       "Nordic UART TX": "6e400002-b5a3-f393-e0a9-e50e24dcca9e",
       "Nordic UART RX": "6e400003-b5a3-f393-e0a9-e50e24dcca9e",
     };
-  	
-  	async function connectBluetooth(){
-  		return ( connect() );
-  	}
-  	async function connectUSB(){
-  		return ( connect(true) );
-  	}
-  	
+
+    async function connectBluetooth() {
+      return connect();
+    }
+    async function connectUSB() {
+      return connect(true);
+    }
+
     async function connect(isUsbMode) {
       usbMode = isUsbMode;
       var primaryDevice = false; // navigator.*に登録されてたらtrure
@@ -465,7 +467,8 @@
 
       var uBitBadMessageDelay = 500; // Delay if message failed
       var uBitIncompleteMessageDelay = 150; // Delay if no message ready now
-      var uBitGoodMessageDelay = 20; // Time to try again if message was good
+      // var uBitGoodMessageDelay = 20; // Time to try again if message was good
+      var uBitGoodMessageDelay = 40; // Time to try again if message was good
 
       var md = await navigator.usb.requestDevice({
         filters: [
@@ -476,23 +479,35 @@
       await md.selectConfiguration(1);
       await md.claimInterface(4);
 
-      // Connect in default mode: https://arm-software.github.io/CMSIS_5/DAP/html/group__DAP__Connect.html
-      await md.controlTransferOut(DAPOutReportRequest, Uint8Array.from([2, 0]));
-      // Set Clock: 0x989680 = 10MHz : https://arm-software.github.io/CMSIS_5/DAP/html/group__DAP__SWJ__Clock.html
-      await md.controlTransferOut(
-        DAPOutReportRequest,
-        Uint8Array.from([0x11, 0x80, 0x96, 0x98, 0])
-      );
-      // SWD Configure (1 clock turn around; no wait/fault): https://arm-software.github.io/CMSIS_5/DAP/html/group__DAP__SWD__Configure.html
-      await md.controlTransferOut(
-        DAPOutReportRequest,
-        Uint8Array.from([0x13, 0])
-      );
-      // Vendor Specific command 2 (ID_DAP_Vendor2): https://github.com/ARMmbed/DAPLink/blob/0711f11391de54b13dc8a628c80617ca5d25f070/source/daplink/cmsis-dap/DAP_vendor.c ;  0x0001c200 = 115,200kBps
-      await md.controlTransferOut(
-        DAPOutReportRequest,
-        Uint8Array.from([0x82, 0x00, 0xc2, 0x01, 0x00])
-      );
+      if (true) {
+        await doMbitUSBinitSeq(md, DAPOutReportRequest, DAPInReportRequest);
+      } else {
+        // Connect in default mode: https://arm-software.github.io/CMSIS_5/DAP/html/group__DAP__Connect.html
+        await md.controlTransferOut(
+          DAPOutReportRequest,
+          Uint8Array.from([2, 0])
+        );
+        // Set Clock: 0x989680 = 10MHz : https://arm-software.github.io/CMSIS_5/DAP/html/group__DAP__SWJ__Clock.html
+        await md.controlTransferOut(
+          DAPOutReportRequest,
+          Uint8Array.from([0x11, 0x80, 0x96, 0x98, 0])
+        );
+        // SWD Configure (1 clock turn around; no wait/fault): https://arm-software.github.io/CMSIS_5/DAP/html/group__DAP__SWD__Configure.html
+        await md.controlTransferOut(
+          DAPOutReportRequest,
+          Uint8Array.from([0x13, 0])
+        );
+        // Vendor Specific command 2 (ID_DAP_Vendor2): https://github.com/ARMmbed/DAPLink/blob/0711f11391de54b13dc8a628c80617ca5d25f070/source/daplink/cmsis-dap/DAP_vendor.c ;  0x0001c200 = 115,200kBps
+        await md.controlTransferOut(
+          DAPOutReportRequest,
+          Uint8Array.from([0x82, 0x00, 0xc2, 0x01, 0x00])
+          //        Uint8Array.from([0x82, 0x00, 0xe1, 0x00, 0x00])
+        );
+        //115200 1C200
+        //        Uint8Array.from([0x82, 0x00, 0xc2, 0x01, 0x00])
+        //57600  E100
+        //        Uint8Array.from([0x82, 0x00, 0xe1, 0x00, 0x00])
+      }
 
       var decoder = new TextDecoder("utf-8");
 
@@ -517,19 +532,21 @@
           var data;
           if (md.opened) {
             // transmitting=true;
-            data = await md.controlTransferIn(DAPInReportRequest, 256);
+            data = await md.controlTransferIn(DAPInReportRequest, 64);
+            //          	console.log("data:",data.status,"  msg:",new Uint8Array(data.data.buffer));
             // transmitting=false;
           }
           if (data.status == "ok") {
             var arr = new Uint8Array(data.data.buffer);
             var len = arr[1];
+            // if ( len > 0 ){console.log("data:",data.status,"  msg:",arr);}
             var msg = arr.slice(2, 2 + len);
             var string = decoder.decode(msg);
             var len0 = string.length;
             if (msg.length > 0) {
               // なんかlength==1の奴は怪しい。原因不明・・
               rs += string;
-              // console.log("msg:",msg);
+              //               console.log("msg:",msg,"  str:",string);
               if (msg[msg.length - 1] == 10) {
                 //              	console.log("received:",new TextEncoder().encode(rs));
                 rs = rs.split("\n");
@@ -547,7 +564,8 @@
         }
       }
       var readBufferClearFlg = false;
-      function clearReadBuffer() { // なんかゴミが出る感じなので・・・・
+      function clearReadBuffer() {
+        // なんかゴミが出る感じなので・・・・
         readBufferClearFlg = true;
       }
 
@@ -559,6 +577,50 @@
         clearReadBuffer: clearReadBuffer,
         // transmitting: transmitting
       };
+    }
+
+    async function doMbitUSBinitSeq(
+      md,
+      DAPOutReportRequest,
+      DAPInReportRequest
+    ) {
+      // Makecode本家の初期化手順をそのまま倣ったものを用意してみ
+      // prettier-ignore
+      var initCmd = [
+        [0, 254],
+        [17, 128, 150, 152, 0],
+        [2, 0],
+        [17, 128, 150, 152, 0],
+        [4, 0, 80, 0, 0, 0],
+        [19, 0],
+        [18, 56, 255, 255, 255, 255, 255, 255, 255],
+        [18, 16, 158, 231],
+        [18, 56, 255, 255, 255, 255, 255, 255, 255],
+        [18, 8, 0],
+        [5, 0, 1, 2],
+        [5, 0, 4, 0, 4, 0, 0, 0, 8, 0, 0, 0, 0, 4, 0, 0, 0, 80, 6],
+        [5, 0, 4, 4, 0, 15, 0, 80, 8, 0, 0, 0, 0, 8, 240, 0, 0, 0, 15],
+        [5, 0, 4, 8, 0, 0, 0, 0, 1, 82, 0, 0, 35, 5, 0, 32, 0, 224, 15],
+        [5, 0, 4, 8, 0, 0, 0, 0, 1, 82, 0, 0, 35, 5, 0, 32, 0, 224, 13, 2, 0, 0, 0],
+        [5, 0, 4, 8, 0, 0, 0, 0, 1, 82, 0, 0, 35, 5, 8, 32, 0, 224, 13, 0, 0, 0, 0],
+        [5, 0, 4, 8, 0, 0, 0, 0, 1, 82, 0, 0, 35, 5, 12, 32, 0, 224, 13, 0, 0, 0, 0],
+        [5, 0, 4, 8, 0, 0, 0, 0, 1, 82, 0, 0, 35, 5, 16, 32, 0, 224, 13, 0, 0, 0, 0],
+        [5, 0, 4, 8, 0, 0, 0, 0, 1, 82, 0, 0, 35, 5, 20, 32, 0, 224, 13, 0, 0, 0, 0],
+        [5, 0, 4, 8, 0, 0, 0, 0, 1, 82, 0, 0, 35, 5, 0, 237, 0, 224, 15],
+        [128],
+        [5, 0, 3, 8, 0, 0, 0, 0, 1, 82, 0, 0, 35, 5, 16, 0, 0, 16],
+        [5, 0, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15],
+        [130, 0, 194, 1, 0]
+      ];
+
+      for (var i = 0; i < initCmd.length; i++) {
+        await md.controlTransferOut(
+          DAPOutReportRequest,
+          Uint8Array.from(initCmd[i])
+        );
+        var data = await md.controlTransferIn(DAPInReportRequest, 64);
+        // console.log("data:",data.status,"  msg:",new Uint8Array(data.data.buffer));
+      }
     }
 
     async function connectMicroBit(pinGate, uartTxGate) {
