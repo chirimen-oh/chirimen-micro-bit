@@ -274,6 +274,15 @@
         // DAPOutReportRequest = cu.DAPOutReportRequest;
         uartCallBackObj.conn = true;
         mbBleUart = getMbUsbService(mbUSB, uartCallBackObj);
+
+        // 接続完了したらLEDを◇表示にする
+        // 最初のコマンドはうまく返答が来ないことがあり、ちょっと冗長に入れている
+        await sleep(100);
+        await showIconLED("36"); // 小さい◇
+        await sleep(100);
+        await showIconLED("31"); // 中が半分埋まった◇
+        await sleep(100);
+        await showIconLED("35"); // ◇
       } else {
         mbBLE = await connectMicroBit(
           pinCallBack,
@@ -468,7 +477,7 @@
       var uBitBadMessageDelay = 500; // Delay if message failed
       var uBitIncompleteMessageDelay = 150; // Delay if no message ready now
       // var uBitGoodMessageDelay = 20; // Time to try again if message was good
-      var uBitGoodMessageDelay = 40; // Time to try again if message was good
+      var uBitGoodMessageDelay = 30; // Time to try again if message was good
 
       var md = await navigator.usb.requestDevice({
         filters: [
@@ -620,6 +629,7 @@
         );
         var data = await md.controlTransferIn(DAPInReportRequest, 64);
         // console.log("data:",data.status,"  msg:",new Uint8Array(data.data.buffer));
+        await sleep(20);
       }
     }
 
@@ -721,6 +731,7 @@
     function getMbUsbService(mbUSB, uartCallBackObj) {
       // mbUSB   { device: md, DAPOutReportRequest: DAPOutReportRequest }
       var conn = uartCallBackObj.conn;
+      var firstTime = 3;
       console.log("getMbUsbService: conn:", conn);
       async function sendCmd2MicroBit(sendValue) {
         return new Promise(async function (resolve) {
@@ -762,6 +773,9 @@
 
       async function processNextQueue() {
         if (conn) {
+          if (firstTime > 0) {
+            --firstTime;
+          }
           const nextCmd = uartCallBackObj.cmdQueue.shift();
           uartCallBackObj.mbCmdReturnValue = [];
           uartCallBackObj.uartCallBack = nextCmd.cbFunc;
@@ -771,6 +785,7 @@
             nextCmd.timeOutMsec
           );
           try {
+            // console.log("sendCmd:",nextCmd);
             await uBitSend(
               nextCmd.blmsg,
               mbUSB.device,
@@ -796,11 +811,18 @@
       function checkCmdCompleted() {
         console.log("called checkCmdCompleted", uartCallBackObj.sending);
         if (uartCallBackObj.sending == true) {
-          console.error("[[[ERROR]]] No micro:bit response.");
           uartCallBackObj.sending = false;
-          uartCallBackObj.uartCallBack(null);
           uartCallBackObj.mbCmdReturnValue = [];
           uartCallBackObj.cmdQueue = [];
+          if (firstTime > 0) {
+            // 電源投入直後の最初の1-2回だけ、ちゃんとレスポンスが返ってこない挙動がある？
+            //（最初の一回目のリクエストはLEDを◇表示する命令なので放置する）
+            uartCallBackObj.uartCallBack(true);
+            console.log("firstTime ERR BUT SKIP");
+          } else {
+            console.error("[[[ERROR]]] No micro:bit response.");
+            uartCallBackObj.uartCallBack(null);
+          }
         }
       }
 
