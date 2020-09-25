@@ -1,26 +1,25 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title></title>
+  </head>
 
-<head>
-<meta charset="utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-<title></title>
-</head>
+  <script src="https://cdn.jsdelivr.net/npm/@chirimen/microbit"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@chirimen/mlx90614"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/@chirimen/microbit"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@chirimen/mlx90614"></script>
+  <script src="main.js"></script>
 
-<script type="text/javascript" src="main.js"></script>
+  <body>
+    <form name="js">
+      <input type="button" value="Connect" onclick="connect();" />
+      <input type="button" value="Disconnect" onclick="disconnect();" />
+    </form>
+    <span id="msg"></span>
+    <hr />
 
-<body>
-<form name="js">
-<input type="button" value="Connect" onclick="connect();"/>
-<input type="button" value="Disconnect" onclick="disconnect();" />
-</form>
-<span id="msg"></span>
-<hr>
-
-<p id="head">MLX90614</p>
+    <p id="head">MLX90614</p>
     <table>
       <tr>
         <td>Object Temperature</td>
@@ -31,7 +30,6 @@
         <td id="amb_temperature"></td>
       </tr>
     </table>
-<img src="imgs/pinbit_MLX90614.png" width="400" />
-</body>
+    <img src="imgs/pinbit_MLX90614.png" width="400" />
+  </body>
 </html>
-
