@@ -8,7 +8,7 @@
     />
     <title>i2c-PCA9685</title>
     <script src="https://cdn.jsdelivr.net/npm/@chirimen/microbit"></script>
-    <script src="https://chirimen.org/chirimen/gc/i2c/i2c-PCA9685/node_modules/@chirimen-raspi/chirimen-driver-i2c-pca9685/PCA9685.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@chirimen/pca9685"></script>
     <script src="./main.js" defer></script>
     <style>
       p {
@@ -26,11 +26,11 @@
   </head>
 
   <body>
-<form name="js">
-<input type="button" value="Connect" onclick="connect();"/>
-<input type="button" value="Disconnect" onclick="disconnect();" />
-</form>
-<hr>
+    <form name="js">
+      <input type="button" value="Connect" onclick="connect();" />
+      <input type="button" value="Disconnect" onclick="disconnect();" />
+    </form>
+    <hr />
     <h3>Servo Control viw I2C PCA9685</h3>
     <p id="head">TEST</p>
     <img src="imgs/pinbit_pca9685.png" height="600px" />
