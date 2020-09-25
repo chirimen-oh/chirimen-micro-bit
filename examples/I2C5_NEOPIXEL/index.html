@@ -7,22 +7,22 @@
 <title></title>
 </head>
 
-<script type="text/javascript" src="https://chirimen.org/chirimen-micro-bit/polyfill/microBitBLE.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@chirimen/microbit"></script>
 <script type="text/javascript" src="https://chirimen.org/chirimen/gc/contrib/examples/i2c-NEOPIXEL_I2C/node_modules/@chirimen-raspi/chirimen-driver-i2c-neopixel-i2c/NEOPIXEL_I2C.js"></script>
 
 <script type="text/javascript" src="main.js"></script>
 
 <body>
 <form name="js">
-<input type="button" value="Connect" onclick="connect();"/> 
-<input type="button" value="Disconnect" onclick="disconnect();" /> 
+<input type="button" value="Connect" onclick="connect();"/>
+<input type="button" value="Disconnect" onclick="disconnect();" />
 </form>
 
 <div id="msg">---</div>
 <hr>
 <div>
-<input id ="nPix" type="button" value="nPixTest1" onclick="nPixTest1();" /> 
-<input id ="nPix" type="button" value="nPixTest2" onclick="setPattern0();" /> 
+<input id ="nPix" type="button" value="nPixTest1" onclick="nPixTest1();" />
+<input id ="nPix" type="button" value="nPixTest2" onclick="setPattern0();" />
 </div>
 <img src="imgs/CMMB_I2C_example5.png" width="700px"/>
 </body>
