@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-<title></title>
+<title>AMG8833 (8x8 サーモグラフィ) | CHIRIMEN with micro:bit</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@chirimen/microbit"></script>
 <script src="https://cdn.jsdelivr.net/npm/@chirimen/amg8833"></script>
@@ -12,14 +12,13 @@
 <script src="main.js"></script>
 
 <body>
-<form name="js">
-<input type="button" value="Connect" onclick="connect();"/>
-<input type="button" value="Disconnect" onclick="disconnect();" />
-</form>
-<span id="msg"></span>
-<hr>
-
-<p id="head">AMG8833</p>
+    <h1>AMG8833 (8x8 サーモグラフィ) | CHIRIMEN with micro:bit<h1>
+    <form name="js">
+    <input type="button" value="Connect" onclick="connect();"/>
+    <input type="button" value="Disconnect" onclick="disconnect();" />
+    </form>
+    <span id="msg"></span>
+    <hr>
 
     <form id="gain" onchange="changeGainMode(event)">
       <input id="autoGainRadio" type="radio" value="auto" /> オート
@@ -33,7 +32,7 @@
     max:<span id="tMaxTxt"></span>℃, min:<span id="tMinTxt"></span>℃
     <table style="width:200px;height:200px;" id="tImg"></table>
 
-<img src="imgs/pinbit_AMG8833.png" width="400" />
+    <img src="imgs/pinbit_AMG8833.png" width="400" />
 </body>
 </html>
 
