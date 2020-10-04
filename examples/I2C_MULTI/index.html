@@ -2,22 +2,24 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>SHT31 & BH1750</title>
+    <title>SHT31 (温度センサー) + BH1750 (照度センサー) | CHIRIMEN with micro:bit</title>
     <script src="https://cdn.jsdelivr.net/npm/@chirimen/microbit"></script>
     <script src="https://cdn.jsdelivr.net/npm/@chirimen/sht30"></script>
     <script src="https://cdn.jsdelivr.net/npm/@chirimen/bh1750"></script>
     <script src="./main.js" defer></script>
   </head>
   <body>
+    <h1>SHT31 (温度センサー) + BH1750 (照度センサー) | CHIRIMEN with micro:bit<h1>
     <form name="js">
       <input type="button" value="Connect" onclick="connect();" />
       <input type="button" value="Disconnect" onclick="disconnect();" />
     </form>
     <span id="msg"></span>
     <hr />
-    <p id="head">SHT31 + BH1750</p>
 
+    <h2>SHT31</h2>
     <p id="head_sht30">TEST</p>
+    <h2>BH1750</h2>
     <p id="head_bh1750">TEST</p>
 
     <img src="imgs/pinbit_MULTI.png" width="400" />
