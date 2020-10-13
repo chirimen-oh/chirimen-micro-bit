@@ -43,7 +43,7 @@ micro:bitのI2C端子はpin19(SCL)とpin20(SDA)です。
 
 <br>
 
-- <a href="i2cdetect/index.html" target="_blank">I2Cデバイスをリストアップするツール (i2cdetect.html)</a>
+- <a href="i2cdetect/index.html" target="_blank">I2Cデバイスをリストアップするツール (i2cdetect.html)</a>、　([csb](https://codesandbox.io/s/github/chirimen-oh/chirimen-micro-bit/tree/master/examples/i2cdetect))
 
 
 ## 内蔵デバイス
