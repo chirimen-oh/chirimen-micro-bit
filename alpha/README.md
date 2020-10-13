@@ -30,3 +30,6 @@ micro:bit 側に[USB 用](https://makecode.microbit.org/_XPuM8WFsKR2E)を書き�
 
 に書き換えればとりあえず動かせます。
 GPIO の Out と、内蔵センサー、I2C の SHT30, Neopixel, VL53L0X のサンプルだけ今のところ動作確認したところです。
+
+## i2cdetect USB
+- [i2cdetect_usb](i2cdetect_usb/index.html)
