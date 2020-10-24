@@ -4,8 +4,8 @@ USB 経由で CHIRIMEN with micro:bit を動かす実装を行っています。
 
 ## micro:bit 側のブリッジプログラムは USB 専用です
 
-- [コードはこちら](https://makecode.microbit.org/_XPuM8WFsKR2E)
-  - [ここにも同じものを保管](https://github.com/chirimen-oh/chirimen-micro-bit/tree/master/alpha/micro-bit-usb/)
+- [MakeCode ページはこちら](https://r.chirimen.org/makecode-chirimen-alpha)
+  - [そのソースコードはこちら](https://github.com/chirimen-oh/chirimen-micro-bit/tree/master/alpha/micro-bit-usb/)
 
 ## polyfill は両用で、最初の接続関数が違うのみです
 
@@ -20,7 +20,7 @@ USB 経由で CHIRIMEN with micro:bit を動かす実装を行っています。
 
 ## examples のためしかた
 
-micro:bit 側に[USB 用](https://makecode.microbit.org/_XPuM8WFsKR2E)を書き込んだ後、
+micro:bit 側に[MakeCode から USB 用ブリッジブログラム](https://r.chirimen.org/makecode-chirimen-alpha) を書き込んだ後、
 [examples](../examples)の csb を開き、
 
 - index.html で、読み込んでる polyfill を以下に書き換え
