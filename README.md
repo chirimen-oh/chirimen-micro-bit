@@ -29,6 +29,7 @@ CHIRIMEN とは、[WebGPIO API](https://github.com/browserobo/WebGPIO) と [WebI
 - [拡張機能の仕様](guidebooks/extendedFunctions.md)
 - [micro:bit 標準搭載機能を使う際のポイント](guidebooks/features.md)
 - [CHIRIMEN for Raspberry Pi との違い](guidebooks/diff_rpi3.md)
+- [USB 接続版 (開発中)](alpha)
 
 ## 補足
 
