@@ -9,12 +9,15 @@
 micro:bitではウェブラウザは(多分:-)動きませんが、Bluetoothを介して、PC等で動くウェブブラウザ(Chromeなど[webBluetooth](https://webbluetoothcg.github.io/web-bluetooth/)をサポートしたもの)とmicro:bitを接続することで、CHIRIMEN環境を構築します。
 また、CHIRIMEN with micro:bitでは、WebGPIO,WebI2Cに加え、micro:bitが内蔵しているセンサーやLEDをウェブアプリで使うことができる機能が追加されています。
 
-## スタートアップガイド
-- [こちらです](guidebooks/startup.md)
+## 使い方
 
-## Examples
+- [スタートアップガイド](guidebooks/startup.md)
+- [チュートリアル](https://tutorial.chirimen.org/microbit/)
+
+## サンプルコード集 (Examples)
+
 以下のページに使用例を掲載します。
-- [Examples](https://chirimen.org/chirimen-micro-bit/examples/)
+- [Examples](examples/)
 
 ## その他の情報
 - [拡張機能](guidebooks/extendedFunctions.md)
