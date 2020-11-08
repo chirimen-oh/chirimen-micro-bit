@@ -24,7 +24,7 @@ async function connect(){
 	msg.innerHTML=("micro:bit BLE接続しました。");
 	var i2cAccess = await microBitBle.requestI2CAccess();
 	var port = i2cAccess.ports.get(1);
-    amg8833 = new AMG8833(port, 0x68);
+    amg8833 = new AMG8833(port, 0x68);　// 初期値 0x69 のモデルもあるので注意！
     await amg8833.init();
 	readEnable = true;
 	readData();
