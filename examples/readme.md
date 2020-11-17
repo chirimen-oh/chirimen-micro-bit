@@ -12,7 +12,7 @@
 | [回路図](../imgs/CMMB_GPIO_example3.png) | タクトスイッチに反応してモーター動作 (回路図のみ。コードは <a href="GPIO2/index.html" target="_blank">GPIO2</a>を使用します) |[GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/GPIO2/) |[csb](https://codesandbox.io/s/github/chirimen-oh/chirimen-micro-bit/tree/master/examples/GPIO2)|
 | <a id="GPIO4" href="GPIO4/index.html" target="_blank">GPIO4</a> | 画面のボタン及びタクトスイッチに反応し モーター動作 | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/GPIO4/) |[csb](https://codesandbox.io/s/github/chirimen-oh/chirimen-micro-bit/tree/master/examples/GPIO4)|
 | <a id="GPIO_HBridge" href="GPIO_HBridge/index.html" target="_blank">GPIO_HBridge</a> | 画面のボタンに反応してモーター正逆転 (HBrideモーターコントローラ) | [GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/GPIO_HBridge/) |[csb](https://codesandbox.io/s/github/chirimen-oh/chirimen-micro-bit/tree/master/examples/GPIO_HBridge)|
-| [GPIO_PYR 回路図](GPIO_PYR/GPIO0b.md){#GPIO_PYR} | 人感センサー (回路図のみ。コードは <a href="GPIO0/index.html" target="_blank">GPIO0</a>を使用します) |[GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/GPIO0/) |[csb](https://codesandbox.io/s/github/chirimen-oh/chirimen-micro-bit/tree/master/examples/GPIO0)|
+| <a id="#GPIO_PYR" href="GPIO_PYR/GPIO0b.html">GPIO_PYR 回路図</a> | 人感センサー (回路図のみ。コードは <a href="GPIO0/index.html" target="_blank">GPIO0</a>を使用します) |[GitHub](https://github.com/chirimen-oh/chirimen-micro-bit/blob/master/examples/GPIO0/) |[csb](https://codesandbox.io/s/github/chirimen-oh/chirimen-micro-bit/tree/master/examples/GPIO0)|
 
 ## I2C
 micro:bitのI2C端子はpin19(SCL)とpin20(SDA)です。
