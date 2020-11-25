@@ -648,7 +648,7 @@
             }
             break;
           case "analogout":
-            if (canAnalogInPorts[pNumber] == 0) {
+            if (canOutPorts[pNumber] == 0) {
               throw Error("This port is not supported analog out");
             }
             out = true;
