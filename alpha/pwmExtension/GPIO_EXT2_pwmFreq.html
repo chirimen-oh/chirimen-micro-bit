@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<title>GPIO-1 Analog-out sample</title>
+</head>
+
+<script type="text/javascript" src="microBitBLE.js"></script>
+
+<script>
+var microBitBle;
+
+var gpioPort0, gpioPort1;
+var connected;
+
+async function connect(){
+	microBitBle = await microBitBleFactory.connect();
+	msg.innerHTML=("micro:bit BLE接続しました。");
+	connected = true;
+	// GPIO
+	var gpioAccess = await microBitBle.requestGPIOAccess();
+	var mbGpioPorts = gpioAccess.ports;
+	gpioPort0 = mbGpioPorts.get(0);
+	await gpioPort0.export("analogout"); //port0 aout
+	await gpioPort0.write(512);
+	
+	gpioPort1 = mbGpioPorts.get(1);
+	await gpioPort1.export("analogout"); //port1 aout
+	// wave();
+}
+
+async function setPeriod(){
+  var pval = document.getElementById("pval");
+  var pwmPeriod = 20000 * pval.value / 100;
+  console.log("set period[us]:", pwmPeriod);
+  gdata2.innerHTML = pval.value + "% :" + pwmPeriod +" us";
+  await gpioPort1.setPwmPeriod(pwmPeriod);
+}
+
+async function setVal() {
+  var lval = document.getElementById("lval");
+  var g1Val = (1023 * lval.value) / 100;
+  console.log("setval", lval.value, g1Val);
+  gdata1.innerHTML = lval.value + "% :" + g1Val;
+  await gpioPort1.write(g1Val);
+}
+
+async function disconnect(){
+	connected = false;
+	await gpioPort1.write(0);
+	await microBitBle.disconnect();
+	msg.innerHTML=("micro:bit BLE接続を切断しました。");
+}
+
+
+
+async function wave(){
+	var g1Val=0;
+	var dif = 200;
+	while( connected ){
+		g1Val += dif;
+		if ( g1Val > 1023 ){
+			g1Val = 1023;
+			dif = -200;
+		} else if ( g1Val < 0 ){
+			g1Val = 0;
+			dif = +200;
+		}
+		await gpioPort1.write(g1Val);
+		gdata1.innerHTML=g1Val;
+		await sleep(100);
+	}
+	await gpioPort1.write(0);
+}
+
+</script>    
+
+<body>
+<form name="js">
+<input type="button" value="Connect" onclick="connect();"/> 
+<input type="button" value="Disconnect" onclick="disconnect();" /> 
+</form>
+<hr>
+
+level   <input id="lval" onchange="setVal()" type="range"></input><br>
+period   <input id="pval" onchange="setPeriod()" type="range"></input>
+
+<table>
+	<tr><td>msg1:</td><td id="msg">-</td></tr>
+	<tr><td id="gdata1">NULL</td></tr>
+	<tr><td id="gdata2">NULL</td></tr>
+</table>
+
+<img src="../imgs/CMMB_GPIO_EXT_example0.png" width="400"/>
+
+</body>
+</html>
