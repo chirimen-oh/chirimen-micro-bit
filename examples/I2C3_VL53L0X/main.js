@@ -2,8 +2,9 @@ var microBitBle;
 var gpioPort0;
 var gpioPort1;
 var vl53;
-
+var channel;
 var readEnable;
+var start;
 
 async function connect() {
   microBitBle = await microBitBleFactory.connect();
@@ -14,8 +15,11 @@ async function connect() {
   vl53 = new VL53L0X(i2cPort, 0x29);
   await vl53.init();
   readEnable = true;
-  readData();
+  var relay = RelayServer("achex", "KandKSocket");
+  channel = await relay.subscribe("KandKSensors");
+  // channel.onmessage = getdata;
   //↑距離センサーの初期設定
+
   //↓モーターの初期設定
   var gpioAccess = await microBitBle.requestGPIOAccess();
   var mbGpioPorts = gpioAccess.ports;
@@ -23,6 +27,8 @@ async function connect() {
   await gpioPort0.export("out"); //port0 out
   gpioPort1 = mbGpioPorts.get(1);
   await gpioPort1.export("out"); // port1 out
+
+  readData();
 }
 
 async function disconnect() {
@@ -31,49 +37,43 @@ async function disconnect() {
   msg.innerHTML = "micro:bit BLE接続を切断しました。";
 }
 async function readData() {
-  var rot = 0; //0か1かで回転方向を指定
+  //var rot = 1; //0か1かで回転方向を指定
   var gpio0Val = 0;
-  var start;
-  start = true;
-  gpio0Val = 0;
-  gpio0Val = rot === 0 ? 0 : 1;
 
-  while (start) {
+  //start = true;
+  gpio0Val = 0;
+  //gpio0Val = rot === 0 ? 0 : 1;
+  //var distance = 100;
+  var k = 0;
+  while (true) {
     var distance = await vl53.getRange();
-    var speed = 10; //0〜10までの数値で速度を変化させる。
-    var time = 100; //１判定にかかる時間を設定（単位はミリ秒）
-    var Hspeed = 10; //
-    var Htime = 100;
-    distance = rot === 0 ? distance : 2500 - distance;
     console.log("distance:", distance);
     msg.innerHTML = distance + "mm";
-    switch (distance) {
-      case distance <= 150:
-        var i = 0;
-        for (i; time; i++) {
-          await gpioPort0.write(gpio0Val);
-          await gpioPort1.write(!gpio0Val);
-          await sleep(speed);
-          await gpioPort0.write(0);
-          await gpioPort1.write(0);
-          await sleep(10 - speed);
-        }
-        break;
-      case distance < 150 && 200 < distance:
-        for (i; Htime; i++) {
-          await gpioPort0.write(gpio0Val);
-          await gpioPort1.write(!gpio0Val);
-          await sleep(Hspeed);
-          await gpioPort0.write(0);
-          await gpioPort1.write(0);
-          await sleep(10 - Hspeed);
-        }
+    switch (true) {
+      case distance >= 50:
+        await gpioPort0.write(gpio0Val);
+        await gpioPort1.write(!gpio0Val);
+        console.log("case1");
+        await sleep(300);
         break;
       default:
-        await gpioPort0.write(0);
-        await gpioPort1.write(0);
+        var i = false;
+        await gpioPort0.write(i);
+        await gpioPort1.write(i);
+        console.log("case0");
+        await sleep(300);
+        channel.send({ stWindow: distance === 0 ? 1 : 0 });
     }
-
-    await sleep(100);
+    //distance = distance - 10;
+    k = k + 1;
+    console.log("K=" + k);
   }
 }
+/*function getdata(val) {
+  if ("doOpen" in val.data) {
+    start = val.data.doOpen === 1 ? true : false;
+    if (start) {
+      readData();
+    }
+  }
+}*/
