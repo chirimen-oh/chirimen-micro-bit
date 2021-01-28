@@ -10,7 +10,7 @@
 
 CHIRIMEN とは、[WebGPIO API](https://github.com/browserobo/WebGPIO) と [WebI2C API](https://github.com/browserobo/WebI2C) を用い、ボードコンピュータの端子につないだセンサやアクチュエータを使用した(ブラウザ上で動作する)ウェブアプリから制御できる環境です。micro:bit ではウェブラウザは(多分:-)動きませんが、パソコンやスマートフォン等で動く (Chrome や Edge など [Web Bluetooth API](https://webbluetoothcg.github.io/web-bluetooth/) をサポートする) ウェブブラウザから micro:bit と Bluetooth 接続することで CHIRIMEN 環境を実現しています。
 
-なお、CHIRIMEN with micro:bit では、CHIRIMEN 環境共通の WebGPIO, WebI2C API に加え、micro:bit 内蔵しているセンサーや LED、アナログ GPIO などもウェブアプリから使うための機能も追加実装しています。
+なお、CHIRIMEN with micro:bit では、CHIRIMEN 環境共通の WebGPIO, WebI2C API に加え、micro:bitが内蔵しているセンサーや LED、アナログ GPIO などをウェブアプリから使うための機能も追加実装しています。
 
 ## 使い方
 
