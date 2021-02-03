@@ -14,6 +14,12 @@ async function connect(){
 	await vl53.init();
 	readEnable = true;
 	readData();
+	var gpioAccess = await microBitBle.requestGPIOAccess(); //以下Lチカ
+  var mbGpioPorts = gpioAccess.ports;
+  gpioPort0 = mbGpioPorts.get(0);
+  await gpioPort0.export("out"); //port0 out
+  gpioPort1 = mbGpioPorts.get(1);
+  await gpioPort1.export("out"); // port1 out
 }
 
 async function disconnect(){
@@ -23,11 +29,20 @@ async function disconnect(){
 }
 
 async function readData(){
+	gpioPort0 == 0;
 	while ( readEnable ){
 		var distance = await vl53.getRange();
 		console.log("distance:",distance);
 		msg.innerHTML= distance + "mm";
+		if (distance < 150){
+			await gpioPort0.write(gpio0Val);
+			await gpioPort1.write(!gpio0Val);
+		}
+		else (150 < distanse){
+			await gpioPort0.wite(0);
+			await gpioort0.write(0);
+		}
 		await sleep(1000);
-	}
+			}
 }
 
