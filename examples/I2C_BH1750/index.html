@@ -7,24 +7,33 @@
   </head>
 
   <script src="https://cdn.jsdelivr.net/npm/@chirimen/microbit"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@chirimen/mlx90614"></script>
   <script src="https://cdn.jsdelivr.net/npm/@chirimen/bh1750"></script>
 
   <script src="main.js"></script>
 
   <body>
     <h1>BH1750 (照度センサー) | CHIRIMEN with micro:bit<h1>
-    <form name="js">
-      <input type="button" value="Connect" onclick="connect();" />
-      <input type="button" value="Disconnect" onclick="disconnect();" />
-    </form>
-    <span id="msg"></span>
-    <hr />
-
-    <img src="imgs/pinbit_BH1750.png" width="400" />
+    
+    <h1>MLX90614 (赤外線非接触・環境温度センサー) | CHIRIMEN with micro:bit<h1>
+      <form name="js">
+        <input type="button" value="Connect" onclick="connect();" />
+        <input type="button" value="Disconnect" onclick="disconnect();" />
+      </form>
+      <span id="msg"></span>
+      <hr />
     <table>
       <tr>
         <td>LIGHT[lx] :</td>
         <td id="light"></td>
+      </tr>      
+      <tr>
+        <td>Object Temperature</td>
+        <td id="obj_temperature"></td>
+      </tr>
+      <tr>
+        <td>Ambient Temperature</td>
+        <td id="amb_temperature"></td>
       </tr>
     </table>
   </body>
